@@ -1,5 +1,1 @@
-### caption
-
-body
-
-[alexr github link](https://github.com/alexr007)
+IBA Tech Academy final project by Emin Israfilzadeh
