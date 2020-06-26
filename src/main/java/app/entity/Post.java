@@ -25,7 +25,7 @@ public class Post {
 
     @ManyToOne
     @JoinColumn(name="user_id",referencedColumnName = "u_id")
-    private Userr user;
+    private User user;
 
     @ManyToOne
     @JoinColumn(name="wishlist_id",referencedColumnName = "w_id")
