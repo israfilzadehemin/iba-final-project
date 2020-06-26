@@ -11,7 +11,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @Entity
-public class Userr {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "u_id")
@@ -20,6 +20,7 @@ public class Userr {
     private String fb_login;
     private String username;
     private String password;
+    private String passConf;
     private String name;
     private String surname;
     private String city;
