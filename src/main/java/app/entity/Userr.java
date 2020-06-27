@@ -34,4 +34,16 @@ public class Userr {
 
     @OneToOne(mappedBy = "user")
     private Wishlist wishlist;
+
+    @OneToMany(mappedBy = "from")
+    private Set<Message> from_messages;
+
+    @OneToMany(mappedBy = "to")
+    private Set<Message> to_messages;
+
+    @OneToMany(mappedBy = "who")
+    private Set<Blocked> who_block;
+
+    @OneToMany(mappedBy = "whom")
+    private Set<Blocked> whom_block;
 }

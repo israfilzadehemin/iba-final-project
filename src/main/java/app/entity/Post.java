@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -27,7 +28,8 @@ public class Post {
     @JoinColumn(name="user_id",referencedColumnName = "u_id")
     private Userr user;
 
-    @ManyToOne
-    @JoinColumn(name="wishlist_id",referencedColumnName = "w_id")
-    private Wishlist wishlist;
+    @OneToMany(mappedBy = "post")
+    Set<PostWishlistR> postsInWishLists;
+
+
 }

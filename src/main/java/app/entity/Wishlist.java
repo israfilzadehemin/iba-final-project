@@ -20,8 +20,6 @@ public class Wishlist {
     @JoinColumn(name="user_id",referencedColumnName = "u_id")
     private Userr user;
 
-    @OneToMany(mappedBy = "wishlist")
-    Set<Post> posts;
-
-
+    @OneToMany(mappedBy = "post")
+    Set<PostWishlistR> postsInWishlists;
 }
