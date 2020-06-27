@@ -3,10 +3,8 @@ package app.entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -14,8 +12,15 @@ import javax.persistence.Id;
 public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
-    private String text;
+    private long id;
+    private String message;
+    private LocalDateTime date;
 
+    @ManyToOne
+    @JoinColumn(name = "from_id")
+    private Userr from;
 
+    @ManyToOne
+    @JoinColumn(name = "to_id")
+    private Userr to;
 }
