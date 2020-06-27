@@ -1,8 +1,8 @@
 package app.controller;
 
-import app.exception.NotEqualException;
-import app.exception.NotUniqueException;
-import app.form.UserForm;
+import app.entity.User;
+import app.exception.NotEqualEx;
+import app.exception.NotUniqueEx;
 import app.service.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -31,18 +31,18 @@ public class RegistrationController {
   }
 
   @PostMapping
-  @ExceptionHandler({NotUniqueException.class, NotEqualException.class})
-  public RedirectView handle_post(UserForm userForm, Model model) {
-    String email = userForm.getEmail();
-    String username = userForm.getUsername();
-    String password = userForm.getPassword();
-    String passConf = userForm.getPassConf();
+  @ExceptionHandler({NotUniqueEx.class, NotEqualEx.class})
+  public RedirectView handle_post(User user, Model model) {
+    String mail = user.getMail();
+    String username = user.getUsername();
+    String password = user.getPassword();
+    String passConf = user.getPassConf();
 
-    if (!userService.checkDuplicate(email, username)) {
-      throw new NotUniqueException();
+    if (!userService.checkDuplicate(mail, username)) {
+      throw new NotUniqueEx();
     }
     else if(!password.equals(passConf)) {
-      throw new NotEqualException();
+      throw new NotEqualEx();
     }
     return new RedirectView("anket");
   }
