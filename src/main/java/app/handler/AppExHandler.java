@@ -1,7 +1,7 @@
 package app.handler;
 
 import app.exception.post.PostNotFoundEx;
-import app.exception.user.UserNotFoundEx;
+import app.exception.user.*;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -26,4 +26,37 @@ public class AppExHandler {
         log.warn("Post not found");
         return new RedirectView("/dashboard");
     }
+
+    @ExceptionHandler(EmailNotUniqueEx.class)
+    public RedirectView handleEmailNotUnique(){
+        log.warn("Email is not unique");
+        return new RedirectView("/signup");
+    }
+
+    @ExceptionHandler(EmailNotUniqueEx.class)
+    public RedirectView handleUsername(){
+        log.warn("Username is not unique");
+        return new RedirectView("/signup");
+    }
+
+    @ExceptionHandler(PassNotMatchEx.class)
+    public RedirectView handlePassNotMatch(){
+        log.warn("Password is not matched");
+        return new RedirectView("/signup");
+    }
+
+    @ExceptionHandler(EmptyInputEx.class)
+    public RedirectView handleEmptyInput(){
+        log.warn("Input is empty");
+        return new RedirectView("/signup");
+    }
+
+    @ExceptionHandler(InvalidPhoneNumberEx.class)
+    public RedirectView handleInvalidPhoneNumber(){
+        log.warn("Phone number is invalid");
+        return new RedirectView("/signup");
+    }
+
+
+
 }
