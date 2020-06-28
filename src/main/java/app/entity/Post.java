@@ -17,19 +17,22 @@ public class Post {
     @Column(name="p_id")
     private long id;
     private String name;
-    private String category;
     private String city;
     private String image;
-    private String status;
+    private boolean status;
     private LocalDateTime expiry_data;
     private LocalDateTime date;
 
     @ManyToOne
     @JoinColumn(name="user_id",referencedColumnName = "u_id")
-    private User user;
+    private Userr user;
 
     @OneToMany(mappedBy = "post")
     Set<PostWishlistR> postsInWishLists;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id", referencedColumnName = "c_id")
+    private Category category;
 
 
 }
