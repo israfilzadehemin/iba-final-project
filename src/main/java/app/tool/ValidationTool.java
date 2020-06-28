@@ -146,12 +146,12 @@ public class ValidationTool {
     }
   }
 
-  public boolean isCategoryValid(String categoryId) {
+  public boolean isParsableToLong(String source) {
     try {
-      Integer.parseInt(categoryId);
+      Long.parseLong(source);
       return true;
     } catch (NumberFormatException e) {
-      log.warn("CategoryId could not be parsed: from ValidationTool.isCategoryValid()");
+      log.warn("Value could not be parsed to Long: from ValidationTool.isParsableToLong()");
       return false;
     }
   }

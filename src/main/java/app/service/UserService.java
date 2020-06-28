@@ -58,7 +58,7 @@ public class UserService {
       throw new InvalidPhoneNumberEx();
     }
     else {
-      String image = fileTool.uploadImage(file);
+      String image = fileTool.uploadProfilePic(file);
       userRepo.fillUserInfo(String username, String name, String surname, String city, String number, String image);
     }
   }
