@@ -1,7 +1,6 @@
 package app.service;
 
 import app.entity.Post;
-import app.exception.post.EmptyInputEx;
 import app.exception.post.PostNotFoundEx;
 import app.repo.PostRepo;
 import app.repo.WishlistRepo;
