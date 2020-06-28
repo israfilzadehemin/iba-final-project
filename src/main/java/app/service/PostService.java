@@ -8,6 +8,7 @@ import app.repo.WishlistRepo;
 import app.tool.ConverterTool;
 import app.tool.FileTool;
 import app.tool.ValidationTool;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+@Log4j2
 @Service
 public class PostService {
   private final PostRepo postRepo;
@@ -36,7 +38,7 @@ public class PostService {
 //should be implemented for index
   }
 
-  public List<Post> findAllPosts() {
+  public List<Post> findAll() {
     List<Post> allPosts = postRepo.findAll();
     if (allPosts.size() == 0) {
       throw new NoPostEx();
@@ -45,48 +47,48 @@ public class PostService {
     }
   }
 
-  public Post findPostById(String id) {
+  public Post findById(String id) {
     if (!validationTool.isParsableToLong(id))
       throw new InvalidInputEx();
     else {
-      Optional<Post> post = postRepo.findById(Long.parseLong(id));
-      if (post.equals(Optional.empty())) throw new PostNotFoundEx();
-      else return post.get();
+      return postRepo.findById(Long.parseLong(id)).orElseThrow(PostNotFoundEx::new);
     }
   }
 
-  public void deactivatePost(String id) {
+  public boolean deactivate(String id) {
     if (!validationTool.isParsableToLong(id))
       throw new InvalidInputEx();
     else {
       Optional<Post> post = postRepo.findById(Long.parseLong(id));
       if (post.equals(Optional.empty())) throw new PostNotFoundEx();
       else postRepo.deactivatePost( long id);
+      log.info("Post deactivated successfully");
+      return true;
     }
 
   }
 
-  public void addOrUpdatePost(String id, String name, String city, String date, MultipartFile file) {
-    if (id.isBlank() || name.isBlank() ||
-            city.isBlank() || date.isBlank() || file.isEmpty())
-      throw new EmptyInputEx();
-
+  public boolean addOrUpdate(String id, String name, String city, String date, MultipartFile file) {
+    if (id.isBlank() || name.isBlank() || city.isBlank() || date.isBlank() || file.isEmpty()) throw new EmptyInputEx();
     else if (!validationTool.isParsableToLong(id)) throw new InvalidInputEx();
-
     else {
       LocalDate parsedDate = converterTool.stringToLocalDate(date);
       String image = fileTool.uploadPostImage(file);
       if (id.equals(0)) {
         postRepo.addPost(name, city, parsedDate, image);
+        log.info("Post added successfully");
+        return true;
       } else {
-        Post postById = findPostById(id);
+        Post postById = findById(id);
         postRepo.updatePost(postById.getId(), name, city, parsedDate, image);
+        log.info("Post updated successfully");
+        return true;
       }
 
     }
   }
 
-  public List<Post> findFilteredPosts(String name, String category) {
+  public List<Post> findFiltered(String name, String category) {
     if (!validationTool.isParsableToLong(category)) {
       throw new InvalidInputEx();
     } else {
@@ -99,11 +101,11 @@ public class PostService {
     }
   }
 
-  public List<Post> findWishlistPosts(String userId) {
+  public List<Post> findWishlisted(String userId) {
 //should be asked from Ayshan
   }
 
-  public List<Post> findPostsByUser(String userId) {
+  public List<Post> findByUser(String userId) {
     return postRepo.findPostsByUserId(Integer.parseInt(userId));
   }
 }
