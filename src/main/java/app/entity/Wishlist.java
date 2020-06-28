@@ -18,7 +18,7 @@ public class Wishlist {
 
     @OneToOne
     @JoinColumn(name="user_id",referencedColumnName = "u_id")
-    private User user;
+    private Userr user;
 
     @OneToMany(mappedBy = "post")
     Set<PostWishlistR> postsInWishlists;
