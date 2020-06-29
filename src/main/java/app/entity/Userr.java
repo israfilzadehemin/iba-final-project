@@ -11,12 +11,12 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @Entity
-public class User {
+public class Userr {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "u_id")
     private long id;
-    private String mail;
+    private String email;
     private String fb_login;
     private String username;
     private String password;
@@ -24,11 +24,16 @@ public class User {
     private String name;
     private String surname;
     private String city;
-    private String mobile;
+    private String phone;
     private String image;
     private LocalDateTime reg_date;
     private LocalDateTime last_seen;
     private String status;
+
+    public Userr(String email, String password){
+        this.email=email;
+        this.password=password;
+    }
 
     @OneToMany(mappedBy = "user")
     private Set<Post> posts;
@@ -47,4 +52,5 @@ public class User {
 
     @OneToMany(mappedBy = "whom")
     private Set<Blocked> whom_block;
+
 }
