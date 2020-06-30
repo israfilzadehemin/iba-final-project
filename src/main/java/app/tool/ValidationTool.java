@@ -1,6 +1,6 @@
 package app.tool;
 
-import app.entity.User;
+import app.entity.Userr;
 import app.repo.PostRepo;
 import app.repo.UserRepo;
 import lombok.extern.log4j.Log4j;
@@ -23,7 +23,7 @@ public class ValidationTool {
   }
 
   public boolean isEmailUnique(String email) {
-    Optional<User> user = userRepo.findUserbyEmail(email);
+    Optional<Userr> user = userRepo.findUserrByEmail(email);
     if (user.equals(Optional.empty())) {
       return true;
     } else {
@@ -41,7 +41,7 @@ public class ValidationTool {
   }
 
   public boolean isUsernameUnique(String username) {
-    Optional<User> user = userRepo.findUserbyUsername(username);
+    Optional<Userr> user = userRepo.findUserrByUsername(username);
     if (user.equals(Optional.empty())) {
       return true;
     } else {
@@ -123,11 +123,11 @@ public class ValidationTool {
   }
 
   public boolean isLoginCorrect(String login, String pass) {
-    Optional<User> userbyEmail = userRepo.findUserbyEmail(login);
-    Optional<User> userByUsername = userRepo.findUserbyUsername(login);
+    Optional<Userr> userByEmail = userRepo.findUserrByEmail(login);
+    Optional<Userr> userByUsername = userRepo.findUserrByUsername(login);
 
-    if (!userbyEmail.equals(Optional.empty())) {
-      if (userbyEmail.get().getPassword().equals(pass)) {
+    if (!userByEmail.equals(Optional.empty())) {
+      if (userByEmail.get().getPassword().equals(pass)) {
         return true;
       } else {
         log.warn("Password is not correct: from ValidationTool.isLoginCorrect()");

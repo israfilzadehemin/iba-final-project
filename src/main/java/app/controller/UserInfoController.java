@@ -21,7 +21,7 @@ import java.io.InputStream;
 @RequestMapping("/info")
 public class UserInfoController {
 
-  // http://localhost:8080/info
+  // http://localhost:8085/info
 
   private final UserService userService;
 
@@ -36,14 +36,14 @@ public class UserInfoController {
 
   @SneakyThrows
   @PostMapping
-  public RedirectView handle_post(FormInfo form, @RequestParam("file") MultipartFile file) {
+  public RedirectView handle_post(FormInfo form, @RequestParam("image") MultipartFile file) {
     String username = form.getUsername();
     String name = form.getName();
     String surname = form.getSurname();
     String city = form.getCity();
     String number = form.getNumber();
 
-    if (!userService.fillInfo(username, name, surname, city, number, file)) {
+    if (!userService.fillInfo("1", username, name, surname, city, number, file)) {
       log.warn("Something went wrong filling UserInfo");
     }
     return new RedirectView("dashboard");

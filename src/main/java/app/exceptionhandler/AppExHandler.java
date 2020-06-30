@@ -51,6 +51,7 @@ public class AppExHandler {
         model.addAttribute("error", "usernamenotunique");
         log.warn("AppExHandler: UsernameNotUniqueEx");
         return new RedirectView("/signup");
+
     }
 
     @ExceptionHandler(PassNotMatchEx.class)

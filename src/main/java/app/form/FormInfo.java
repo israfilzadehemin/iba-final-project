@@ -9,5 +9,4 @@ public class FormInfo {
     private String surname;
     private String city;
     private String number;
-    private String image;
 }

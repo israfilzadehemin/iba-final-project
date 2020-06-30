@@ -15,7 +15,7 @@ import org.springframework.web.servlet.view.RedirectView;
 @RequestMapping("/signup")
 public class RegistrationController {
 
-  // http://localhost:8080/signup
+  // http://localhost:8085/signup
 
   private final UserService userService;
 
@@ -24,8 +24,7 @@ public class RegistrationController {
   }
 
   @GetMapping
-  public String handle_get(Model model) {
-    model.addAttribute("error", "noerror");
+  public String handle_get() {
     return "signup";
   }
 
@@ -38,6 +37,6 @@ public class RegistrationController {
     if (!userService.register(email, password, conPass)) {
       log.warn("Registration canceled!");
     }
-    return new RedirectView("anket");
+    return new RedirectView("info");
   }
 }

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script
+            src="https://kit.fontawesome.com/38cd4014df.js"
+            crossorigin="anonymous"
+    ></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap-grid.css">
+    <link rel="stylesheet" href="css/bootstrap-reboot.css">
+    <link rel="stylesheet" href="css/main.css">
+    <title>MyProject | Sign up</title>
+</head>
+<body>
+
+<div class="container-fluid col-12 mt-5 text-center signup-container">
+
+    <div class="col-12 text-center form-header">
+        <div class="form-logo col-12">
+            <img src="img/logo/123.jpg" class="logo-img" width="300" height="100">
+        </div>
+        <h1 class="col-12 form-title">Fill your info</h1>
+    </div>
+
+    <form method="post" class="col-lg-3 col-md-6 col-sm-12 form-group d-inline-block e-form" enctype="multipart/form-data">
+        <input name="username" required type="text" class="col-12 form-control e-input" placeholder="Enter your username">
+        <input name="name" required type="text" class="col-12 form-control e-input" placeholder="Enter your name">
+        <input name="surname" required type="text" class="col-12 form-control e-input" placeholder="Enter your surname">
+        <select name="city" class="col-12 form-control e-input">
+            <option disabled selected>Select your city</option>
+            <option value="baku">Baku</option>
+        </select>
+        <input name="number" required type="text" class="col-12 form-control e-input" placeholder="Enter your mobile number">
+        <label for="profile-pic" class="form-control text-left e-label">Upload profile photo</label>
+        <input name="image" type="file" class="col-12 form-control-file e-file" id="profile-pic">
+        <input name="save" type="submit" value="Save" class="col-12 form-control e-submit">
+        <a href="#" class="col-12 form-control btn-link e-social">Skip</a>
+    </form>
+</div>
+
+
+<script src="js/bootstrap.bundle.js"></script>
+<script src="js/bootstrap.js"></script>
+</body>
+</html>

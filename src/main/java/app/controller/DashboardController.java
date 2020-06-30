@@ -33,14 +33,14 @@ public class DashboardController {
 
   // http://localhost:8080/dashboard/byfilter?name=sofa&category=home
 
-  @PostMapping("/byfilter")
-  public RedirectView handle_post(@RequestParam("name") String keyword,
-                                @RequestParam("category") String category, HttpServletRequest rq) {
-
-    String button = rq.getParameter("button");
-    if (button == null) return new RedirectView("dashboard");
-
-    postService.findFiltered(keyword, category);
-    return new RedirectView("dashboard");
-  }
+//  @PostMapping("/byfilter")
+//  public RedirectView handle_post(@RequestParam("name") String keyword,
+//                                @RequestParam("category") String category, HttpServletRequest rq) {
+//
+//    String button = rq.getParameter("button");
+//    if (button == null) return new RedirectView("dashboard");
+//
+//    postService.findFiltered(keyword, category);
+//    return new RedirectView("dashboard");
+//  }
 }
