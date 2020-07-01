@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="https://www.thymeleaf.org"
+        lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -48,16 +51,19 @@
             </div>
             <div class="e-user-info">
                 <form method="post" enctype="multipart/form-data" class="col-lg-3 col-md-6 col-sm-12 form-group d-inline-block e-form">
-                    <input required type="text" class="col-12 form-control e-input" placeholder="Enter your name">
-                    <input required type="text" class="col-12 form-control e-input" placeholder="Enter your surname">
-                    <select class="col-12 form-control e-input">
+                    <div th:if="${(param.error != null) and (param.error[0] == 'updateuseremptyinput')}" class="d-block col-12 mt-1 alert alert-danger">
+                        Please fill all necessery inputs
+                    </div>
+                    <input name="name" required type="text" class="col-12 form-control e-input" placeholder="Enter your name">
+                    <input name="surname" required type="text" class="col-12 form-control e-input" placeholder="Enter your surname">
+                    <select name="city" class="col-12 form-control e-input">
                         <option disabled selected>Select your city</option>
-                        <option>Baku</option>
+                        <option value="baku">Baku</option>
                     </select>
-                    <input required type="text" class="col-12 form-control e-input"
+                    <input name="number" required type="text" class="col-12 form-control e-input"
                            placeholder="Enter your mobile number">
                     <label for="profile-pic" class="form-control text-left e-label">Upload profile photo</label>
-                    <input type="file" class="col-12 form-control-file e-file" id="profile-pic">
+                    <input name="image" required type="file" class="col-12 form-control-file e-file" id="profile-pic">
                     <input type="submit" value="Save" class="col-12 form-control e-submit">
                 </form>
             </div>

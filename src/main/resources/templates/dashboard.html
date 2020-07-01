@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="https://www.thymeleaf.org"
+        lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -21,6 +24,9 @@
 <body>
 
 <div class="container-fluid col-12 mt-1 text-center main-container">
+    <div th:if="${(param.process != null) and (param.process[0] == 'profileupdated')}" class="d-block col-12 alert alert-success">
+        Profile updated successfully!
+    </div>
     <div class="e-nav-container">
         <ul class="col-12 e-nav-list">
             <li class="col-lg-4 col-md-12 col-sm-12 e-nav-item">
@@ -53,14 +59,14 @@
         <form method="post" class="e-form">
             <ul class="col-12 e-search-list">
                 <li class="col-lg-4 col-md-4 col-sm-12 e-search-item">
-                    <input name="keyword" type="search" class="form-control e-input" placeholder="Enter your keyword">
+                    <input required name="keyword" type="search" class="form-control e-input" placeholder="Enter your keyword">
                 </li>
                 <li class="col-lg-4 col-md-4 col-sm-12 e-search-item">
                     <label for="category-sel" class="col-2">in</label>
                     <select name="category" class="custom-select col-lg-9 col-md-9 col-sm-12 e-input" id="category-sel">
-                        <option>Pet</option>
-                        <option>Pet</option>
-                        <option>Pet</option>
+                        <option value="1">Pet</option>
+                        <option value="1">Pet</option>
+                        <option value="1">Pet</option>
                     </select>
                 </li>
                 <li class="col-lg-4 col-md-4 col-sm-12 e-search-item">
@@ -71,150 +77,42 @@
         </form>
     </div>
     <article class="e-post-container">
-        <section class="col-lg-3 col-md-4 col-sm-12 p-0 e-post-content">
-            <div class="position-relative e-post-top">
-                <div class="position-absolute e-post-datetime">
-                    <p class="col-10 m-0 font-weight-bold e-post-date">23 iyun 2020</p>
-                    <p class="col-10 m-0 font-weight-bold e-post-time">15:05</p>
+        <div th:if="${(param.error != null) and (param.error[0] == 'postnotfound')}" class="d-block col-12 alert alert-danger">
+            No post found according to your input
+        </div>
+        <section th:each="post : ${posts}" class="col-lg-3 col-md-4 col-sm-12 p-0 e-post-content">
+
+                <div class="position-relative e-post-top">
+                    <div class="position-absolute e-post-datetime">
+                        <p th:text="${post.date}" class="col-12 m-0 font-weight-bold e-post-date"></p>
+                    </div>
+                    <div class="e-post-img">
+                        <img th:src="${post.image}" alt="post">
+                    </div>
                 </div>
-                <div class="e-post-img">
-                    <img src="img/logo/123.jpg" alt="post">
+                <div class="e-post-bottom">
+                    <div class="e-post-info">
+                        <div class="e-post-data">
+                            <i class="fas fa-user col-2"></i>
+                            <a th:text="${post.user.getName()}" href="#" class="card-link"></a>
+                        </div>
+                        <div class="e-post-data">
+                            <i class="fas fa-city col-2"></i>
+                            <p th:text="${post.city}" class="d-inline-block"></p>
+                        </div>
+                        <div class="e-post-data">
+                            <i class="far fa-calendar-alt col-2"></i>
+                            <p th:text="${post.expiry_date}" class="d-inline-block"></p>
+                        </div>
+                    </div>
+                    <div class="e-post-contact">
+                        <a href="#" class="card-link e-post-data"><i class="fas fa-envelope col-3"></i>Send message</a>
+                    </div>
+                    <div class="e-post-wishlist">
+                        <a href="#" class="card-link e-post-data"><i class="fas fa-heart col-3"></i>Add to wishlist</a>
+                    </div>
                 </div>
-            </div>
-            <div class="e-post-bottom">
-                <div class="e-post-info">
-                    <a href="#" class="card-link e-post-data"><i class="fas fa-user col-3"></i>Emin Israfilzadeh</a>
-                    <p class="e-post-data"><i class="fas fa-city col-3"></i>Baku</p>
-                    <p class="e-post-data"><i class="far fa-calendar-alt col-3"></i>25 iyun 2020</p>
-                </div>
-                <div class="e-post-contact">
-                    <a href="#" class="card-link e-post-data"><i class="fas fa-envelope col-3"></i>Send message</a>
-                </div>
-                <div class="e-post-wishlist">
-                    <a href="#" class="card-link e-post-data"><i class="fas fa-heart col-3"></i>Add to wishlist</a>
-                </div>
-            </div>
-        </section>
-        <section class="col-lg-3 col-md-4 col-sm-12 p-0 e-post-content">
-            <div class="position-relative e-post-top">
-                <div class="position-absolute e-post-datetime">
-                    <p class="col-10 m-0 font-weight-bold e-post-date">23 iyun 2020</p>
-                    <p class="col-10 m-0 font-weight-bold e-post-time">15:05</p>
-                </div>
-                <div class="e-post-img">
-                    <img src="img/logo/123.jpg" alt="post">
-                </div>
-            </div>
-            <div class="e-post-bottom">
-                <div class="e-post-info">
-                    <a href="#" class="card-link e-post-data"><i class="fas fa-user col-3"></i>Emin Israfilzadeh</a>
-                    <p class="e-post-data"><i class="fas fa-city col-3"></i>Baku</p>
-                    <p class="e-post-data"><i class="far fa-calendar-alt col-3"></i>25 iyun 2020</p>
-                </div>
-                <div class="e-post-contact">
-                    <a href="#" class="card-link e-post-data"><i class="fas fa-envelope col-3"></i>Send message</a>
-                </div>
-                <div class="e-post-wishlist">
-                    <a href="#" class="card-link e-post-data"><i class="fas fa-heart col-3"></i>Add to wishlist</a>
-                </div>
-            </div>
-        </section>
-        <section class="col-lg-3 col-md-4 col-sm-12 p-0 e-post-content">
-            <div class="position-relative e-post-top">
-                <div class="position-absolute e-post-datetime">
-                    <p class="col-10 m-0 font-weight-bold e-post-date">23 iyun 2020</p>
-                    <p class="col-10 m-0 font-weight-bold e-post-time">15:05</p>
-                </div>
-                <div class="e-post-img">
-                    <img src="img/logo/123.jpg" alt="post">
-                </div>
-            </div>
-            <div class="e-post-bottom">
-                <div class="e-post-info">
-                    <a href="#" class="card-link e-post-data"><i class="fas fa-user col-3"></i>Emin Israfilzadeh</a>
-                    <p class="e-post-data"><i class="fas fa-city col-3"></i>Baku</p>
-                    <p class="e-post-data"><i class="far fa-calendar-alt col-3"></i>25 iyun 2020</p>
-                </div>
-                <div class="e-post-contact">
-                    <a href="#" class="card-link e-post-data"><i class="fas fa-envelope col-3"></i>Send message</a>
-                </div>
-                <div class="e-post-wishlist">
-                    <a href="#" class="card-link e-post-data"><i class="fas fa-heart col-3"></i>Add to wishlist</a>
-                </div>
-            </div>
-        </section>
-        <section class="col-lg-3 col-md-4 col-sm-12 p-0 e-post-content">
-            <div class="position-relative e-post-top">
-                <div class="position-absolute e-post-datetime">
-                    <p class="col-10 m-0 font-weight-bold e-post-date">23 iyun 2020</p>
-                    <p class="col-10 m-0 font-weight-bold e-post-time">15:05</p>
-                </div>
-                <div class="e-post-img">
-                    <img src="img/logo/123.jpg" alt="post">
-                </div>
-            </div>
-            <div class="e-post-bottom">
-                <div class="e-post-info">
-                    <a href="#" class="card-link e-post-data"><i class="fas fa-user col-3"></i>Emin Israfilzadeh</a>
-                    <p class="e-post-data"><i class="fas fa-city col-3"></i>Baku</p>
-                    <p class="e-post-data"><i class="far fa-calendar-alt col-3"></i>25 iyun 2020</p>
-                </div>
-                <div class="e-post-contact">
-                    <a href="#" class="card-link e-post-data"><i class="fas fa-envelope col-3"></i>Send message</a>
-                </div>
-                <div class="e-post-wishlist">
-                    <a href="#" class="card-link e-post-data"><i class="fas fa-heart col-3"></i>Add to wishlist</a>
-                </div>
-            </div>
-        </section>
-        <section class="col-lg-3 col-md-4 col-sm-12 p-0 e-post-content">
-            <div class="position-relative e-post-top">
-                <div class="position-absolute e-post-datetime">
-                    <p class="col-10 m-0 font-weight-bold e-post-date">23 iyun 2020</p>
-                    <p class="col-10 m-0 font-weight-bold e-post-time">15:05</p>
-                </div>
-                <div class="e-post-img">
-                    <img src="img/logo/123.jpg" alt="post">
-                </div>
-            </div>
-            <div class="e-post-bottom">
-                <div class="e-post-info">
-                    <a href="#" class="card-link e-post-data"><i class="fas fa-user col-3"></i>Emin Israfilzadeh</a>
-                    <p class="e-post-data"><i class="fas fa-city col-3"></i>Baku</p>
-                    <p class="e-post-data"><i class="far fa-calendar-alt col-3"></i>25 iyun 2020</p>
-                </div>
-                <div class="e-post-contact">
-                    <a href="#" class="card-link e-post-data"><i class="fas fa-envelope col-3"></i>Send message</a>
-                </div>
-                <div class="e-post-wishlist">
-                    <a href="#" class="card-link e-post-data"><i class="fas fa-heart col-3"></i>Add to wishlist</a>
-                </div>
-            </div>
-        </section>
-        <section class="col-lg-3 col-md-4 col-sm-12 p-0 e-post-content">
-            <div class="position-relative e-post-top">
-                <div class="position-absolute e-post-datetime">
-                    <p class="col-10 m-0 font-weight-bold e-post-date">23 iyun 2020</p>
-                    <p class="col-10 m-0 font-weight-bold e-post-time">15:05</p>
-                </div>
-                <div class="e-post-img">
-                    <img src="img/logo/123.jpg" alt="post">
-                </div>
-            </div>
-            <div class="e-post-bottom">
-                <div class="e-post-info">
-                    <a href="#" class="card-link e-post-data"><i class="fas fa-user col-3"></i>Emin Israfilzadeh</a>
-                    <p class="e-post-data"><i class="fas fa-city col-3"></i>Baku</p>
-                    <p class="e-post-data"><i class="far fa-calendar-alt col-3"></i>25 iyun 2020</p>
-                </div>
-                <div class="e-post-contact">
-                    <a href="#" class="card-link e-post-data"><i class="fas fa-envelope col-3"></i>Send message</a>
-                </div>
-                <div class="e-post-wishlist">
-                    <a href="#" class="card-link e-post-data"><i class="fas fa-heart col-3"></i>Add to wishlist</a>
-                </div>
-            </div>
-        </section>
+            </section>
     </article>
     <div class="col-12 mt-3 e-pagination-container">
         <nav aria-label="Page navigation example">

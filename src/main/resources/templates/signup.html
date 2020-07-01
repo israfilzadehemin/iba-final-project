@@ -36,10 +36,14 @@
             Password and confirm password should be same
         </div>
 
-
         <div th:if="${(param.error != null) and (param.error[0] == 'emailnotunique')}" class="alert alert-danger">
             This email is already in use
         </div>
+
+        <div th:if="${(param.error != null) and (param.error[0] == 'signupemptyinput')}" class="alert alert-danger">
+            Please fill all necessery inputs
+        </div>
+
 
         <input name="email" required type="email" class="col-12 form-control e-input" placeholder="Enter your email">
         <input name="pass" required type="password" class="col-12 form-control e-input" placeholder="Enter password">

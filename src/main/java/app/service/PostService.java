@@ -91,23 +91,23 @@ public class PostService {
     }
   }
 
-//  public List<Post> findFiltered(String name, String category) {
-//    if (!validationTool.isParsableToLong(category)) {
-//      throw new InvalidInputEx();
-//    } else {
-//      List<Post> filteredPosts = postRepo.findAllbyNameAndCategory(name, Long.parseLong(category));
-//      if (filteredPosts.size() == 0) {
-//        throw new NoPostEx();
-//      } else {
-//        return filteredPosts;
-//      }
-//    }
-//  }
+  public List<Post> findFiltered(String name, String category) {
+    if (!validationTool.isParsableToLong(category)) {
+      throw new InvalidInputEx();
+    } else {
+      List<Post> filteredPosts = postRepo.findAllByNameContainingAndCategory_Id(name, Long.parseLong(category));
+      if (filteredPosts.size() == 0) {
+        throw new PostNotFoundEx();
+      } else {
+        return filteredPosts;
+      }
+    }
+  }
 
 //  public List<Post> findWishlisted(String userId) {
 //should be asked from Ayshan
 //  }
-
+//
 //  public List<Post> findByUser(String userId) {
 //    return postRepo.findPostsByUserId(Integer.parseInt(userId));
 //  }

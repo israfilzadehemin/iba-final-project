@@ -1,5 +1,6 @@
 package app.controller;
 
+import app.exception.NoParamEx;
 import app.form.FormSearch;
 import app.service.PostService;
 import lombok.extern.log4j.Log4j2;
@@ -12,36 +13,31 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Log4j2
 @Controller
-@RequestMapping("/dashboard")
-public class DashboardController {
+@RequestMapping("/search")
+public class SearchController {
 
   private final PostService postService;
 
-  public DashboardController(PostService postService) {
+  public SearchController(PostService postService) {
     this.postService = postService;
   }
 
-  // http://localhost:8085/dashboard
-
   @GetMapping
-  public String handle_get(Model model) {
-
-    model.addAttribute("posts", postService.findAll());
+  public String handle_get(HttpServletRequest req, Model model ) {
+    String name = req.getParameter("name");
+    String category = req.getParameter("cat");
+    if (name == null || category ==null) throw new NoParamEx();
+    model.addAttribute("posts", postService.findFiltered(name, category));
     return "dashboard";
   }
 
-   //http://localhost:8085/search?name=Em&cat=1
-
   @PostMapping()
   public RedirectView handle_post(Model model, FormSearch form, HttpServletRequest rq) {
-
     model.addAttribute("name", form.getKeyword());
     model.addAttribute("cat", form.getCategory());
     return new RedirectView("search");
   }
-
 }

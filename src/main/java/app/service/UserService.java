@@ -3,6 +3,9 @@ package app.service;
 import app.entity.Userr;
 import app.entity.Userr;
 import app.exception.input.EmptyInputEx;
+import app.exception.input.FillInfoEmptyInputEx;
+import app.exception.input.SignUpEmptyInputEx;
+import app.exception.input.UpdateUserEmptyInputEx;
 import app.exception.post.InvalidInputEx;
 import app.exception.user.*;
 import app.repo.UserRepo;
@@ -29,7 +32,7 @@ public class UserService {
 
   public boolean register(String email, String pass, String passConfirm) {
     if (email.isBlank() || pass.isBlank() || passConfirm.isBlank()) {
-      throw new EmptyInputEx();
+      throw new SignUpEmptyInputEx();
     } else if (!validationTool.isEmailUnique(email)) {
       throw new EmailNotUniqueEx();
     } else if (!validationTool.passMatches(pass, passConfirm)) {
@@ -53,7 +56,7 @@ public class UserService {
   public boolean fillInfo(String id, String username, String name, String surname, String city, String number, MultipartFile file) {
     if (username.isBlank() || name.isBlank() || surname.isBlank() ||
             city.isBlank() || number.isBlank() || file.isEmpty()) {
-      throw new EmptyInputEx();
+      throw new FillInfoEmptyInputEx();
     } else if (!validationTool.isUsernameUnique(username)) {
       throw new UsernameNotUniqueEx();
     } else if (!validationTool.isPhoneValid(number)) {
@@ -74,9 +77,12 @@ public class UserService {
   }
 
   public boolean updateUser(String id, String name, String surname, String city, String number, MultipartFile file) {
-    if (id.isBlank() || name.isBlank() || surname.isBlank()
-            || city.isBlank() || number.isBlank() || file.isEmpty()) {
-      throw new EmptyInputEx();
+    if (name == null || surname == null || city == null
+            || number == null || id.isBlank() || name.isBlank()
+            || surname.isBlank() || city.isBlank() || number.isBlank()
+            || file.isEmpty()
+    ) {
+      throw new UpdateUserEmptyInputEx();
     } else if (!validationTool.isPhoneValid(number)) {
       throw new InvalidPhoneNumberEx();
     } else {
