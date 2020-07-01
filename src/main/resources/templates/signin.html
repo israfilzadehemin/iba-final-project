@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="https://www.thymeleaf.org"
+        lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -27,7 +30,13 @@
     </div>
 
     <form method="post" class="col-lg-3 col-md-6 col-sm-12 form-group d-inline-block e-form">
-        <input name="login" required type="email" class="col-12 form-control e-input" placeholder="Enter your email or username">
+
+        <div th:if="${(param.error != null) and (param.error[0] == 'incorrectlogin')}" class="alert alert-danger">
+            Email/Username and password does not match
+        </div>
+
+        <input name="login" required type="text" class="col-12 form-control e-input"
+               placeholder="Enter your email or username">
         <input name="pass" required type="password" class="col-12 form-control e-input" placeholder="Enter password">
         <input name="signin" type="submit" value="Sign in" class="col-12 form-control e-submit">
         <a href="#" class="card-link col-12 form-control">I forgot my password</a>

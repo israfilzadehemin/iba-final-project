@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/signin")
 public class LoginController {
 
-  // http://localhost:8080/signin
+  // http://localhost:8085/signin
 
 
   private final UserService userService;
@@ -25,18 +25,14 @@ public class LoginController {
   }
 
   @GetMapping
-  public String handle_get(Model model) {
-    model.addAttribute("error", "noerror");
+  public String handle_get() {
     return "signin";
   }
 
   @PostMapping
-  public RedirectView handle_post(FormLogin form, HttpServletRequest rq) {
+  public RedirectView handle_post(FormLogin form) {
     String login = form.getLogin();
     String pass = form.getPass();
-
-    String button = rq.getParameter("button");
-    if (button == null) return new RedirectView("signin");
 
     if (!userService.login(login, pass)) {
       log.warn("Login canceled!");

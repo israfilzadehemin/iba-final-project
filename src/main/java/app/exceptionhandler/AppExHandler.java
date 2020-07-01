@@ -76,7 +76,7 @@ public class AppExHandler {
     public RedirectView handleIncorrectLogin(Model model){
         model.addAttribute("error", "incorrectlogin");
         log.warn("AppExHandler: IncorrectLoginEx");
-        return new RedirectView("/login");
+        return new RedirectView("/signin");
     }
 
     @ExceptionHandler(NoPostEx.class)
