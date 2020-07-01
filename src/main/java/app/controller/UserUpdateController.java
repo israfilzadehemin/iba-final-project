@@ -1,9 +1,11 @@
 package app.controller;
 
+import app.entity.Userr;
 import app.form.FormUser;
 import app.service.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
@@ -12,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Log4j2
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/update")
 public class UserUpdateController {
 
   private final UserService userService;
@@ -21,32 +23,28 @@ public class UserUpdateController {
     this.userService = userService;
   }
 
-  // http://localhost:8080/user/update/1
+  // http://localhost:8085/user/update
 
-  @GetMapping("/update/{id}")
-  public String handle_get(@PathVariable String id, FormUser form, MultipartFile file) {
-    String name = form.getName();
-    String surname = form.getSurname();
-    String city = form.getCity();
-    String number = form.getNumber();
+  @GetMapping()
+  public String handle_get(Model model) {
 
-    userService.updateUser(id, name, surname, city, number, file);
+    Userr user = userService.findById("1");
+    model.addAttribute("user", user);
     return "update-profile";
   }
 
-  @PostMapping("/update{id}")
-  public RedirectView handle_post(FormUser form, HttpServletRequest rq,
-                                  @RequestParam("file") MultipartFile file, @PathVariable String id) {
-    String button = rq.getParameter("button");
-    if (button == null) return new RedirectView("/update");
+  @PostMapping()
+  public RedirectView handle_post(FormUser form, @RequestParam("image") MultipartFile file, Model model) {
 
     String name = form.getName();
     String surname = form.getSurname();
     String city = form.getCity();
     String number = form.getNumber();
-    if (!userService.updateUser(id, name, surname, city, number, file)) {
+
+    if (!userService.updateUser("15", name, surname, city, number, file)) {
       log.warn("User update canceled!");
     }
+    model.addAttribute("process", "profileupdated");
     return new RedirectView("dashboard");
   }
 }

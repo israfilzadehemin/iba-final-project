@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="https://www.thymeleaf.org"
+        lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script
+            src="https://kit.fontawesome.com/38cd4014df.js"
+            crossorigin="anonymous"
+    ></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap-grid.css">
+    <link rel="stylesheet" href="css/bootstrap-reboot.css">
+    <link rel="stylesheet" href="css/main.css">
+    <title>MyProject | Sign up</title>
+</head>
+<body>
+
+<div class="container-fluid col-12 mt-5 text-center signup-container">
+    <div class="col-12 text-center form-header">
+        <div class="form-logo col-12">
+            <img src="img/logo/123.jpg" class="logo-img" width="300" height="100">
+        </div>
+        <h1 class="col-12 form-title">Sign up page</h1>
+    </div>
+    </th:block>
+
+    <form method="post" class="col-lg-3 col-md-6 col-sm-12 form-group d-inline-block e-form">
+
+        <div th:if="${(param.error != null) and (param.error[0] == 'passnotmatch')}" class="alert alert-danger">
+            Password and confirm password should be same
+        </div>
+
+        <div th:if="${(param.error != null) and (param.error[0] == 'emailnotunique')}" class="alert alert-danger">
+            This email is already in use
+        </div>
+
+        <div th:if="${(param.error != null) and (param.error[0] == 'signupemptyinput')}" class="alert alert-danger">
+            Please fill all necessery inputs
+        </div>
+
+
+        <input name="email" required type="email" class="col-12 form-control e-input" placeholder="Enter your email">
+        <input name="pass" required type="password" class="col-12 form-control e-input" placeholder="Enter password">
+        <input name="conPass" required type="password" class="col-12 form-control e-input"
+               placeholder="Confirm password">
+        <input name="signup" type="submit" value="Sign up" class="col-12 form-control e-submit">
+        <p class="col-12 e-par">Already user?</p>
+        <a href="#" class="col-12 form-control e-submit">Sign in</a>
+        <a href="#" class="col-12 form-control btn-link e-social"><i class="mr-1 fab fa-google"></i>Enter via Google</a>
+        <a href="#" class="col-12 form-control btn-link e-social"><i class="mr-1 fab fa-facebook"></i>Enter via Facebook</a>
+    </form>
+</div>
+
+
+<script src="js/bootstrap.bundle.js"></script>
+<script src="js/bootstrap.js"></script>
+</body>
+</html>

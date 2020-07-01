@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="https://www.thymeleaf.org"
+        lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script
+            src="https://kit.fontawesome.com/38cd4014df.js"
+            crossorigin="anonymous"
+    ></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap-grid.css">
+    <link rel="stylesheet" href="css/bootstrap-reboot.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.css">
+    <link rel="stylesheet" href="css/main.css">
+    <title>MyProject | Sign up</title>
+</head>
+<body>
+
+<div class="container-fluid col-12 mt-1 text-center main-container">
+    <div th:if="${(param.process != null) and (param.process[0] == 'profileupdated')}" class="d-block col-12 alert alert-success">
+        Profile updated successfully!
+    </div>
+    <div class="e-nav-container">
+        <ul class="col-12 e-nav-list">
+            <li class="col-lg-4 col-md-12 col-sm-12 e-nav-item">
+                <a href="" class="nav-link  text-left e-nav-link d-flex">
+                    <img src="img/logo/123.jpg" width="50" height="50" class="e-profile-img" alt="profile picture">
+                    <p class="ml-2 e-par">Emin Israfilzadeh</p>
+                </a>
+            </li>
+            <li class="col-lg-3 col-md-12 col-sm-12 e-nav-item">
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle e-main-dropdown" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-clipboard mr-2"></i>Posts
+                    </button>
+                    <div class="dropdown-menu e-dd-content" aria-labelledby="dropdownMenuButton">
+                        <a href="#" class="dropdown-item"><i class="fas fa-edit mr-2"></i>Manage your posts</a>
+                        <a href="#" class="dropdown-item"><i class="fas fa-heart mr-2"></i>View your wishlist</a>
+                    </div>
+                </div>
+            </li>
+            <li class="col-lg-3 col-md-12 col-sm-12 e-nav-item">
+                <a href="#mission" class="nav-link e-nav-link"><i class="fas fa-envelope mr-2"></i>Messages</a>
+            </li>
+            <li class="col-lg-2 col-md-12 col-sm-12 e-nav-item">
+                <a href="#adv" class="nav-link e-nav-link"><i class="fas fa-sign-out-alt mr-2"></i>Sign out</a>
+            </li>
+        </ul>
+    </div>
+    <div class="e-search-container">
+        <form method="post" class="e-form">
+            <ul class="col-12 e-search-list">
+                <li class="col-lg-4 col-md-4 col-sm-12 e-search-item">
+                    <input required name="keyword" type="search" class="form-control e-input" placeholder="Enter your keyword">
+                </li>
+                <li class="col-lg-4 col-md-4 col-sm-12 e-search-item">
+                    <label for="category-sel" class="col-2">in</label>
+                    <select name="category" class="custom-select col-lg-9 col-md-9 col-sm-12 e-input" id="category-sel">
+                        <option value="1">Pet</option>
+                        <option value="1">Pet</option>
+                        <option value="1">Pet</option>
+                    </select>
+                </li>
+                <li class="col-lg-4 col-md-4 col-sm-12 e-search-item">
+                    <input name="search" type="submit" value="Search" class="col-12 btn e-submit">
+                </li>
+
+            </ul>
+        </form>
+    </div>
+    <article class="e-post-container">
+        <div th:if="${(param.error != null) and (param.error[0] == 'postnotfound')}" class="d-block col-12 alert alert-danger">
+            No post found according to your input
+        </div>
+        <section th:each="post : ${posts}" class="col-lg-3 col-md-4 col-sm-12 p-0 e-post-content">
+
+                <div class="position-relative e-post-top">
+                    <div class="position-absolute e-post-datetime">
+                        <p th:text="${post.date}" class="col-12 m-0 font-weight-bold e-post-date"></p>
+                    </div>
+                    <div class="e-post-img">
+                        <img th:src="${post.image}" alt="post">
+                    </div>
+                </div>
+                <div class="e-post-bottom">
+                    <div class="e-post-info">
+                        <div class="e-post-data">
+                            <i class="fas fa-user col-2"></i>
+                            <a th:text="${post.user.getName()}" href="#" class="card-link"></a>
+                        </div>
+                        <div class="e-post-data">
+                            <i class="fas fa-city col-2"></i>
+                            <p th:text="${post.city}" class="d-inline-block"></p>
+                        </div>
+                        <div class="e-post-data">
+                            <i class="far fa-calendar-alt col-2"></i>
+                            <p th:text="${post.expiry_date}" class="d-inline-block"></p>
+                        </div>
+                    </div>
+                    <div class="e-post-contact">
+                        <a href="#" class="card-link e-post-data"><i class="fas fa-envelope col-3"></i>Send message</a>
+                    </div>
+                    <div class="e-post-wishlist">
+                        <a href="#" class="card-link e-post-data"><i class="fas fa-heart col-3"></i>Add to wishlist</a>
+                    </div>
+                </div>
+            </section>
+    </article>
+    <div class="col-12 mt-3 e-pagination-container">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination pagination-lg justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="col-12 e-ad-container">
+
+    </div>
+
+    <footer class="col-12 mt-3 e-footer-container" id="contact">
+        <section class="col-lg-4 col-md-4 col-sm-12 e-footer-content">
+            <ul class="col-12 e-footer-list">
+                <li class="col-12 my-1 e-footer-item"><a href="#" class="page-link"><i class="fas fa-user-edit col-2"></i>Manage your account</a></li>
+                <li class="col-12 my-1 e-footer-item"><a href="#" class="page-link"><i class="fas fa-edit col-2"></i>Manage your posts</a></li>
+            </ul>
+        </section>
+        <section class="col-lg-4 col-md-4 col-sm-12 e-footer-content">
+            <ul class="col-12 e-footer-list">
+                <li class="col-12 my-1 e-footer-item"><a href="#" class="page-link"><i class="fas fa-exclamation-triangle col-2"></i>Send feedback</a></li>
+            </ul>
+        </section>
+        <section class="col-lg-4 col-md-4 col-sm-12 e-footer-content">
+            <ul class="col-12 e-footer-list">
+                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="#"><i class="fab fa-facebook-f col-2"></i>Facebook</a></li>
+                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="#"><i class="fab fa-instagram col-2"></i>Instagram</a></li>
+                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="#"><i class="fab fa-twitter col-2"></i>Twitter</a></li>
+            </ul>
+        </section>
+    </footer>
+    <div class="col-12 mt-3 e-copyright-container alert alert-danger pb-0">
+        <p class="col-12 e-copyright-text">
+            <i class="far fa-copyright mr-2"></i>
+            All rights reserved | You should have permission by author for using any information or data provided by
+            this website. <br>
+            This website is made by Emin Israfilzadeh
+        </p>
+    </div>
+</div>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.bundle.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

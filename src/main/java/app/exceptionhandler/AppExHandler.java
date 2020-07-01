@@ -1,10 +1,8 @@
 package app.exceptionhandler;
 
+import app.exception.NoParamEx;
 import app.exception.input.*;
-import app.exception.post.InvalidDateFormatEx;
-import app.exception.post.NoMatchedPostEx;
-import app.exception.post.NoPostEx;
-import app.exception.post.PostNotFoundEx;
+import app.exception.post.*;
 import app.exception.user.EmailNotUniqueEx;
 import app.exception.user.IncorrectLoginEx;
 import app.exception.user.InvalidPhoneNumberEx;
@@ -32,7 +30,6 @@ public class AppExHandler {
     }
 
     @ExceptionHandler(PostNotFoundEx.class)
-    @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public RedirectView handlePostNotFound(Model model){
         model.addAttribute("error", "postnotfound");
         log.warn("AppExHandler: PostNotFoundEx");
@@ -50,7 +47,8 @@ public class AppExHandler {
     public RedirectView handleUsername(Model model){
         model.addAttribute("error", "usernamenotunique");
         log.warn("AppExHandler: UsernameNotUniqueEx");
-        return new RedirectView("/signup");
+        return new RedirectView("/info");
+
     }
 
     @ExceptionHandler(PassNotMatchEx.class)
@@ -78,7 +76,7 @@ public class AppExHandler {
     public RedirectView handleIncorrectLogin(Model model){
         model.addAttribute("error", "incorrectlogin");
         log.warn("AppExHandler: IncorrectLoginEx");
-        return new RedirectView("/login");
+        return new RedirectView("/signin");
     }
 
     @ExceptionHandler(NoPostEx.class)
@@ -120,7 +118,7 @@ public class AppExHandler {
     public RedirectView handleFillInfoEmptyInput(Model model){
         model.addAttribute("error", "fillinfoemptyinput");
         log.warn("AppExHandler: FillInfoEmptyInputEx");
-        return new RedirectView("/anket");
+        return new RedirectView("/info");
     }
 
     @ExceptionHandler(PostEmptyInputEx.class)
@@ -141,7 +139,7 @@ public class AppExHandler {
     public RedirectView handleSignUpEmptyInput(Model model){
         model.addAttribute("error", "signupemptyinput");
         log.warn("AppExHandler: SignUpEmptyInputEx");
-        return new RedirectView("/register");
+        return new RedirectView("/signup");
     }
 
     @ExceptionHandler(UpdateUserEmptyInputEx.class)
@@ -149,6 +147,18 @@ public class AppExHandler {
         model.addAttribute("error", "updateuseremptyinput");
         log.warn("AppExHandler: UpdateUserEmptyInputEx");
         return new RedirectView("/update");
+    }
+
+    @ExceptionHandler(InvalidInputEx.class)
+    public RedirectView handleInvalidInput(Model model){
+        log.warn("AppExHandler: InvalidInputEx");
+        return new RedirectView("/dashboard");
+    }
+
+    @ExceptionHandler(NoParamEx.class)
+    public RedirectView handleNoParam(){
+        log.warn("AppExHandler: InvalidInputEx");
+        return new RedirectView("/dashboard");
     }
 
 

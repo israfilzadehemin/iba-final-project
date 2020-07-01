@@ -1,8 +1,10 @@
 package app.controller;
 
+import app.form.FormSearch;
 import app.service.PostService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,24 +25,23 @@ public class DashboardController {
     this.postService = postService;
   }
 
-  // http://localhost:8080/dashboard
+  // http://localhost:8085/dashboard
 
   @GetMapping
-  public String handle_get() {
-    postService.findAll();
+  public String handle_get(Model model) {
+
+    model.addAttribute("posts", postService.findAll());
     return "dashboard";
   }
 
-  // http://localhost:8080/dashboard/byfilter?name=sofa&category=home
+   //http://localhost:8085/search?name=Em&cat=1
 
-  @PostMapping("/byfilter")
-  public RedirectView handle_post(@RequestParam("name") String keyword,
-                                @RequestParam("category") String category, HttpServletRequest rq) {
+  @PostMapping()
+  public RedirectView handle_post(Model model, FormSearch form, HttpServletRequest rq) {
 
-    String button = rq.getParameter("button");
-    if (button == null) return new RedirectView("dashboard");
-
-    postService.findFiltered(keyword, category);
-    return new RedirectView("dashboard");
+    model.addAttribute("name", form.getKeyword());
+    model.addAttribute("cat", form.getCategory());
+    return new RedirectView("search");
   }
+
 }
