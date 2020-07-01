@@ -1,14 +1,17 @@
 package app.entity;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class Post {
@@ -20,8 +23,8 @@ public class Post {
     private String city;
     private String image;
     private boolean status;
-    private LocalDateTime expiry_data;
-    private LocalDateTime date;
+    private LocalDate expiry_date;
+    private LocalDate date;
 
     @ManyToOne
     @JoinColumn(name="user_id",referencedColumnName = "u_id")
@@ -33,6 +36,15 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "c_id")
     private Category category;
+
+    public Post(String name, String city, String image, LocalDate expiry_date) {
+        this.name = name;
+        this.city = city;
+        this.image = image;
+        this.expiry_date = expiry_date;
+        this.status = true;
+        this.date = LocalDate.now();
+    }
 
 
 }

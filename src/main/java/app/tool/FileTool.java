@@ -14,8 +14,8 @@ import java.nio.file.Paths;
 @Service
 public class FileTool {
   private final UserRepo userRepo;
-  private static final String PROFILE_PHOTOS = "classpath:/static/img/profile/";
-  private static final String POST_IMAGE = "classpath:/static/img/post/";
+  private static final String PROFILE_PHOTOS = "uploaded/profile/";
+  private static final String POST_IMAGE = "uploaded/post/";
 
   public FileTool(UserRepo userRepo) {
     this.userRepo = userRepo;
