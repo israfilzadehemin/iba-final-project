@@ -38,7 +38,7 @@ public class FileTool {
       return file.getOriginalFilename();
 
     } catch (IOException e) {
-      log.warn("IOException caught while profile photo uploading");
+      log.warn("IOException caught while photo uploading");
       return "error";
     }
   }

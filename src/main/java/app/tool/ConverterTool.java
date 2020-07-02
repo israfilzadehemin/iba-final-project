@@ -25,4 +25,12 @@ public class ConverterTool {
       throw new InvalidDateFormatEx();
     }
   }
+  public LocalDate stringToLocalDate2 (String date) {
+    try {
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+      return LocalDate.parse(date, formatter);
+    } catch (Exception e) {
+      throw new InvalidDateFormatEx();
+    }
+  }
 }

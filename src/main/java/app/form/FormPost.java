@@ -8,5 +8,4 @@ public class FormPost {
     private String category;
     private String city;
     private String expiryDate;
-    private String image;
 }

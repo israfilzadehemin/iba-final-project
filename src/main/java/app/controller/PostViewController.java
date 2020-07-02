@@ -35,10 +35,10 @@ public class PostViewController {
     return "manage-post";
   }
 
-  @GetMapping("/{id}")
-  public RedirectView handle_get(@PathVariable String id) {
-    return new RedirectView("mypost");
-  }
+//  @GetMapping("/{id}")
+//  public RedirectView handle_get(@PathVariable String id) {
+//      return new RedirectView("mypost");
+//  }
 
   @PostMapping
   public String handle_post() {

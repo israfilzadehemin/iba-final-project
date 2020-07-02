@@ -1,13 +1,13 @@
 package app.tool;
 
 import app.entity.Userr;
+import app.repo.CategoryRepo;
 import app.repo.PostRepo;
 import app.repo.UserRepo;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
+import java.util.Arrays;
 import java.util.Optional;
 
 @Log4j2
@@ -15,11 +15,13 @@ import java.util.Optional;
 public class ValidationTool {
   private final UserRepo userRepo;
   private final PostRepo postRepo;
+  private final CategoryRepo categoryRepo;
 
 
-  public ValidationTool(UserRepo userRepo, PostRepo postRepo) {
+  public ValidationTool(UserRepo userRepo, PostRepo postRepo, CategoryRepo categoryRepo) {
     this.userRepo = userRepo;
     this.postRepo = postRepo;
+    this.categoryRepo = categoryRepo;
   }
 
   public boolean isEmailUnique(String email) {
@@ -151,9 +153,16 @@ public class ValidationTool {
       Long.parseLong(source);
       return true;
     } catch (NumberFormatException e) {
+      e.printStackTrace();
       log.warn("Value could not be parsed to Long: from ValidationTool.isParsableToLong()");
       return false;
     }
+  }
+
+  public boolean isCategoryValid(String category) {
+    if (!isParsableToLong(category)) return false;
+    return categoryRepo.findAll().stream()
+            .anyMatch(c -> c.getId()== Long.parseLong(category));
   }
 
 }

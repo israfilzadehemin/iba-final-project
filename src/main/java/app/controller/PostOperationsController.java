@@ -27,7 +27,7 @@ public class PostOperationsController {
     this.cityService = cityService;
   }
 
-  // http://localhost:8085/mypost/1
+  // http://localhost:8085/mypost/6
 
   @GetMapping("/{id}")
   public String handle_get(Model model, @PathVariable String id) {
@@ -40,12 +40,12 @@ public class PostOperationsController {
   }
 
   @PostMapping("/{id}")
-  public RedirectView handle_post(FormPost form, @RequestParam("image") MultipartFile file) {
+  public String  handle_post(FormPost form, @RequestParam("image") MultipartFile file, @PathVariable String id) {
     String name = form.getName();
-    String category = form.getCategory();  // should be added
+    String category = form.getCategory();
     String city = form.getCity();
     String expiryDate = form.getExpiryDate();
-    postService.addOrUpdate("1", name, city, expiryDate, file);
-    return new RedirectView("dashboard");
+    if (!postService.addOrUpdate(id, name, category, city, expiryDate, file)) log.warn("Update Cancelled!");
+    return ("redirect:/myposts");
   }
 }
