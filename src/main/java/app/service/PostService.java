@@ -1,10 +1,13 @@
 package app.service;
 
+import app.entity.Category;
 import app.entity.Post;
+import app.exception.post.NotAuthorizedEx;
 import app.exception.input.PostEmptyInputEx;
 import app.exception.post.InvalidInputEx;
 import app.exception.post.NoPostEx;
 import app.exception.post.PostNotFoundEx;
+import app.repo.CategoryRepo;
 import app.repo.PostRepo;
 import app.repo.WishlistRepo;
 import app.tool.ConverterTool;
@@ -22,14 +25,16 @@ import java.util.Optional;
 @Service
 public class PostService {
   private final PostRepo postRepo;
+  private final CategoryRepo categoryRepo;
   private final WishlistRepo wishlistRepo;
   private final ValidationTool validationTool;
   private final FileTool fileTool;
   private final ConverterTool converterTool;
 
 
-  public PostService(PostRepo postRepo, WishlistRepo wishlistRepo, ValidationTool validationTool, FileTool fileTool, ConverterTool converterTool) {
+  public PostService(PostRepo postRepo, CategoryRepo categoryRepo, WishlistRepo wishlistRepo, ValidationTool validationTool, FileTool fileTool, ConverterTool converterTool) {
     this.postRepo = postRepo;
+    this.categoryRepo = categoryRepo;
     this.wishlistRepo = wishlistRepo;
     this.validationTool = validationTool;
     this.fileTool = fileTool;
@@ -70,20 +75,28 @@ public class PostService {
 
   }
 
-  public boolean addOrUpdate(String id, String name, String city, String date, MultipartFile file) {
-    if (id.isBlank() || name.isBlank() || city.isBlank() || date.isBlank() || file.isEmpty()) throw new PostEmptyInputEx();
+  public boolean addOrUpdate(String id, String name, String category, String city, String date, MultipartFile file) {
+    if (id.isBlank() || name.isBlank() || category.isBlank() || city.isBlank() || date.isBlank() || file.isEmpty()) throw new PostEmptyInputEx();
     else if (!validationTool.isParsableToLong(id)) throw new InvalidInputEx();
+    else if (!validationTool.isCategoryValid(category)) throw new InvalidInputEx();
     else {
-      LocalDate parsedDate = converterTool.stringToLocalDate(date);
+      LocalDate parsedDate = converterTool.stringToLocalDate2(date);
       String image = fileTool.uploadPostImage(file);
       if (id.equals(0)) {
-        Post post = new Post(name, city, image, parsedDate);
+        Category cat = categoryRepo.findById(Long.parseLong(category)).get();
+        Post post = new Post(name, cat, city, image, parsedDate);
         postRepo.save(post);
         log.info("Post added successfully");
         return true;
       } else {
-        Post postById = findById(id);
-        postRepo.updatePost(name, city, image, parsedDate,Long.parseLong(id));
+        Category cat = categoryRepo.findById(Long.parseLong(category)).get();
+        Post post = findById(id);
+        post.setName(name);
+        post.setCategory(cat);
+        post.setCity(city);
+        post.setExpiry_date(parsedDate);
+        post.setImage(fileTool.uploadPostImage(file));
+        postRepo.save(post);
         log.info("Post updated successfully");
         return true;
       }
@@ -108,7 +121,20 @@ public class PostService {
 //should be asked from Ayshan
 //  }
 //
-//  public List<Post> findByUser(String userId) {
-//    return postRepo.findPostsByUserId(Integer.parseInt(userId));
-//  }
+  public List<Post> findByUser(String userId) {
+    return postRepo.findPostsByUserId(Long.parseLong(userId));
+  }
+
+  public boolean isAuthorized(String userId, String postId) {
+    System.err.println(postId);
+    if (!validationTool.isParsableToLong(postId)) throw new InvalidInputEx();
+
+    Post post = findById(postId);
+
+    if (post.getUser().getId()==Long.parseLong(userId)) return true;
+    else {
+      log.warn("Current user is not authorized to edit this post: from PostService.isAuthorized()");
+      throw new NotAuthorizedEx();
+    }
+  }
 }

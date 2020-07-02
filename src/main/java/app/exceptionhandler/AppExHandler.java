@@ -157,8 +157,14 @@ public class AppExHandler {
 
     @ExceptionHandler(NoParamEx.class)
     public RedirectView handleNoParam(){
-        log.warn("AppExHandler: InvalidInputEx");
+        log.warn("AppExHandler: NoParamEx");
         return new RedirectView("/dashboard");
+    }
+
+    @ExceptionHandler(NotAuthorizedEx.class)
+    public RedirectView handleNotAuthorized(){
+        log.warn("AppExHandler: NotAuthorizedEx");
+        return new RedirectView("/myposts");
     }
 
 

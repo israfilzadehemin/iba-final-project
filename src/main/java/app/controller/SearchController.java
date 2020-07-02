@@ -35,7 +35,7 @@ public class SearchController {
   }
 
   @PostMapping()
-  public RedirectView handle_post(Model model, FormSearch form, HttpServletRequest rq) {
+  public RedirectView handle_post(Model model, FormSearch form) {
     model.addAttribute("name", form.getKeyword());
     model.addAttribute("cat", form.getCategory());
     return new RedirectView("search");

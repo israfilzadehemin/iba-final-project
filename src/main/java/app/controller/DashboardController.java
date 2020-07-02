@@ -37,8 +37,7 @@ public class DashboardController {
    //http://localhost:8085/search?name=Em&cat=1
 
   @PostMapping()
-  public RedirectView handle_post(Model model, FormSearch form, HttpServletRequest rq) {
-
+  public RedirectView handle_post(Model model, FormSearch form) {
     model.addAttribute("name", form.getKeyword());
     model.addAttribute("cat", form.getCategory());
     return new RedirectView("search");

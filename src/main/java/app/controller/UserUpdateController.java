@@ -18,6 +18,7 @@ public class UserUpdateController {
 
   private final UserService userService;
   private final CityService cityService;
+
   public UserUpdateController(UserService userService, CityService cityService) {
     this.userService = userService;
     this.cityService = cityService;
@@ -27,7 +28,6 @@ public class UserUpdateController {
 
   @GetMapping()
   public String handle_get(Model model) {
-
     Userr user = userService.findById("1");
     model.addAttribute("user", user);
     model.addAttribute("cities", cityService.getCities());
@@ -36,7 +36,6 @@ public class UserUpdateController {
 
   @PostMapping()
   public RedirectView handle_post(FormUser form, @RequestParam("image") MultipartFile file, Model model) {
-
     String name = form.getName();
     String surname = form.getSurname();
     String city = form.getCity();
