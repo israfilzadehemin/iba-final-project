@@ -22,4 +22,5 @@ public interface PostRepo extends JpaRepository<Post, Long> {
 
     List<Post> findAllByNameContainingAndCategory_Id(String name, Long categoryId);
 
+    List<Post> findPostsByUserId(long userId);
 }

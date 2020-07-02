@@ -1,6 +1,7 @@
 package app.service;
 
 import app.entity.Post;
+import app.exception.post.NotAuthorizedEx;
 import app.exception.input.PostEmptyInputEx;
 import app.exception.post.InvalidInputEx;
 import app.exception.post.NoPostEx;
@@ -108,7 +109,19 @@ public class PostService {
 //should be asked from Ayshan
 //  }
 //
-//  public List<Post> findByUser(String userId) {
-//    return postRepo.findPostsByUserId(Integer.parseInt(userId));
-//  }
+  public List<Post> findByUser(String userId) {
+    return postRepo.findPostsByUserId(Long.parseLong(userId));
+  }
+
+  public boolean isAuthorized(String userId, String postId) {
+    if (!validationTool.isParsableToLong(postId)) throw new InvalidInputEx();
+
+    Post post = findById(postId);
+
+    if (post.getUser().getId()==Long.parseLong(userId)) return true;
+    else {
+      log.warn("Current user is not authorized to edit this post: from PostService.isAuthorized()");
+      throw new NotAuthorizedEx();
+    }
+  }
 }

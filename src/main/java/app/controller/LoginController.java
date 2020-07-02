@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
-import javax.servlet.http.HttpServletRequest;
 
 @Log4j2
 @Controller
@@ -16,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 public class LoginController {
 
   // http://localhost:8085/signin
-
 
   private final UserService userService;
 

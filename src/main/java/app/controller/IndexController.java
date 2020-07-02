@@ -30,10 +30,7 @@ public class IndexController {
   }
 
   @PostMapping
-  public RedirectView handle_post(FormAdv form, HttpServletRequest rq) {
-    String button = rq.getParameter("button");
-    if (button == null) return new RedirectView("index");
-
+  public RedirectView handle_post(FormAdv form) {
     String fullName = form.getFullName();
     String number = form.getNumber();
     String time = form.getTime();
