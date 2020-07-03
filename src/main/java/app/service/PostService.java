@@ -26,15 +26,17 @@ import java.util.Optional;
 public class PostService {
   private final PostRepo postRepo;
   private final CategoryRepo categoryRepo;
+  private final UserService userService;
   private final WishlistRepo wishlistRepo;
   private final ValidationTool validationTool;
   private final FileTool fileTool;
   private final ConverterTool converterTool;
 
 
-  public PostService(PostRepo postRepo, CategoryRepo categoryRepo, WishlistRepo wishlistRepo, ValidationTool validationTool, FileTool fileTool, ConverterTool converterTool) {
+  public PostService(PostRepo postRepo, CategoryRepo categoryRepo, UserService userService, WishlistRepo wishlistRepo, ValidationTool validationTool, FileTool fileTool, ConverterTool converterTool) {
     this.postRepo = postRepo;
     this.categoryRepo = categoryRepo;
+    this.userService = userService;
     this.wishlistRepo = wishlistRepo;
     this.validationTool = validationTool;
     this.fileTool = fileTool;
@@ -46,7 +48,7 @@ public class PostService {
   }
 
   public List<Post> findAll() {
-    List<Post> allPosts = postRepo.findAll();
+    List<Post> allPosts = postRepo.findAllByStatusAndIdIsNot(true, 0);
     if (allPosts.size() == 0) {
       throw new NoPostEx();
     } else {
@@ -66,31 +68,31 @@ public class PostService {
     if (!validationTool.isParsableToLong(id))
       throw new InvalidInputEx();
     else {
-      Optional<Post> post = postRepo.findById(Long.parseLong(id));
-      if (post.equals(Optional.empty())) throw new PostNotFoundEx();
-      else postRepo.deactivatePost(Long.parseLong(id));
+      Post post = postRepo.findById(Long.parseLong(id)).orElseThrow(PostNotFoundEx::new);
+      post.setStatus(false);
+      postRepo.save(post);
       log.info("Post deactivated successfully");
       return true;
     }
 
   }
 
-  public boolean addOrUpdate(String id, String name, String category, String city, String date, MultipartFile file) {
-    if (id.isBlank() || name.isBlank() || category.isBlank() || city.isBlank() || date.isBlank() || file.isEmpty()) throw new PostEmptyInputEx();
-    else if (!validationTool.isParsableToLong(id)) throw new InvalidInputEx();
+  public boolean addOrUpdate(String userId,String postId, String name, String category, String city, String date, MultipartFile file) {
+    if (postId.isBlank() || name.isBlank() || category.isBlank() || city.isBlank() || date.isBlank() || file.isEmpty()) throw new PostEmptyInputEx();
+    else if (!validationTool.isParsableToLong(postId)) throw new InvalidInputEx();
     else if (!validationTool.isCategoryValid(category)) throw new InvalidInputEx();
     else {
       LocalDate parsedDate = converterTool.stringToLocalDate2(date);
       String image = fileTool.uploadPostImage(file);
-      if (id.equals(0)) {
+      if (postId.equals("0")) {
         Category cat = categoryRepo.findById(Long.parseLong(category)).get();
-        Post post = new Post(name, cat, city, image, parsedDate);
+        Post post = new Post(userService.findById(userId),name, cat, city, image, parsedDate);
         postRepo.save(post);
         log.info("Post added successfully");
         return true;
       } else {
         Category cat = categoryRepo.findById(Long.parseLong(category)).get();
-        Post post = findById(id);
+        Post post = findById(postId);
         post.setName(name);
         post.setCategory(cat);
         post.setCity(city);
@@ -108,7 +110,7 @@ public class PostService {
     if (!validationTool.isParsableToLong(category)) {
       throw new InvalidInputEx();
     } else {
-      List<Post> filteredPosts = postRepo.findAllByNameContainingAndCategory_Id(name, Long.parseLong(category));
+      List<Post> filteredPosts = postRepo.findAllByNameContainingAndCategory_IdAndStatus(name, Long.parseLong(category), true);
       if (filteredPosts.size() == 0) {
         throw new PostNotFoundEx();
       } else {
@@ -122,11 +124,10 @@ public class PostService {
 //  }
 //
   public List<Post> findByUser(String userId) {
-    return postRepo.findPostsByUserId(Long.parseLong(userId));
+    return postRepo.findPostsByUserIdAndStatus(Long.parseLong(userId), true);
   }
 
   public boolean isAuthorized(String userId, String postId) {
-    System.err.println(postId);
     if (!validationTool.isParsableToLong(postId)) throw new InvalidInputEx();
 
     Post post = findById(postId);

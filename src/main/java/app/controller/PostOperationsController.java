@@ -29,9 +29,17 @@ public class PostOperationsController {
 
   // http://localhost:8085/mypost/6
 
+
+  @GetMapping("/")
+  public String handle_get() {
+    return "redirect:/myposts";
+  }
+
   @GetMapping("/{id}")
-  public String handle_get(Model model, @PathVariable String id) {
-    if (!postService.isAuthorized("1", id)) log.warn("Update cancelled!");
+  public String handle_get_id(Model model, @PathVariable String id) {
+    if (!id.equals("0")) {
+      if (!postService.isAuthorized("1", id)) log.warn("Update cancelled!");
+    }
     Post post = postService.findById(id);
     model.addAttribute("post", post);
     model.addAttribute("categories", categoryService.findAll());
@@ -45,7 +53,7 @@ public class PostOperationsController {
     String category = form.getCategory();
     String city = form.getCity();
     String expiryDate = form.getExpiryDate();
-    if (!postService.addOrUpdate(id, name, category, city, expiryDate, file)) log.warn("Update Cancelled!");
+    if (!postService.addOrUpdate("1", id, name, category, city, expiryDate, file)) log.warn("Update Cancelled!");
     return ("redirect:/myposts");
   }
 }

@@ -37,7 +37,8 @@ public class Post {
     @JoinColumn(name = "category_id", referencedColumnName = "c_id")
     private Category category;
 
-    public Post(String name, Category category, String city, String image, LocalDate expiry_date) {
+    public Post(Userr user,String name, Category category, String city, String image, LocalDate expiry_date) {
+        this.user = user;
         this.name = name;
         this.category = category;
         this.city = city;

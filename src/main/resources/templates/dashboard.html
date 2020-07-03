@@ -31,7 +31,7 @@
         <ul class="col-12 e-nav-list">
             <li class="col-lg-4 col-md-12 col-sm-12 e-nav-item">
                 <a href="" class="nav-link  text-left e-nav-link d-flex">
-                    <img src="img/logo/123.jpg" width="50" height="50" class="e-profile-img" alt="profile picture">
+                    <img src="../static/img/logo/123.jpg" width="50" height="50" class="e-profile-img" alt="profile picture">
                     <p class="ml-2 e-par">Emin Israfilzadeh</p>
                 </a>
             </li>
@@ -63,10 +63,9 @@
                 </li>
                 <li class="col-lg-4 col-md-4 col-sm-12 e-search-item">
                     <label for="category-sel" class="col-2">in</label>
-                    <select name="category" class="custom-select col-lg-9 col-md-9 col-sm-12 e-input" id="category-sel">
-                        <option value="1">Pet</option>
-                        <option value="1">Pet</option>
-                        <option value="1">Pet</option>
+                    <select required name="category" class="custom-select col-lg-9 col-md-9 col-sm-12 e-input" id="category-sel">
+                        <option selected disabled value="0">Select category</option>
+                        <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
                     </select>
                 </li>
                 <li class="col-lg-4 col-md-4 col-sm-12 e-search-item">
@@ -87,12 +86,13 @@
                         <p th:text="${post.date}" class="col-12 m-0 font-weight-bold e-post-date"></p>
                     </div>
                     <div class="e-post-img">
-                        <img th:src="${post.image}" alt="post">
+                        <img th:src="${post.image}" style="height: 250px; object-fit: cover" alt="post">
                     </div>
                 </div>
                 <div class="e-post-bottom">
                     <div class="e-post-info">
                         <div class="e-post-data">
+                            <p th:text="${post.name}" class="col-12 mb-1 text-center" style="color: white"></p>
                             <i class="fas fa-user col-2"></i>
                             <a th:text="${post.user.getName()}" href="#" class="card-link"></a>
                         </div>

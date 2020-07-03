@@ -35,10 +35,12 @@ public class PostViewController {
     return "manage-post";
   }
 
-//  @GetMapping("/{id}")
-//  public RedirectView handle_get(@PathVariable String id) {
-//      return new RedirectView("mypost");
-//  }
+
+  @GetMapping("/delete/{id}")
+  public RedirectView handle_get(@PathVariable String id) {
+    postService.deactivate(id);
+      return new RedirectView("/myposts");
+  }
 
   @PostMapping
   public String handle_post() {

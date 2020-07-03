@@ -123,9 +123,8 @@ public class AppExHandler {
 
     @ExceptionHandler(PostEmptyInputEx.class)
     public RedirectView handlePostEmptyInput(Model model){
-        model.addAttribute("error", "postemptyinput");
         log.warn("AppExHandler: PostEmptyInputEx");
-        return new RedirectView("/operation");
+        return new RedirectView("/myposts");
     }
 
     @ExceptionHandler(SignInEmptyInputEx.class)

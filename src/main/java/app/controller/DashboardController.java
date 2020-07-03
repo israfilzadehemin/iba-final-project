@@ -1,6 +1,7 @@
 package app.controller;
 
 import app.form.FormSearch;
+import app.service.CategoryService;
 import app.service.PostService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -8,11 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Log4j2
 @Controller
@@ -20,9 +17,11 @@ import java.util.List;
 public class DashboardController {
 
   private final PostService postService;
+  private final CategoryService categoryService;
 
-  public DashboardController(PostService postService) {
+  public DashboardController(PostService postService, CategoryService categoryService) {
     this.postService = postService;
+    this.categoryService = categoryService;
   }
 
   // http://localhost:8085/dashboard
@@ -31,6 +30,7 @@ public class DashboardController {
   public String handle_get(Model model) {
 
     model.addAttribute("posts", postService.findAll());
+    model.addAttribute("categories", categoryService.findAll());
     return "dashboard";
   }
 
