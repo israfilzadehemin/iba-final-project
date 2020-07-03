@@ -35,9 +35,13 @@ public class CityService {
     }
 
     public String clean(String s){
-        return s.replaceAll("\\[", "")
-                .replaceAll("]", "")
-                .replaceAll("[0-9]","");
+
+      String cleaned = s.replaceAll("\\[", "")
+              .replaceAll("]", "")
+              .replaceAll("[0-9]", "");
+      
+      if (cleaned.contains(" ")) return cleaned.substring(0, cleaned.indexOf(" "));
+      else return cleaned;
     }
 
     public List<City> getCities() {

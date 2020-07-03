@@ -119,10 +119,6 @@ public class PostService {
     }
   }
 
-//  public List<Post> findWishlisted(String userId) {
-//should be asked from Ayshan
-//  }
-//
   public List<Post> findByUser(String userId) {
     return postRepo.findPostsByUserIdAndStatus(Long.parseLong(userId), true);
   }
