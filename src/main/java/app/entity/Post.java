@@ -30,9 +30,6 @@ public class Post {
     @JoinColumn(name="user_id",referencedColumnName = "u_id")
     private Userr user;
 
-    @OneToMany(mappedBy = "post")
-    Set<PostWishlistR> postsInWishLists;
-
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "c_id")
     private Category category;

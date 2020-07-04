@@ -166,5 +166,17 @@ public class AppExHandler {
         return new RedirectView("/myposts");
     }
 
+    @ExceptionHandler(DuplicateWishedEx.class)
+    public RedirectView handleDuplicateWished(){
+        log.warn("AppExHandler: DuplicateWishedEx");
+        return new RedirectView("/wishlist");
+    }
+
+    @ExceptionHandler(NotWishedEx.class)
+    public RedirectView handleNotWished(){
+        log.warn("AppExHandler: NotWishedEx");
+        return new RedirectView("/wishlist");
+    }
+
 
 }

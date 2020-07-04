@@ -38,9 +38,6 @@ public class Userr {
     @OneToMany(mappedBy = "user")
     private Set<Post> posts;
 
-    @OneToOne(mappedBy = "user")
-    private Wishlist wishlist;
-
     @OneToMany(mappedBy = "from")
     private Set<Message> from_messages;
 
@@ -52,5 +49,5 @@ public class Userr {
 
     @OneToMany(mappedBy = "whom")
     private Set<Blocked> whom_block;
-
+    
 }

@@ -86,7 +86,7 @@
                         <p th:text="${post.date}" class="col-12 m-0 font-weight-bold e-post-date"></p>
                     </div>
                     <div class="e-post-img">
-                        <img th:src="${post.image}" style="height: 250px; object-fit: cover" alt="post">
+                        <img th:src="${post.image}" style="height: 250px; object-fit: fill" alt="post">
                     </div>
                 </div>
                 <div class="e-post-bottom">
@@ -106,10 +106,13 @@
                         </div>
                     </div>
                     <div class="e-post-contact">
-                        <a href="#" class="card-link e-post-data"><i class="fas fa-envelope col-3"></i>Send message</a>
+                        <i class="fas fa-envelope col-2"></i>
+                        <a href="#" class="card-link e-post-data">Send message</a>
                     </div>
                     <div class="e-post-wishlist">
-                        <a href="#" class="card-link e-post-data"><i class="fas fa-heart col-3"></i>Add to wishlist</a>
+                        <i class="fas fa-heart col-2"></i>
+                        <a th:if="${(wished!=null) and (wished==true)}" th:text="'Remove from wishlist'" th:href="'/wishlist/delete/' + ${post.id}" class="card-link e-post-data"></a>
+                        <a th:if="${(wished==null)}" th:text="'Add to wishlist'" th:href="'/wishlist/add/' + ${post.id}" class="card-link e-post-data"></a>
                     </div>
                 </div>
             </section>
