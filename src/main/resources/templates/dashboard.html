@@ -94,7 +94,7 @@
                         <div class="e-post-data">
                             <p th:text="${post.name}" class="col-12 mb-1 text-center" style="color: white"></p>
                             <i class="fas fa-user col-2"></i>
-                            <a th:text="${post.user.getName()}" href="#" class="card-link"></a>
+                            <a th:href="'user/'+${post.user.getId()}" th:text="${post.user.getName()} + ' ' + ${post.user.getSurname()}" class="card-link"></a>
                         </div>
                         <div class="e-post-data">
                             <i class="fas fa-city col-2"></i>

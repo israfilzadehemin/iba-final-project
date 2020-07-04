@@ -2,6 +2,7 @@ package app.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.catalina.User;
 
 import javax.persistence.*;
 
@@ -21,4 +22,8 @@ public class Blocked {
     @JoinColumn(name = "whom_id")
     private Userr whom;
 
+    public Blocked(Userr loggedUser, Userr currentUser) {
+        this.who = loggedUser;
+        this.whom = currentUser;
+    }
 }
