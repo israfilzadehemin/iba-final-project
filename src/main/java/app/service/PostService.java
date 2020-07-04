@@ -9,7 +9,6 @@ import app.exception.post.NoPostEx;
 import app.exception.post.PostNotFoundEx;
 import app.repo.CategoryRepo;
 import app.repo.PostRepo;
-import app.repo.WishlistRepo;
 import app.tool.ConverterTool;
 import app.tool.FileTool;
 import app.tool.ValidationTool;
@@ -19,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Log4j2
 @Service
@@ -27,17 +25,15 @@ public class PostService {
   private final PostRepo postRepo;
   private final CategoryRepo categoryRepo;
   private final UserService userService;
-  private final WishlistRepo wishlistRepo;
   private final ValidationTool validationTool;
   private final FileTool fileTool;
   private final ConverterTool converterTool;
 
 
-  public PostService(PostRepo postRepo, CategoryRepo categoryRepo, UserService userService, WishlistRepo wishlistRepo, ValidationTool validationTool, FileTool fileTool, ConverterTool converterTool) {
+  public PostService(PostRepo postRepo, CategoryRepo categoryRepo, UserService userService, ValidationTool validationTool, FileTool fileTool, ConverterTool converterTool) {
     this.postRepo = postRepo;
     this.categoryRepo = categoryRepo;
     this.userService = userService;
-    this.wishlistRepo = wishlistRepo;
     this.validationTool = validationTool;
     this.fileTool = fileTool;
     this.converterTool = converterTool;
