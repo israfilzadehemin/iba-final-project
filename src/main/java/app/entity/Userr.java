@@ -4,10 +4,13 @@ package app.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Set;
+
 
 @Data
 @NoArgsConstructor
@@ -50,5 +53,22 @@ public class Userr {
 
     @OneToMany(mappedBy = "whom")
     private Set<Blocked> whom_block;
-    
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Userr userr = (Userr) o;
+        return id == userr.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Userr{id=%d}", id);
+    }
 }

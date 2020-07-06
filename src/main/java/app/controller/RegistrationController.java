@@ -4,6 +4,7 @@ import app.form.FormReg;
 import app.service.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +15,7 @@ import org.springframework.web.servlet.view.RedirectView;
 @RequestMapping("/signup")
 public class RegistrationController {
 
-  // http://localhost:8085/signup
+  // http://localhost:8080/signup
 
   private final UserService userService;
 
@@ -23,7 +24,8 @@ public class RegistrationController {
   }
 
   @GetMapping
-  public String handle_get() {
+  public String handle_get(Model model) {
+    model.addAttribute("error", "noerror");
     return "signup";
   }
 
@@ -36,6 +38,6 @@ public class RegistrationController {
     if (!userService.register(email, password, conPass)) {
       log.warn("Registration canceled!");
     }
-    return new RedirectView("info");
+    return new RedirectView("anket");
   }
 }
