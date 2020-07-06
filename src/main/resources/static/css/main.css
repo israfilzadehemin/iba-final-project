@@ -271,11 +271,12 @@ body .e-chat-container .e-chat-left .e-chat-user-img {
 }
 body .e-chat-container .e-chat-left .e-chat-user-img img {
   width: 100%;
-  object-fit: cover;
+  height: 70px;
+  object-fit: fill;
 }
 body .e-chat-container .e-chat-left .e-chat-user {
   background-color: #6497b1;
-  border-bottom: 2px solid 2px solid rgba(99, 172, 229, 0.5);
+  border-bottom: 2px solid rgba(99, 172, 229, 0.5);
   color: #005b96;
 }
 body .e-chat-container .e-chat-left .e-chat-user .e-chat-sender {
@@ -284,9 +285,11 @@ body .e-chat-container .e-chat-left .e-chat-user .e-chat-sender {
 body .e-chat-container .e-chat-left .e-chat-user .e-chat-date {
   font-size: 12px;
   color: white;
+  border-bottom: 2px solid rgba(99, 172, 229, 0.5);
 }
 body .e-chat-container .e-chat-left .e-chat-user .e-chat-text {
   font-size: 12px;
+  border-bottom: 2px solid rgba(99, 172, 229, 0.5);
 }
 body .e-chat-container .e-chat-right {
   background-color: #64a1f4;

@@ -2,6 +2,7 @@ package app.exceptionhandler;
 
 import app.exception.input.NoParamEx;
 import app.exception.input.*;
+import app.exception.message.MessageNotFoundEx;
 import app.exception.post.*;
 import app.exception.user.*;
 import lombok.extern.log4j.Log4j2;
@@ -182,6 +183,12 @@ public class AppExHandler {
     public RedirectView handleSelfView(){
         log.warn("AppExHandler: SelfViewEx");
         return new RedirectView("/update");
+    }
+
+    @ExceptionHandler(MessageNotFoundEx.class)
+    public RedirectView handleMessageNotFound(){
+        log.warn("AppExHandler: MessageNotFoundEx");
+        return new RedirectView("/dashboard");
     }
 
 
