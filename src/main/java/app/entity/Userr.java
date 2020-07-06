@@ -1,6 +1,7 @@
 package app.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -35,13 +36,13 @@ public class Userr {
         this.password=password;
     }
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<Post> posts;
 
-    @OneToMany(mappedBy = "from")
+    @OneToMany(mappedBy = "from", fetch = FetchType.LAZY)
     private Set<Message> from_messages;
 
-    @OneToMany(mappedBy = "to")
+    @OneToMany(mappedBy = "to", fetch = FetchType.LAZY)
     private Set<Message> to_messages;
 
     @OneToMany(mappedBy = "who")

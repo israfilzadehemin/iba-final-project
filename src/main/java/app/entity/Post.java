@@ -26,7 +26,7 @@ public class Post {
     private LocalDate expiry_date;
     private LocalDate date;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id",referencedColumnName = "u_id")
     private Userr user;
 

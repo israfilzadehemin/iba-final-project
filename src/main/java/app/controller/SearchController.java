@@ -1,6 +1,6 @@
 package app.controller;
 
-import app.exception.NoParamEx;
+import app.exception.input.NoParamEx;
 import app.form.FormSearch;
 import app.service.CategoryService;
 import app.service.PostService;

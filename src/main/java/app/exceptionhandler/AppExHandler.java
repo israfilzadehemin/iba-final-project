@@ -1,14 +1,10 @@
 package app.exceptionhandler;
 
-import app.exception.NoParamEx;
+import app.exception.input.NoParamEx;
 import app.exception.input.*;
+import app.exception.message.MessageNotFoundEx;
 import app.exception.post.*;
-import app.exception.user.EmailNotUniqueEx;
-import app.exception.user.IncorrectLoginEx;
-import app.exception.user.InvalidPhoneNumberEx;
-import app.exception.user.PassNotMatchEx;
-import app.exception.user.UserNotFoundEx;
-import app.exception.user.UsernameNotUniqueEx;
+import app.exception.user.*;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
@@ -22,7 +18,6 @@ import org.springframework.web.servlet.view.RedirectView;
 public class AppExHandler {
 
     @ExceptionHandler(UserNotFoundEx.class)
-    @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public RedirectView handleUserNotFound(Model model){
         model.addAttribute("error", "usernotfound");
         log.warn("AppExHandler: UserNotFoundEx");
@@ -172,10 +167,28 @@ public class AppExHandler {
         return new RedirectView("/wishlist");
     }
 
+    @ExceptionHandler(DuplicateBlockedEx.class)
+    public RedirectView handleDuplicateBlocked(){
+        log.warn("AppExHandler: DuplicateBlockedEx");
+        return new RedirectView("/dashboard");
+    }
+
     @ExceptionHandler(NotWishedEx.class)
     public RedirectView handleNotWished(){
         log.warn("AppExHandler: NotWishedEx");
         return new RedirectView("/wishlist");
+    }
+
+    @ExceptionHandler(SelfViewEx.class)
+    public RedirectView handleSelfView(){
+        log.warn("AppExHandler: SelfViewEx");
+        return new RedirectView("/update");
+    }
+
+    @ExceptionHandler(MessageNotFoundEx.class)
+    public RedirectView handleMessageNotFound(){
+        log.warn("AppExHandler: MessageNotFoundEx");
+        return new RedirectView("/dashboard");
     }
 
 

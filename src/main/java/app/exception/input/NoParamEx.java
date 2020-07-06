@@ -1,4 +1,4 @@
-package app.exception;
+package app.exception.input;
 
 import app.exception.post.InvalidInputEx;
 

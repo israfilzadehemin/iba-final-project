@@ -100,8 +100,14 @@ public class UserService {
   }
 
   public Userr findById(String id) {
-    if (validationTool.isParsableToLong(id))
-      return userRepo.findById(Long.parseLong(id)).orElseThrow(UserNotFoundEx::new);
+    if (validationTool.isParsableToLong(id)){
+      return userRepo.findById(Long.parseLong(id)).orElseThrow(UserNotFoundEx::new);}
     else throw new InvalidInputEx();
+  }
+
+  public Userr viewUser(String userId, String loggedId) {
+    Userr user = findById(userId);
+    if (user.getId()==Long.parseLong(loggedId)) throw new SelfViewEx();
+    return user;
   }
 }
