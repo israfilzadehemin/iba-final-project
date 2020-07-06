@@ -12,4 +12,6 @@ import java.util.List;
 public interface MessageRepo extends JpaRepository<Message, Long> {
 
   List<Message> findAllByFromAndTo(Userr sender, Userr receiver);
+
+  //List<Message> findAllbyFromIdAndToId(Userr meById, Userr otherById);
 }

@@ -18,9 +18,12 @@ public class MessageController {
     this.messageService = messageService;
   }
 
+  /**
+   * http://localhost:8085/message
+   */
   @GetMapping
   public String handle_get(Model model) {
-    messageService.getMessagesBetween("1", "1");
+    messageService.getMessagesBetween("21", "11");
     return "chat-main";
   }
 }
