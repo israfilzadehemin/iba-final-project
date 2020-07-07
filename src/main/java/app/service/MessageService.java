@@ -2,12 +2,16 @@ package app.service;
 
 import app.entity.Message;
 import app.entity.Userr;
+import app.exception.input.EmptyInputEx;
+import app.exception.input.MessageEmptyInputEx;
+import app.exception.post.InvalidInputEx;
 import app.repo.MessageRepo;
 import app.repo.UserRepo;
 import app.tool.ValidationTool;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -56,14 +60,25 @@ public class MessageService {
       else connections.add(m.getFrom());
     });
 
-    System.err.println(connections);
-    List<Message> lastMessages = connections.stream()
+    return connections.stream()
             .map(c -> findMessagesBetween(loggedUserId, String.valueOf(c.getId())))
             .map(messages -> messages.get(messages.size() - 1))
             .collect(Collectors.toList());
 
-    lastMessages.forEach(System.err::println);
-    return lastMessages;
+  }
+
+  public boolean sendMessage(String loggedUserId, String currentUserId, String text) {
+    if (currentUserId == null || text == null || text.isBlank()) throw new MessageEmptyInputEx();
+    else if (!validationTool.isParsableToLong(currentUserId)) throw new InvalidInputEx();
+    else {
+      messageRepo.save(
+              new Message(
+                      userService.findById(loggedUserId),
+                      userService.findById(currentUserId),
+                      text,
+                      LocalDateTime.now()));
+      return true;
+    }
   }
 
 }
