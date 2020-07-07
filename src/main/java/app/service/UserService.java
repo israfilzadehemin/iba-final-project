@@ -110,4 +110,8 @@ public class UserService {
     if (user.getId()==Long.parseLong(loggedId)) throw new SelfViewEx();
     return user;
   }
+
+  public boolean isUserExistByEmail(String mail){
+    return userRepo.getUserrByEmail(mail).isPresent();
+  }
 }
