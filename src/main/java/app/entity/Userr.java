@@ -24,15 +24,13 @@ public class Userr {
     private String fb_login;
     private String username;
     private String password;
-    private String passConf;
     private String name;
     private String surname;
     private String city;
     private String phone;
     private String image;
     private LocalDateTime reg_date;
-    private LocalDateTime last_seen;
-    private String status;
+    private boolean status;
 
     public Userr(String email, String password){
         this.email=email;

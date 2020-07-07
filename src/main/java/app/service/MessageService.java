@@ -56,13 +56,11 @@ public class MessageService {
       else connections.add(m.getFrom());
     });
 
-    System.err.println(connections);
     List<Message> lastMessages = connections.stream()
             .map(c -> findMessagesBetween(loggedUserId, String.valueOf(c.getId())))
             .map(messages -> messages.get(messages.size() - 1))
             .collect(Collectors.toList());
 
-    lastMessages.forEach(System.err::println);
     return lastMessages;
   }
 

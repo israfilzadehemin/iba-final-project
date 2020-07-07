@@ -24,7 +24,7 @@ public class MessageController {
    */
   @GetMapping()
   public String handle_get(Model model) {
-    model.addAttribute("loggedUserId", (long)1);
+    model.addAttribute("loggedUserId", "1");
     model.addAttribute("connections", messageService.findLastMessagesbyUser("1"));
 
     return "chat-main";
@@ -35,7 +35,8 @@ public class MessageController {
    */
   @GetMapping("/{id}")
   public String handle_get(@PathVariable String id, Model model) {
-    messageService.findMessagesBetween("1", id);
-    return "chat-main";
+    model.addAttribute("loggedUserId", "1");
+    model.addAttribute("messages", messageService.findMessagesBetween("1", id));
+    return "chat-private";
   }
 }
