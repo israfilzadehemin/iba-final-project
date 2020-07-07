@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Set;
 
 @Data
@@ -43,6 +44,15 @@ public class Post {
         this.expiry_date = expiry_date;
         this.status = true;
         this.date = LocalDate.now();
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Post{id=%d}", id);
     }
 
 

@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import org.apache.catalina.User;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Data
 @NoArgsConstructor
@@ -25,5 +26,14 @@ public class Blocked {
     public Blocked(Userr loggedUser, Userr currentUser) {
         this.who = loggedUser;
         this.whom = currentUser;
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Blocked{id=%d}", id);
     }
 }
