@@ -13,14 +13,25 @@ import java.util.Objects;
 public class Blocked {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "b_id")
     long id;
 
     @ManyToOne
-    @JoinColumn(name = "who_id")
+    @JoinTable(name = "r_blocked_who",
+            joinColumns = {@JoinColumn(name="blocked_id",
+                    referencedColumnName = "b_id"),
+            },
+            inverseJoinColumns = {@JoinColumn(name = "who_id",
+                    referencedColumnName = "u_id")})
     private Userr who;
 
     @ManyToOne
-    @JoinColumn(name = "whom_id")
+    @JoinTable(name = "r_blocked_whom",
+            joinColumns = {@JoinColumn(name="blocked_id",
+                    referencedColumnName = "b_id"),
+            },
+            inverseJoinColumns = {@JoinColumn(name = "whom_id",
+                    referencedColumnName = "u_id")})
     private Userr whom;
 
     public Blocked(Userr loggedUser, Userr currentUser) {
