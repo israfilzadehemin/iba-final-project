@@ -4,6 +4,7 @@ package app.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Data
@@ -17,4 +18,14 @@ public class Category {
 
     @OneToMany(mappedBy = "category")
     Set<Post> posts;
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Category{id=%d}", id);
+    }
 }
