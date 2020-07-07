@@ -14,4 +14,5 @@ public interface MessageRepo extends JpaRepository<Message, Long> {
   List<Message> findAllByFromAndTo(Userr sender, Userr receiver);
 
   List<Message> findAllByFromOrTo(Userr sender, Userr receiver);
+
 }

@@ -37,6 +37,13 @@ public class Message {
                     referencedColumnName = "u_id")})
     private Userr to;
 
+    public Message(Userr sender, Userr receiver, String text, LocalDateTime date) {
+        this.from = sender;
+        this.to = receiver;
+        this.message = text;
+        this.date = date;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

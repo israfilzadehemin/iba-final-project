@@ -143,6 +143,12 @@ public class AppExHandler {
         return new RedirectView("/update");
     }
 
+    @ExceptionHandler(MessageEmptyInputEx.class)
+    public RedirectView handleMessageEmptyInput(Model model){
+        log.warn("AppExHandler: MessageEmptyInputEx");
+        return new RedirectView("/message");
+    }
+
     @ExceptionHandler(InvalidInputEx.class)
     public RedirectView handleInvalidInput(Model model){
         log.warn("AppExHandler: InvalidInputEx");

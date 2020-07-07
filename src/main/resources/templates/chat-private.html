@@ -60,7 +60,7 @@
                 <a title="block user" href="#" name="e-chat-header-button" class="btn btn-danger m-0" value="block"><i
                         class="far fa-times-circle"></i></a>
             </div>
-            <div class="e-chat-body">
+            <div class="e-chat-body" id="e-chat-body">
                 <form method="post" class="mb-5 e-form">
                     <button type="submit" name="all-messages" style="z-index: 5" class="btn btn-sm e-submit">See all
                         messages
@@ -138,5 +138,9 @@
 <script src="js/bootstrap.js"></script>
 <script src="js/owl.carousel.min.js"></script>
 <script src="js/main.js"></script>
+<script>
+    var chat = document.querySelector("#e-chat-body")
+    chat.scrollTop = chat.scrollHeight;
+</script>
 </body>
 </html>
