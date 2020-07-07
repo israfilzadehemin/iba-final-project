@@ -55,16 +55,30 @@
     <div class="d-flex justify-content-center">
         <div class="col-lg-6 col-md-12 col-sm-12 e-chat-container d-flex flex-wrap p-0">
             <div class="col-12 p-0 e-chat-left">
-                <a th:each="message : ${messages}" href="#" class="card-link d-flex flex-wrap flex-wrap m-0 d-inline-block" style="height: 70px;">
-                    <div class="col-2 m-0 p-0 e-chat-user-img">
-                        <img src="img/logo/123.jpg" width="50" height="50" alt="">
+                <div th:each="connection : ${connections}">
+                    <div th:switch="${loggedUserId}">
+                        <a th:case="${connection.from.getId()}" th:href="'/message/'+${connection.to.getId()}" class="card-link d-flex flex-wrap flex-wrap m-0 d-inline-block" style="height: 70px;">
+                            <div class="col-2 m-0 p-0 e-chat-user-img">
+                                <img th:src="${connection.to.getImage()}" width="50" height="50" alt="">
+                            </div>
+                            <div class="col-10 d-flex flex-wrap justify-content-start p-0 pl-2 e-chat-user">
+                                <h5 th:text="${connection.to.getName()}+ ' ' + ${connection.from.getSurname()}" class="col-12 text-left m-1 mb-3 p-0 e-chat-sender"></h5>
+                                <p th:text="${connection.message}" class="col-7 d-inline-block text-left p-0 m-0 e-chat-text" style="margin-bottom: 3px!important;"></p>
+                                <p th:text="${#temporals.format(connection.date, 'dd-MM-yyyy HH:mm')}" class="col-5 d-inline-block text-right font-italic p-0 m-0 pr-1 e-chat-date" style="margin-bottom: 3px!important;"></p>
+                            </div>
+                        </a>
+                        <a th:case="${connection.to.getId()}" th:href="'/message/'+${connection.from.getId()}" class="card-link d-flex flex-wrap flex-wrap m-0 d-inline-block" style="height: 70px;">
+                            <div class="col-2 m-0 p-0 e-chat-user-img">
+                                <img th:src="${connection.from.getImage()}" width="50" height="50" alt="">
+                            </div>
+                            <div class="col-10 d-flex flex-wrap justify-content-start p-0 pl-2 e-chat-user">
+                                <h5 th:text="${connection.from.getName()}+ ' ' + ${connection.from.getSurname()}" class="col-12 text-left m-1 mb-3 p-0 e-chat-sender"></h5>
+                                <p th:text="${connection.message}" class="col-7 d-inline-block text-left p-0 m-0 e-chat-text" style="margin-bottom: 3px!important;"></p>
+                                <p th:text="${#temporals.format(connection.date, 'dd-MM-yyyy HH:mm')}" class="col-5 d-inline-block text-right font-italic p-0 m-0 pr-1 e-chat-date" style="margin-bottom: 3px!important;"></p>
+                            </div>
+                        </a>
                     </div>
-                    <div class="col-10 d-flex flex-wrap justify-content-start p-0 pl-2 e-chat-user">
-                        <h5 class="col-12 text-left m-1 mb-3 p-0 e-chat-sender">Emin Israfilzadeh</h5>
-                        <p class="col-7 d-inline-block text-left p-0 m-0 e-chat-text">Hi, How are you? Hi, How are you?</p>
-                        <p class="col-5 d-inline-block text-right font-italic p-0 m-0 pr-1 e-chat-date">20.06.2020 15:00</p>
-                    </div>
-                </a>
+                </div>
             </div>
         </div>
     </div>

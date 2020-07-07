@@ -6,7 +6,6 @@ import app.repo.MessageRepo;
 import app.repo.UserRepo;
 import app.tool.ValidationTool;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -28,38 +27,43 @@ public class MessageService {
 
   }
 
-  public void getMessagesBetween(String loggedUserId, String currentUser) {
-    System.out.println(messageRepo.findAll());
-  }
 
-  public List<Message> getAllMessagesbyUser(String me, String other) {
+  public List<Message> findMessagesBetween(String loggedUserId, String currentUserId) {
 
-    Userr meById = userRepo.findById(Long.parseLong(me)).get();
-    System.out.println("sender: "+meById);
-    Userr otherById = userRepo.findById(Long.parseLong(other)).get();
-    System.out.println("receiver:" +otherById);
+    Userr loggedUser = userService.findById(loggedUserId);
+    Userr currentUser = userService.findById(currentUserId);
 
-    List<Message> sent = messageRepo.findAllByFromAndTo(meById, otherById);
-    List<Message> received = messageRepo.findAllByFromAndTo(otherById, meById);
+    List<Message> sent = messageRepo.findAllByFromAndTo(loggedUser, currentUser);
+    List<Message> received = messageRepo.findAllByFromAndTo(currentUser, loggedUser);
     List<Message> allMessages = new ArrayList<>();
 
     allMessages.addAll(sent);
     allMessages.addAll(received);
 
-    Comparator<Message> compareById = Comparator.comparing(Message::getId);
-    allMessages.sort(compareById);
+    allMessages.sort(Comparator.comparing(Message::getId));
 
     return allMessages;
   }
 
-  public List<Message> getLastMessagesbyUser(String me, String other) {
+  public List<Message> findLastMessagesbyUser(String loggedUserId) {
+    Userr loggedUser = userService.findById(loggedUserId);
+    List<Message> allMessages = messageRepo.findAllByFromOrTo(loggedUser, loggedUser);
 
-    List<Message> allMessages = getAllMessagesbyUser(me, other);
+    Set<Userr> connections = new HashSet<>();
 
-    Collections.reverse(allMessages);
-    List<Message> limited = allMessages.stream().limit(10).collect(Collectors.toList());
+    allMessages.forEach(m -> {
+      if (m.getFrom().equals(loggedUser)) connections.add(m.getTo());
+      else connections.add(m.getFrom());
+    });
 
-    return limited;
+    System.err.println(connections);
+    List<Message> lastMessages = connections.stream()
+            .map(c -> findMessagesBetween(loggedUserId, String.valueOf(c.getId())))
+            .map(messages -> messages.get(messages.size() - 1))
+            .collect(Collectors.toList());
+
+    lastMessages.forEach(System.err::println);
+    return lastMessages;
   }
 
 }

@@ -52,6 +52,6 @@ public class Message {
 
     @Override
     public String toString() {
-        return String.format("Message{id=%d}", id);
+        return String.format("Message{id=%d, message='%s', date=%s, from=%s, to=%s}", id, message, date, from, to);
     }
 }
