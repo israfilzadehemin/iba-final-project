@@ -9,7 +9,7 @@ import javax.mail.MessagingException;
 @RestController
 @RequestMapping("forgotpassword")
 public class MailSenderController {
-    private final MailSenderService sender;
+    private final  MailSenderService sender;
     private final UserService service;
 
     public MailSenderController(MailSenderService sender, UserService service) {

@@ -111,7 +111,7 @@ public class UserService {
     return user;
   }
 
-  public boolean isUserExistByEmail(String mail){
+  public boolean isUserExistByEmail(String  mail){
     return userRepo.getUserrByEmail(mail).isPresent();
   }
 }
