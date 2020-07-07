@@ -28,11 +28,21 @@ public class Post {
     private LocalDate date;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id",referencedColumnName = "u_id")
+    @JoinTable(name = "r_post_user",
+            joinColumns = {@JoinColumn(name="post_id",
+                    referencedColumnName = "p_id"),
+            },
+            inverseJoinColumns = {@JoinColumn(name = "user_id",
+                    referencedColumnName = "u_id")})
     private Userr user;
 
     @ManyToOne
-    @JoinColumn(name = "category_id", referencedColumnName = "c_id")
+    @JoinTable(name = "r_post_category",
+            joinColumns = {@JoinColumn(name="post_id",
+                    referencedColumnName = "p_id"),
+            },
+            inverseJoinColumns = {@JoinColumn(name = "category_id",
+                    referencedColumnName = "c_id")})
     private Category category;
 
     public Post(Userr user,String name, Category category, String city, String image, LocalDate expiry_date) {
