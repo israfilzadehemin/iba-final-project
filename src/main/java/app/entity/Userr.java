@@ -52,6 +52,12 @@ public class Userr {
     @OneToMany(mappedBy = "whom")
     private Set<Blocked> whom_block;
 
+    @OneToMany(mappedBy = "userr")
+    private Set<Role> roles;
+
+    @OneToMany(mappedBy = "user")
+    private Set<ResetToken> resetTokens;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
