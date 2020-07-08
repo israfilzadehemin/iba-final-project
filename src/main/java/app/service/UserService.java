@@ -2,10 +2,7 @@ package app.service;
 
 import app.entity.Userr;
 import app.entity.Userr;
-import app.exception.input.EmptyInputEx;
-import app.exception.input.FillInfoEmptyInputEx;
-import app.exception.input.SignUpEmptyInputEx;
-import app.exception.input.UpdateUserEmptyInputEx;
+import app.exception.input.*;
 import app.exception.post.InvalidInputEx;
 import app.exception.user.*;
 import app.repo.UserRepo;
@@ -99,10 +96,27 @@ public class UserService {
     }
   }
 
+
+  public boolean updatePassword(String email, String pass, String conPass) {
+    if (email == null || pass == null || conPass == null
+            || email.isBlank() || pass.isBlank() || conPass.isBlank()) throw new ResetEmptyInputEx();
+    else if (!pass.equals(conPass)) throw new NewPassNotMatchEx();
+    else {
+      Userr user = findByEmail(email);
+      user.setPassword(pass);
+      userRepo.save(user);
+      return true;
+    }
+  }
+
   public Userr findById(String id) {
     if (validationTool.isParsableToLong(id)){
       return userRepo.findById(Long.parseLong(id)).orElseThrow(UserNotFoundEx::new);}
     else throw new InvalidInputEx();
+  }
+
+  public Userr findByEmail (String email) {
+    return userRepo.findUserrByEmail(email).orElseThrow(UserNotFoundEx::new);
   }
 
   public Userr viewUser(String userId, String loggedId) {
