@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="https://www.thymeleaf.org"
+        lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -10,10 +13,12 @@
             crossorigin="anonymous"
     ></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/bootstrap-grid.css">
-    <link rel="stylesheet" href="css/bootstrap-reboot.css">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-grid.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.theme.default.css}">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
     <title>MyProject | Sign up</title>
 </head>
 <body>
@@ -27,8 +32,8 @@
     </div>
 
     <form method="post" class="col-lg-4 col-md-6 col-sm-12 form-group d-inline-block e-form">
-        <input name="pass" required type="email" class="col-12 form-control e-input" placeholder="Enter new password">
-        <input name="conPass" required type="email" class="col-12 form-control e-input" placeholder="Confirm new password">
+        <input name="pass" required type="password" class="col-12 form-control e-input" placeholder="Enter new password">
+        <input name="conPass" required type="password" class="col-12 form-control e-input" placeholder="Confirm new password">
         <input name="req" type="submit" value="Submit" class="col-12 form-control mb-2 e-submit">
     </form>
 </div>

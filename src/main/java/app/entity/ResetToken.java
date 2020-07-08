@@ -29,6 +29,11 @@ public class ResetToken {
                     referencedColumnName = "u_id")})
     private Userr user;
 
+    public ResetToken(Userr user, String token) {
+    this.user = user;
+    this.token = token;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id);

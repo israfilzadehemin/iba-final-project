@@ -1,13 +1,15 @@
 package app.tool;
 
 import app.entity.Userr;
+import app.exception.input.ResetEmptyInputEx;
+import app.exception.user.UserNotFoundEx;
 import app.repo.CategoryRepo;
 import app.repo.PostRepo;
+import app.repo.ResetTokenRepo;
 import app.repo.UserRepo;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.Optional;
 
 @Log4j2
@@ -16,12 +18,14 @@ public class ValidationTool {
   private final UserRepo userRepo;
   private final PostRepo postRepo;
   private final CategoryRepo categoryRepo;
+  private final ResetTokenRepo resetTokenRepo;
 
 
-  public ValidationTool(UserRepo userRepo, PostRepo postRepo, CategoryRepo categoryRepo) {
+  public ValidationTool(UserRepo userRepo, PostRepo postRepo, CategoryRepo categoryRepo, ResetTokenRepo resetTokenRepo) {
     this.userRepo = userRepo;
     this.postRepo = postRepo;
     this.categoryRepo = categoryRepo;
+    this.resetTokenRepo = resetTokenRepo;
   }
 
   public boolean isEmailUnique(String email) {
@@ -162,7 +166,18 @@ public class ValidationTool {
   public boolean isCategoryValid(String category) {
     if (!isParsableToLong(category)) return false;
     return categoryRepo.findAll().stream()
-            .anyMatch(c -> c.getId()== Long.parseLong(category));
+            .anyMatch(c -> c.getId() == Long.parseLong(category));
   }
 
+  public boolean isTokenCorrect(String email, String token) {
+    if (email == null || token == null || email.isBlank() || token.isBlank())
+      throw new ResetEmptyInputEx();
+    Userr user = userRepo.findUserrByEmail(email)
+            .orElseThrow(UserNotFoundEx::new);
+
+    return resetTokenRepo.findAllByUser(user)
+            .get(0)
+            .getToken()
+            .equals(token);
+  }
 }

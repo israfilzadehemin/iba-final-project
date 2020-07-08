@@ -53,11 +53,25 @@ public class AppExHandler {
         return new RedirectView("/signup");
     }
 
+    @ExceptionHandler(NewPassNotMatchEx.class)
+    public RedirectView handleNewPassNotMatch(Model model){
+        model.addAttribute("error", "passnotmatch");
+        log.warn("AppExHandler: NewPassNotMatchEx");
+        return new RedirectView("/resetpass");
+    }
+
     @ExceptionHandler(EmptyInputEx.class)
     public RedirectView handleEmptyInput(Model model){
         model.addAttribute("error", "emptyinput");
         log.warn("AppExHandler: EmptyInputEx");
         return new RedirectView("/signup");
+    }
+
+    @ExceptionHandler(ResetEmptyInputEx.class)
+    public RedirectView handleResetEmptyInput(Model model){
+        model.addAttribute("error", "emptyinput");
+        log.warn("AppExHandler: ResetEmptyInputEx");
+        return new RedirectView("/resetpass");
     }
 
     @ExceptionHandler(InvalidPhoneNumberEx.class)
@@ -195,6 +209,12 @@ public class AppExHandler {
     public RedirectView handleMessageNotFound(){
         log.warn("AppExHandler: MessageNotFoundEx");
         return new RedirectView("/dashboard");
+    }
+
+    @ExceptionHandler(InvalidResetTokenEx.class)
+    public RedirectView handleInvalidResetToken(){
+        log.warn("AppExHandler: InvalidResetTokenEx");
+        return new RedirectView("/signin");
     }
 
 

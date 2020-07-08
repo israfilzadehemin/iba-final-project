@@ -32,6 +32,14 @@
     </div>
 
     <form method="post" class="col-lg-3 col-md-6 col-sm-12 form-group d-inline-block e-form">
+        <div th:if="${(param.error != null) and (param.error[0] == 'emptyinput')}" class="d-block col-12 alert alert-danger">
+            Please fill both fields. Try again
+        </div>
+
+        <div th:if="${(param.error != null) and (param.error[0] == 'passnotmatch')}" class="d-block col-12 alert alert-danger">
+            Passwords does not match. Please try again
+        </div>
+
         <div th:if="${(param.sent != null) and (param.sent[0] == 'true')}" class="alert alert-success">
             Please check your email
         </div>
