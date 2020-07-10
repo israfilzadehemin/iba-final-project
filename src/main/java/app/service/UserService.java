@@ -114,7 +114,7 @@ public class UserService {
     else if (!pass.equals(conPass)) throw new NewPassNotMatchEx();
     else {
       Userr user = findByEmail(email);
-      user.setPassword(pass);
+      user.setPassword(passwordEncoder.encode(pass));
       userRepo.save(user);
       return true;
     }
