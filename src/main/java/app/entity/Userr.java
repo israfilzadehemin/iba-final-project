@@ -32,11 +32,6 @@ public class Userr {
     private LocalDateTime reg_date;
     private boolean status;
 
-    public Userr(String email, String password){
-        this.email=email;
-        this.password=password;
-    }
-
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<Post> posts;
 
@@ -57,6 +52,13 @@ public class Userr {
 
     @OneToMany(mappedBy = "user")
     private Set<ResetToken> resetTokens;
+
+
+    public Userr(String email, String password, Set<Role> roles){
+        this.email=email;
+        this.password=password;
+        this.roles = roles;
+    }
 
     @Override
     public boolean equals(Object o) {

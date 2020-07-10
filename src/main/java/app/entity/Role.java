@@ -23,4 +23,11 @@ public class Role {
             inverseJoinColumns = {@JoinColumn(name = "user_id",
                     referencedColumnName = "u_id")})
     private Userr userr;
+
+    @Override
+    public String toString() {
+        return roles;
+    }
+
+
 }

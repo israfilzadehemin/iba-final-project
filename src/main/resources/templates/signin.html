@@ -31,7 +31,7 @@
         <h1 class="col-12 form-title">Sign in page</h1>
     </div>
 
-    <form method="post" class="col-lg-3 col-md-6 col-sm-12 form-group d-inline-block e-form">
+    <form method="post" action="/signin" class="col-lg-3 col-md-6 col-sm-12 form-group d-inline-block e-form">
 
         <div th:if="${(param.error != null) and (param.error[0] == 'incorrectlogin')}" class="alert alert-danger">
             Email/Username and password does not match
