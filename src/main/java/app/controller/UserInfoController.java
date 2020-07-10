@@ -2,9 +2,11 @@ package app.controller;
 
 import app.externalapi.cityapi.CityService;
 import app.form.FormInfo;
+import app.security.UserrDetails;
 import app.service.UserService;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,23 +32,28 @@ public class UserInfoController {
   }
 
   @GetMapping
-  public String handle_get(Model model) {
+  public String handle_get(Model model, Authentication au) {
     model.addAttribute("cities", cityService.getCities());
+    model.addAttribute("loggedUser", userService.findByEmail(getLoggedUser(au).getUsername()));
     return "anket";
   }
 
-  @SneakyThrows
   @PostMapping
-  public RedirectView handle_post(FormInfo form, @RequestParam("image") MultipartFile file) {
+  public RedirectView handle_post(FormInfo form,
+                                  @RequestParam("image") MultipartFile file,
+                                  Authentication au) {
     String username = form.getUsername();
     String name = form.getName();
     String surname = form.getSurname();
     String city = form.getCity();
     String number = form.getNumber();
 
-    if (!userService.fillInfo("1", username, name, surname, city, number, file)) {
-      log.warn("Something went wrong filling UserInfo");
-    }
+    userService.fillInfo(String.valueOf(getLoggedUser(au).getId()), username, name, surname, city, number, file);
     return new RedirectView("dashboard");
   }
+
+  UserrDetails getLoggedUser(Authentication authentication) {
+    return (UserrDetails) authentication.getPrincipal();
+  }
+
 }

@@ -12,6 +12,7 @@ import app.repo.PostRepo;
 import app.tool.ConverterTool;
 import app.tool.FileTool;
 import app.tool.ValidationTool;
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +22,7 @@ import java.util.List;
 
 @Log4j2
 @Service
+@AllArgsConstructor
 public class PostService {
   private final PostRepo postRepo;
   private final CategoryRepo categoryRepo;
@@ -28,16 +30,6 @@ public class PostService {
   private final ValidationTool validationTool;
   private final FileTool fileTool;
   private final ConverterTool converterTool;
-
-
-  public PostService(PostRepo postRepo, CategoryRepo categoryRepo, UserService userService, ValidationTool validationTool, FileTool fileTool, ConverterTool converterTool) {
-    this.postRepo = postRepo;
-    this.categoryRepo = categoryRepo;
-    this.userService = userService;
-    this.validationTool = validationTool;
-    this.fileTool = fileTool;
-    this.converterTool = converterTool;
-  }
 
   public void fillAdver(String fullName, String number, String time) {
 //should be implemented for index

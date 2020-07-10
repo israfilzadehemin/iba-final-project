@@ -21,6 +21,13 @@ public class RoleService {
   private final RoleRepo roleRepo;
 
   public Role findByRole(String role) {
-    return roleRepo.findRoleByRoles(role).get();
+    return roleRepo.findRolesByName(role).get(0);
+  }
+
+  public boolean addRoleToUser(Userr user, String roleName) {
+    Role role = findByRole(roleName);
+    role.getUsers().add(user);
+    roleRepo.save(role);
+    return true;
   }
 }

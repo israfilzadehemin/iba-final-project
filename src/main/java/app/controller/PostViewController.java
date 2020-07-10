@@ -2,8 +2,12 @@ package app.controller;
 
 import app.entity.Post;
 import app.form.FormUser;
+import app.security.UserrDetails;
 import app.service.PostService;
+import app.service.UserService;
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,20 +21,19 @@ import java.util.List;
 
 @Log4j2
 @Controller
+@AllArgsConstructor
 @RequestMapping("/myposts")
 public class PostViewController {
 
   // http://localhost:8085/myposts
 
   private final PostService postService;
-
-  public PostViewController(PostService postService) {
-    this.postService = postService;
-  }
+  private final UserService userService;
 
   @GetMapping
-  public String handle_get(Model model) {
-    List<Post> posts = postService.findByUser("1");
+  public String handle_get(Model model, Authentication au) {
+    List<Post> posts = postService.findByUser(String.valueOf(getLoggedUser(au).getId()));
+    model.addAttribute("loggedUser", userService.findByEmail(getLoggedUser(au).getUsername()));
     model.addAttribute("posts", posts);
     return "manage-post";
   }
@@ -46,4 +49,9 @@ public class PostViewController {
   public String handle_post() {
     return "manage-post";
   }
+
+  UserrDetails getLoggedUser(Authentication authentication) {
+    return (UserrDetails) authentication.getPrincipal();
+  }
+
 }

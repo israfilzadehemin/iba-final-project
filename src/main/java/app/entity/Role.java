@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -13,20 +14,20 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "r_id")
     private int id;
-    private String roles;
+    private String name;
 
-    @ManyToOne
+    @ManyToMany
     @JoinTable(name = "r_role_user",
             joinColumns = {@JoinColumn(name="role_id",
                     referencedColumnName = "r_id"),
             },
             inverseJoinColumns = {@JoinColumn(name = "user_id",
                     referencedColumnName = "u_id")})
-    private Userr userr;
+    private Set<Userr> users;
 
     @Override
     public String toString() {
-        return roles;
+        return name;
     }
 
 

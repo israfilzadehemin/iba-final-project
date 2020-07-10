@@ -2,32 +2,40 @@ package app.service;
 
 import app.entity.Role;
 import app.entity.Userr;
-import app.entity.Userr;
 import app.exception.input.*;
 import app.exception.post.InvalidInputEx;
 import app.exception.user.*;
 import app.repo.UserRepo;
 import app.tool.FileTool;
 import app.tool.ValidationTool;
-import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 @Log4j2
 @Service
-@AllArgsConstructor
 public class UserService {
   private final ValidationTool validationTool;
   private final FileTool fileTool;
   private final UserRepo userRepo;
   private final PasswordEncoder passwordEncoder;
   private final RoleService roleService;
+
+  public UserService(ValidationTool validationTool,
+                     FileTool fileTool,
+                     UserRepo userRepo,
+                     PasswordEncoder passwordEncoder,
+                     RoleService roleService) {
+    this.validationTool = validationTool;
+    this.fileTool = fileTool;
+    this.userRepo = userRepo;
+    this.passwordEncoder = passwordEncoder;
+    this.roleService = roleService;
+  }
 
   public boolean register(String email, String pass, String passConfirm) {
     if (email.isBlank() || pass.isBlank() || passConfirm.isBlank()) {
@@ -38,10 +46,9 @@ public class UserService {
       throw new PassNotMatchEx();
     } else {
       log.info("User registered successfully");
-      Set<Role> roles = new HashSet<>();
-      roles.add(roleService.findByRole("USER"));
-      Userr user = new Userr(email, passwordEncoder.encode(pass), roles);
+      Userr user = new Userr(email, passwordEncoder.encode(pass));
       userRepo.save(user);
+      roleService.addRoleToUser(user, "USER");
       return true;
     }
   }

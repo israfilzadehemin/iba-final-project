@@ -1,9 +1,12 @@
 package app.controller;
 
 import app.form.FormChat;
+import app.security.UserrDetails;
 import app.service.MessageService;
+import app.service.UserService;
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.apache.logging.log4j.message.FormattedMessage;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,22 +17,23 @@ import org.springframework.web.servlet.view.RedirectView;
 
 @Log4j2
 @Controller
+@AllArgsConstructor
 @RequestMapping("/message")
 public class MessageController {
 
   private final MessageService messageService;
-
-  public MessageController(MessageService messageService) {
-    this.messageService = messageService;
-  }
+  private final UserService userService;
 
   /**
    * http://localhost:8085/message
    */
   @GetMapping()
-  public String handle_get(Model model) {
-    model.addAttribute("loggedUserId", "1");
-    model.addAttribute("connections", messageService.findLastMessagesbyUser("1"));
+  public String handle_get(Model model, Authentication au) {
+
+    model.addAttribute("loggedUserId", getLoggedUser(au).getId());
+    model.addAttribute("loggedUser", userService.findByEmail(getLoggedUser(au).getUsername()));
+    model.addAttribute("connections",
+            messageService.findLastMessagesbyUser(String.valueOf(getLoggedUser(au).getId())));
 
     return "chat-main";
   }
@@ -38,15 +42,21 @@ public class MessageController {
    * http://localhost:8085/message/2
    */
   @GetMapping("/{id}")
-  public String handle_get(@PathVariable String id, Model model) {
-    model.addAttribute("loggedUserId", "1");
-    model.addAttribute("messages", messageService.findMessagesBetween("1", id));
+  public String handle_get(@PathVariable String id, Model model, Authentication au) {
+    String loggedUserId = String.valueOf(getLoggedUser(au).getId());
+    model.addAttribute("loggedUserId", loggedUserId);
+    model.addAttribute("loggedUser", userService.findByEmail(getLoggedUser(au).getUsername()));
+    model.addAttribute("messages", messageService.findMessagesBetween(loggedUserId, id));
     return "chat-private";
   }
 
   @PostMapping("/{id}")
-  public RedirectView handle_post(FormChat form, @PathVariable String id) {
-    messageService.sendMessage("1", id, form.getMessage());
+  public RedirectView handle_post(FormChat form, @PathVariable String id, Authentication au) {
+    messageService.sendMessage(String.valueOf(getLoggedUser(au).getId()), id, form.getMessage());
     return new RedirectView("{id}");
+  }
+
+  UserrDetails getLoggedUser(Authentication authentication) {
+    return (UserrDetails) authentication.getPrincipal();
   }
 }

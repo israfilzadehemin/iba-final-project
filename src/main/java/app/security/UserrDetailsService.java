@@ -36,13 +36,8 @@ public class UserrDetailsService implements UserDetailsService {
             user.getEmail(),
             user.getPassword(),
             user.getRoles().stream()
-                    .map(r -> new GrantedAuthority() {
-                      @Override
-                      public String getAuthority() {
-                        return r.toString();
-                      }
-
-                    }).collect(Collectors.toSet()),
+                    .map(r -> "ROLE_" + r)
+                    .map(r -> (GrantedAuthority) () -> r.toString()).collect(Collectors.toSet()),
             true,
             true,
             true,

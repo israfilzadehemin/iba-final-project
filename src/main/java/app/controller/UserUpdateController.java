@@ -3,8 +3,10 @@ package app.controller;
 import app.entity.Userr;
 import app.externalapi.cityapi.CityService;
 import app.form.FormUser;
+import app.security.UserrDetails;
 import app.service.UserService;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,24 +29,32 @@ public class UserUpdateController {
   // http://localhost:8085/user/update
 
   @GetMapping()
-  public String handle_get(Model model) {
-    Userr user = userService.findById("1");
+  public String handle_get(Model model, Authentication au) {
+    Userr user = userService.findById(String.valueOf(getLoggedUser(au).getId()));
+
     model.addAttribute("user", user);
     model.addAttribute("cities", cityService.getCities());
     return "update-profile";
   }
 
   @PostMapping()
-  public RedirectView handle_post(FormUser form, @RequestParam("image") MultipartFile file, Model model) {
+  public RedirectView handle_post(FormUser form,
+                                  @RequestParam("image") MultipartFile file,
+                                  Model model,
+                                  Authentication au) {
     String name = form.getName();
     String surname = form.getSurname();
     String city = form.getCity();
     String number = form.getNumber();
 
-    if (!userService.updateUser("15", name, surname, city, number, file)) {
-      log.warn("User update canceled!");
-    }
+    userService.updateUser(String.valueOf(getLoggedUser(au).getId()), name, surname, city, number, file);
+
     model.addAttribute("process", "profileupdated");
     return new RedirectView("dashboard");
   }
+
+  UserrDetails getLoggedUser(Authentication authentication) {
+    return (UserrDetails) authentication.getPrincipal();
+  }
+
 }

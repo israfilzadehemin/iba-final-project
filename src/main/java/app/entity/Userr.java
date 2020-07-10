@@ -47,17 +47,16 @@ public class Userr {
     @OneToMany(mappedBy = "whom")
     private Set<Blocked> whom_block;
 
-    @OneToMany(mappedBy = "userr")
+    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
     private Set<Role> roles;
 
     @OneToMany(mappedBy = "user")
     private Set<ResetToken> resetTokens;
 
 
-    public Userr(String email, String password, Set<Role> roles){
+    public Userr(String email, String password){
         this.email=email;
         this.password=password;
-        this.roles = roles;
     }
 
     @Override
