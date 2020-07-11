@@ -54,9 +54,11 @@ public class Userr {
     private Set<ResetToken> resetTokens;
 
 
-    public Userr(String email, String password){
+    public Userr(String email, String password, LocalDateTime reg_date, boolean status){
         this.email=email;
         this.password=password;
+        this.reg_date = reg_date;
+        this.status = status;
     }
 
     @Override

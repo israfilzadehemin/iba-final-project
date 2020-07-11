@@ -29,7 +29,7 @@ public class ValidationTool {
   }
 
   public boolean isEmailUnique(String email) {
-    Optional<Userr> user = userRepo.findUserrByEmail(email);
+    Optional<Userr> user = userRepo.findUserrByEmail(email.toLowerCase());
     if (user.equals(Optional.empty())) {
       return true;
     } else {
@@ -129,8 +129,8 @@ public class ValidationTool {
   }
 
   public boolean isLoginCorrect(String login, String pass) {
-    Optional<Userr> userByEmail = userRepo.findUserrByEmail(login);
-    Optional<Userr> userByUsername = userRepo.findUserrByUsername(login);
+    Optional<Userr> userByEmail = userRepo.findUserrByEmail(login.toLowerCase());
+    Optional<Userr> userByUsername = userRepo.findUserrByUsername(login.toLowerCase());
 
     if (!userByEmail.equals(Optional.empty())) {
       if (userByEmail.get().getPassword().equals(pass)) {

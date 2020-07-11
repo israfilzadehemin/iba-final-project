@@ -33,6 +33,9 @@ public class UserInfoController {
 
   @GetMapping
   public String handle_get(Model model, Authentication au) {
+    if (userService.isInfoFilled(getLoggedUser(au).getId()))
+      return "redirect:/dashboard";
+    
     model.addAttribute("cities", cityService.getCities());
     model.addAttribute("loggedUser", userService.findByEmail(getLoggedUser(au).getUsername()));
     return "anket";

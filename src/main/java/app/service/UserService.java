@@ -13,6 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -46,7 +48,7 @@ public class UserService {
       throw new PassNotMatchEx();
     } else {
       log.info("User registered successfully");
-      Userr user = new Userr(email, passwordEncoder.encode(pass));
+      Userr user = new Userr(email.toLowerCase(), passwordEncoder.encode(pass), LocalDateTime.now(), true);
       userRepo.save(user);
       roleService.addRoleToUser(user, "USER");
       return true;
@@ -61,6 +63,14 @@ public class UserService {
     }
   }
 
+  public boolean isInfoFilled(long loggedUserId) {
+    Userr user = findById(String.valueOf(loggedUserId));
+    if (user.getCity() == null || user.getName() == null ||
+            user.getSurname() == null || user.getUsername() == null) return false;
+
+    return true;
+  }
+
   public boolean fillInfo(String id, String username, String name, String surname, String city, String number, MultipartFile file) {
     if (username.isBlank() || name.isBlank() || surname.isBlank() ||
             city.isBlank() || number.isBlank() || file.isEmpty()) {
@@ -72,7 +82,7 @@ public class UserService {
     } else {
       String image = fileTool.uploadProfilePic(file);
       Userr user = findById(id);
-      user.setUsername(username);
+      user.setUsername(username.toLowerCase());
       user.setName(name);
       user.setSurname(surname);
       user.setCity(city);
@@ -121,22 +131,22 @@ public class UserService {
   }
 
   public Userr findById(String id) {
-    if (validationTool.isParsableToLong(id)){
-      return userRepo.findById(Long.parseLong(id)).orElseThrow(UserNotFoundEx::new);}
-    else throw new InvalidInputEx();
+    if (validationTool.isParsableToLong(id)) {
+      return userRepo.findById(Long.parseLong(id)).orElseThrow(UserNotFoundEx::new);
+    } else throw new InvalidInputEx();
   }
 
-  public Userr findByEmail (String email) {
+  public Userr findByEmail(String email) {
     return userRepo.findUserrByEmail(email).orElseThrow(UserNotFoundEx::new);
   }
 
   public Userr viewUser(String userId, String loggedId) {
     Userr user = findById(userId);
-    if (user.getId()==Long.parseLong(loggedId)) throw new SelfViewEx();
+    if (user.getId() == Long.parseLong(loggedId)) throw new SelfViewEx();
     return user;
   }
 
-  public boolean isUserExistByEmail(String  mail){
+  public boolean isUserExistByEmail(String mail) {
     return userRepo.getUserrByEmail(mail).isPresent();
   }
 }

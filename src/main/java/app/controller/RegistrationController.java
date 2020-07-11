@@ -35,9 +35,7 @@ public class RegistrationController {
     String password = form.getPass();
     String conPass = form.getConPass();
 
-    if (!userService.register(email, password, conPass)) {
-      log.warn("Registration canceled!");
-    }
-    return new RedirectView("anket");
+    userService.register(email, password, conPass);
+    return new RedirectView("/signin");
   }
 }

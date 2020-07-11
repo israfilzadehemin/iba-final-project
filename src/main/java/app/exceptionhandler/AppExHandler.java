@@ -92,7 +92,7 @@ public class AppExHandler {
     public RedirectView handleNoPost(Model model){
         model.addAttribute("error", "nopost");
         log.warn("AppExHandler: NoPostEx");
-        return new RedirectView("/dashboard");
+        return new RedirectView("/myposts");
     }
 
     @ExceptionHandler(InvalidDateFormatEx.class)

@@ -19,7 +19,8 @@
     <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
     <link rel="stylesheet" th:href="@{/css/owl.theme.default.css}">
     <link rel="stylesheet" th:href="@{/css/main.css}">
-    <title>MyProject | Sign up</title>
+    <link rel="icon" th:href="@{/img/logo/ico2.ico}">
+    <title>Welcome to Handy</title>
 </head>
 <body>
 
@@ -27,7 +28,7 @@
     <div class="e-nav-container">
         <ul class="col-12 e-nav-list">
             <li class="col-lg-2 col-md-6 col-sm-12 e-nav-item">
-                <a href="" class="nav-link  text-center e-nav-link">Home</a>
+                <a th:href="@{/}" class="nav-link  text-center e-nav-link"> <img th:src="@{img/logo/ico.png}" width="50" height="50"></a>
             </li>
             <li class="col-lg-2 col-md-6 col-sm-12 e-nav-item">
                 <a href="#about" class="nav-link e-nav-link">About us</a>
@@ -48,8 +49,8 @@
                         Join us
                     </button>
                     <div class="dropdown-menu e-dd-content" aria-labelledby="dropdownMenuButton">
-                        <a href="#" class="dropdown-item"><i class="fas fa-sign-in-alt mr-2"></i>Sign in</a>
-                        <a href="#" class="dropdown-item"><i class="fas fa-user-plus mr-2"></i>Sign up</a>
+                        <a th:href="@{/signup}" class="dropdown-item"><i class="fas fa-user-plus mr-2"></i>Sign up</a>
+                        <a th:href="@{/signin}" class="dropdown-item"><i class="fas fa-sign-in-alt mr-2"></i>Sign in</a>
                     </div>
                 </div>
             </li>
@@ -98,7 +99,7 @@
 
         <form method="post" class="col-lg-12 col-md-5 col-sm-12 p-0 form-group d-inline-block e-form">
             <input required name="fullName" type="text" class="col-12 form-control e-input" placeholder="Enter your name and surname">
-            <input required name="number" type="text" class="col-12 form-control e-input" placeholder="Enter mobile nphone number">
+            <input required name="number" type="text" class="col-12 form-control e-input" placeholder="Enter mobile phone number">
             <input required name="time" type="text" class="col-12 form-control e-input"
                    placeholder="Enter your availabe time to call (e.g: 11.03.2020 15:00)">
             <input name="adv" type="submit" value="Submit" class="col-12 form-control e-submit">
@@ -137,10 +138,10 @@
     </div>
 </div>
 
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.bundle.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/main.js"></script>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.bundle.js}"></script>
+<script th:src="@{/js/bootstrap.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/main.js}"></script>
 </body>
 </html>

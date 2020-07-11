@@ -18,7 +18,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     http
             .csrf().disable()
             .authorizeRequests()
-            .antMatchers("/", "/signup", "/index", "/img/**", "/css/**", "/js/**")
+            .antMatchers("/", "/signup", "/index", "/resetpass/**", "/img/**", "/css/**", "/js/**")
             .permitAll()
             .antMatchers(
                     "/dashboard", "/message",
@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .clearAuthentication(true)
             .invalidateHttpSession(true)
             .deleteCookies("JSESSIONID")
-            .logoutSuccessUrl("/index");
+            .logoutSuccessUrl("/");
 
   }
 

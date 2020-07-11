@@ -3,7 +3,7 @@ package app.form;
 import lombok.Data;
 
 @Data
-public class FormAdv {
+public class FormAd {
     private String fullName;
     private String number;
     private String time;

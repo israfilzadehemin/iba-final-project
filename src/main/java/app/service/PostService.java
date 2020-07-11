@@ -31,9 +31,6 @@ public class PostService {
   private final FileTool fileTool;
   private final ConverterTool converterTool;
 
-  public void fillAdver(String fullName, String number, String time) {
-//should be implemented for index
-  }
 
   public List<Post> findAll() {
     List<Post> allPosts = postRepo.findAllByStatusAndIdIsNot(true, 0);
