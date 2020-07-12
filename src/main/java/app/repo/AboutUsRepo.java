@@ -1,10 +1,10 @@
 package app.repo;
 
 
-import app.entity.Post;
+import app.entity.AboutUs;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AboutUsRepo extends JpaRepository<Post, Long> {
+public interface AboutUsRepo extends JpaRepository<AboutUs, Long> {
 }
