@@ -42,7 +42,7 @@ public class BlockedService {
     Userr who = userService.findById(whoId);
     Userr whom = userService.findById(whomId);
     Optional<Blocked> blocked = blockedRepo.findByWhoAndWhom(who, whom);
-    return blocked.isEmpty();
+    return blocked.isPresent();
   }
 
 

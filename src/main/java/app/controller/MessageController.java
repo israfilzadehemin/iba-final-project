@@ -46,13 +46,16 @@ public class MessageController {
   @GetMapping("/{id}")
   public String handle_get(@PathVariable String id, Model model, Authentication au) {
     String loggedUserId = String.valueOf(getLoggedUser(au).getId());
+
     if(blockedService.isBlocked(id, loggedUserId)){
-      model.addAttribute("loggedUserId", loggedUserId);
-      model.addAttribute("loggedUser", userService.findByEmail(getLoggedUser(au).getUsername()));
-      model.addAttribute("messages", messageService.findMessagesBetween(loggedUserId, id));
-      return "chat-private";
+      return handle_get(model, au);
     }
-    return handle_get(model, au);
+
+    model.addAttribute("loggedUserId", loggedUserId);
+    model.addAttribute("loggedUser", userService.findByEmail(getLoggedUser(au).getUsername()));
+    model.addAttribute("messages", messageService.findMessagesBetween(loggedUserId, id));
+    return "chat-private";
+
   }
 
   @PostMapping("/{id}")

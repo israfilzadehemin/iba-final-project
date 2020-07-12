@@ -27,15 +27,13 @@ public class UserViewController {
                            Model model,
                            Authentication au) {
     String loggedUserId = String.valueOf(getLoggedUser(au).getId());
+
     if(blockedService.isBlocked(id, loggedUserId)){
-      model.addAttribute("user", userService.viewUser(id, loggedUserId));
-      return "user";
-    }
-    else{
-      return "dashboard";
+      throw new RuntimeException();
     }
 
-
+    model.addAttribute("user", userService.viewUser(id, loggedUserId));
+    return "user";
   }
 
   @GetMapping("/block/{id}")
