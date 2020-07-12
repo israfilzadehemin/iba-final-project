@@ -58,11 +58,11 @@ public class SearchController {
     return "dashboard";
   }
 
-  @PostMapping()
+  @PostMapping("/{currentPage}")
   public RedirectView handle_post(Model model, FormSearch form) {
     model.addAttribute("name", form.getKeyword());
     model.addAttribute("cat", form.getCategory());
-    return new RedirectView("search");
+    return new RedirectView("/search/1");
   }
 
   UserrDetails getLoggedUser(Authentication authentication) {

@@ -35,6 +35,10 @@ public class PostViewController {
    * http://localhost:8080/myposts/2?sortField=name&sortDir=asc
    */
 
+  @RequestMapping()
+  public RedirectView handle_get() {
+    return new RedirectView("/myposts/1");
+  }
 
   @GetMapping("/{currentPage}")
   public String handle_get(Model model, Authentication au,
@@ -50,7 +54,7 @@ public class PostViewController {
 
     pageableTool.controller(page, model, currentPage, sortField, sortDir);
     model.addAttribute("loggedUser", userService.findByEmail(getLoggedUser(au).getUsername()));
-
+    model.addAttribute("posts", page);
 
     return "manage-post";
   }
@@ -62,7 +66,7 @@ public class PostViewController {
       return new RedirectView("/myposts");
   }
 
-  @PostMapping
+  @PostMapping("/{currentPage}")
   public String handle_post() {
     return "manage-post";
   }

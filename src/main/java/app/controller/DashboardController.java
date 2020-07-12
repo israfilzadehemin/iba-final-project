@@ -35,6 +35,11 @@ public class DashboardController {
    * http://localhost:8080/dashboard/2?sortField=name&sortDir=asc
    */
 
+  @RequestMapping()
+  public RedirectView handle_main() {
+    return new RedirectView("/dashboard/1");
+  }
+
   @GetMapping("/{currentPage}")
   public String handle_get(Model model, Authentication au,
                            @PathVariable("currentPage") Optional<Integer> currentPageOp,
@@ -59,11 +64,11 @@ public class DashboardController {
    * http://localhost:8085/search?name=Em&cat=1
    */
 
-  @PostMapping()
+  @PostMapping("/{currentPage}")
   public RedirectView handle_post(Model model, FormSearch form) {
     model.addAttribute("name", form.getKeyword());
     model.addAttribute("cat", form.getCategory());
-    return new RedirectView("search");
+    return new RedirectView("/search/1");
   }
 
 
