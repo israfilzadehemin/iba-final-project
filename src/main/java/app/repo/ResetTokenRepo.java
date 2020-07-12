@@ -1,7 +1,6 @@
 package app.repo;
 
 
-import app.entity.Post;
 import app.entity.ResetToken;
 import app.entity.Userr;
 import org.springframework.data.jpa.repository.JpaRepository;

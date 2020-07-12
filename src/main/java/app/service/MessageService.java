@@ -2,7 +2,6 @@ package app.service;
 
 import app.entity.Message;
 import app.entity.Userr;
-import app.exception.input.EmptyInputEx;
 import app.exception.input.MessageEmptyInputEx;
 import app.exception.post.InvalidInputEx;
 import app.repo.MessageRepo;

@@ -11,11 +11,17 @@ import app.repo.CategoryRepo;
 import app.repo.PostRepo;
 import app.tool.ConverterTool;
 import app.tool.FileTool;
+import app.tool.PageableTool;
 import app.tool.ValidationTool;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 
 import java.time.LocalDate;
 import java.util.List;
@@ -30,11 +36,17 @@ public class PostService {
   private final ValidationTool validationTool;
   private final FileTool fileTool;
   private final ConverterTool converterTool;
+  private final PageableTool<Post> pageableTool;
 
 
-  public List<Post> findAll() {
-    List<Post> allPosts = postRepo.findAllByStatusAndIdIsNot(true, 0);
-    if (allPosts.size() == 0) {
+  public Page<Post> findAll(int currentPage, String sortField, String sortDir) {
+//    Sort sort = Sort.by(sortField);
+//    sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+//    Pageable pageable = PageRequest.of(currentPage-1,10, sort);
+    Pageable pageable = pageableTool.service(currentPage,sortField,sortDir);
+
+    Page<Post> allPosts = postRepo.findAllByStatusAndIdIsNot(true, 0, pageable);
+    if (allPosts.getTotalElements() == 0) {
       throw new NoPostEx();
     } else {
       return allPosts;
@@ -91,12 +103,14 @@ public class PostService {
     }
   }
 
-  public List<Post> findFiltered(String name, String category) {
+  public Page<Post> findFiltered(String name, String category,int currentPage, String sortField, String sortDir) {
     if (!validationTool.isParsableToLong(category)) {
       throw new InvalidInputEx();
     } else {
-      List<Post> filteredPosts = postRepo.findAllByNameContainingAndCategory_IdAndStatus(name, Long.parseLong(category), true);
-      if (filteredPosts.size() == 0) {
+      Pageable pageable = pageableTool.service(currentPage,sortField,sortDir);
+
+      Page<Post> filteredPosts = postRepo.findAllByNameContainingAndCategory_IdAndStatus(name, Long.parseLong(category), true, pageable);
+      if (filteredPosts.getTotalElements() == 0) {
         throw new PostNotFoundEx();
       } else {
         return filteredPosts;
@@ -104,8 +118,10 @@ public class PostService {
     }
   }
 
-  public List<Post> findByUser(String userId) {
-    return postRepo.findPostsByUserIdAndStatus(Long.parseLong(userId), true);
+  public Page<Post> findByUser(String userId, int currentPage, String sortField, String sortDir) {
+
+    Pageable pageable = pageableTool.service(currentPage,sortField,sortDir);
+    return postRepo.findPostsByUserIdAndStatus(Long.parseLong(userId), true, pageable);
   }
 
   public boolean isAuthorized(String userId, String postId) {

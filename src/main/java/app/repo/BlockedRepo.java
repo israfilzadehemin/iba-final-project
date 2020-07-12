@@ -2,7 +2,6 @@ package app.repo;
 
 
 import app.entity.Blocked;
-import app.entity.Post;
 import app.entity.Userr;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

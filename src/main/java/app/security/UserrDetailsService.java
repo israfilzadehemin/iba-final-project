@@ -1,7 +1,6 @@
 package app.security;
 
 import app.entity.Userr;
-import app.repo.UserRepo;
 import app.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
