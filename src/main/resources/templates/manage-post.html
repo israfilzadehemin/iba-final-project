@@ -79,17 +79,17 @@
                 <td th:text="${post.category.getName()}" class="align-middle"></td>
                 <td th:text="${post.expiry_date}" class="align-middle"></td>
                 <td class="align-middle">
-                    <a th:href="'mypost/' + ${post.id}" class="btn btn-lg" style="color: white">
+                    <a th:href="'/mypost/' + ${post.id}" class="btn btn-lg" style="color: white">
                         <i class="fas fa-edit"></i></a>
                 </td>
                 <td class="align-middle">
-                    <a th:href="'myposts/delete/' + ${post.id}" class="btn btn-lg" style="color: white">
+                    <a th:href="'/myposts/delete/' + ${post.id}" class="btn btn-lg" style="color: white">
                         <i class="fas fa-times"></i></a>
                 </td>
             </tr>
             <tr>
                 <td colspan="6">
-                    <a th:href="'mypost/0'" class="col-12 btn font-weight-bold" style="color:#007bff"> <i
+                    <a th:href="'/mypost/0'" class="col-12 btn font-weight-bold" style="color:#007bff"> <i
                             class="fas fa-plus mr-2"></i>Add</a>
                 </td>
             </tr>

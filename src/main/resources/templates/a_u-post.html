@@ -53,18 +53,18 @@
             <div class="e-posting-info">
                 <form method="post" enctype="multipart/form-data" class="col-lg-3 col-md-6 col-sm-12 form-group d-inline-block e-form">
                     <input th:value="${post.name}" name="name" required type="text" class="col-12 form-control e-input" placeholder="Enter product name">
-                    <select  name="category" class="col-12 form-control e-input">
+                    <select required  name="category" class="col-12 form-control e-input">
                         <option disabled selected>Select category</option>
                         <option th:each="cat : ${categories}" th:selected="${cat.id}==${post.category.getId()}" th:text="${cat.name}" th:value="${cat.id}"></option>
                     </select>
-                    <select name="city" class="col-12 form-control e-input">
+                    <select required name="city" class="col-12 form-control e-input">
                         <option disabled selected>Select your city</option>
                         <option th:each="city : ${cities}" th:selected="${city.name}==${post.city}" th:text="${city.name}" th:value="${city.name}"></option>
                     </select>
                     <input th:value="${post.expiry_date}" name="expiryDate" required type="date" class="col-12 form-control e-input"
                            placeholder="Enter expiry date">
                     <label for="profile-pic" class="form-control text-left e-label">Upload image </label>
-                    <input name="image" type="file" class="col-12 form-control-file e-file" id="profile-pic">
+                    <input required name="image" type="file" class="col-12 form-control-file e-file" id="profile-pic">
                     <input name="save" type="submit" value="Save" class="col-12 form-control e-submit">
                 </form>
             </div>

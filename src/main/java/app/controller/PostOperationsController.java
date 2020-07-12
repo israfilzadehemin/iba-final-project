@@ -30,7 +30,7 @@ public class PostOperationsController {
   // http://localhost:8085/mypost/6
 
 
-  @GetMapping("/")
+  @GetMapping()
   public String handle_get() {
     return "redirect:/myposts";
   }

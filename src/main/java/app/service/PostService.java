@@ -129,6 +129,8 @@ public class PostService {
 
     Post post = findById(postId);
 
+    if (Integer.parseInt(postId)==0) return true;
+
     if (post.getUser().getId()==Long.parseLong(userId)) return true;
     else {
       log.warn("Current user is not authorized to edit this post: from PostService.isAuthorized()");
