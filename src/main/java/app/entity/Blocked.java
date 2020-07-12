@@ -2,7 +2,6 @@ package app.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.catalina.User;
 
 import javax.persistence.*;
 import java.util.Objects;

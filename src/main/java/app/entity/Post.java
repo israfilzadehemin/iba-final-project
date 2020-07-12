@@ -7,9 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -45,7 +43,7 @@ public class Post {
                     referencedColumnName = "c_id")})
     private Category category;
 
-    public Post(Userr user,String name, Category category, String city, String image, LocalDate expiry_date) {
+    public Post(Userr user, String name, Category category, String city, String image, LocalDate expiry_date) {
         this.user = user;
         this.name = name;
         this.category = category;
