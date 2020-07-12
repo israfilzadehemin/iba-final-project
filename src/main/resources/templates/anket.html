@@ -41,8 +41,6 @@
         <div th:if="${(param.error != null) and (param.error[0] == 'usernamenotunique')}" class="alert alert-danger">
             This username is already in use
         </div>
-
-        <input name="username" required type="text" class="col-12 form-control e-input" placeholder="Enter your username">
         <input name="name" required type="text" class="col-12 form-control e-input" placeholder="Enter your name">
         <input name="surname" required type="text" class="col-12 form-control e-input" placeholder="Enter your surname">
         <select name="city" class="col-12 form-control e-input">

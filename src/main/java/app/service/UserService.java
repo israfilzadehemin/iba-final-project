@@ -67,18 +67,15 @@ public class UserService {
     return true;
   }
 
-  public boolean fillInfo(String id, String username, String name, String surname, String city, String number, MultipartFile file) {
-    if (username.isBlank() || name.isBlank() || surname.isBlank() ||
+  public boolean fillInfo(String id, String name, String surname, String city, String number, MultipartFile file) {
+    if (name.isBlank() || surname.isBlank() ||
             city.isBlank() || number.isBlank() || file.isEmpty()) {
       throw new FillInfoEmptyInputEx();
-    } else if (!validationTool.isUsernameUnique(username)) {
-      throw new UsernameNotUniqueEx();
     } else if (!validationTool.isPhoneValid(number)) {
       throw new InvalidPhoneNumberEx();
     } else {
       String image = fileTool.uploadProfilePic(file);
       Userr user = findById(id);
-      user.setUsername(username.toLowerCase());
       user.setName(name);
       user.setSurname(surname);
       user.setCity(city);

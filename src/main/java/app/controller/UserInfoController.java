@@ -34,7 +34,7 @@ public class UserInfoController {
   @GetMapping
   public String handle_get(Model model, Authentication au) {
     if (userService.isInfoFilled(getLoggedUser(au).getId()))
-      return "redirect:/dashboard";
+      return "redirect:/dashboard/1";
     
     model.addAttribute("cities", cityService.getCities());
     model.addAttribute("loggedUser", userService.findByEmail(getLoggedUser(au).getUsername()));
@@ -45,13 +45,12 @@ public class UserInfoController {
   public RedirectView handle_post(FormInfo form,
                                   @RequestParam("image") MultipartFile file,
                                   Authentication au) {
-    String username = form.getUsername();
     String name = form.getName();
     String surname = form.getSurname();
     String city = form.getCity();
     String number = form.getNumber();
 
-    userService.fillInfo(String.valueOf(getLoggedUser(au).getId()), username, name, surname, city, number, file);
+    userService.fillInfo(String.valueOf(getLoggedUser(au).getId()), name, surname, city, number, file);
     return new RedirectView("dashboard");
   }
 

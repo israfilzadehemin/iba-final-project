@@ -46,15 +46,6 @@ public class ValidationTool {
     }
   }
 
-  public boolean isUsernameUnique(String username) {
-    Optional<Userr> user = userRepo.findUserrByUsername(username);
-    if (user.equals(Optional.empty())) {
-      return true;
-    } else {
-      log.warn("Email is not unique: from ValidationTool.isUsernameUnique() ");
-      return false;
-    }
-  }
 
   public boolean isPhoneValid(String number) {
     if (!isAzercell(number) && !isBakcell(number) && !isNar(number) && !isHome(number)) {

@@ -21,14 +21,14 @@ public class AppExHandler {
     public RedirectView handleUserNotFound(Model model){
         model.addAttribute("error", "usernotfound");
         log.warn("AppExHandler: UserNotFoundEx");
-        return new RedirectView("/dashboard");
+        return new RedirectView("/dashboard/1");
     }
 
     @ExceptionHandler(PostNotFoundEx.class)
     public RedirectView handlePostNotFound(Model model){
         model.addAttribute("error", "postnotfound");
         log.warn("AppExHandler: PostNotFoundEx");
-        return new RedirectView("/dashboard");
+        return new RedirectView("/dashboard/1");
     }
 
     @ExceptionHandler(EmailNotUniqueEx.class)
@@ -92,7 +92,7 @@ public class AppExHandler {
     public RedirectView handleNoPost(Model model){
         model.addAttribute("error", "nopost");
         log.warn("AppExHandler: NoPostEx");
-        return new RedirectView("/myposts");
+        return new RedirectView("/myposts/1");
     }
 
     @ExceptionHandler(InvalidDateFormatEx.class)
@@ -106,7 +106,7 @@ public class AppExHandler {
     public RedirectView handleMatchedPost(Model model){
         model.addAttribute("error", "matchedpost");
         log.warn("AppExHandler: NoMatchedPostEx");
-        return new RedirectView("/dashboard");
+        return new RedirectView("/dashboard/1");
     }
 
     @ExceptionHandler(AdvEmptyInputEx.class)
@@ -133,7 +133,7 @@ public class AppExHandler {
     @ExceptionHandler(PostEmptyInputEx.class)
     public RedirectView handlePostEmptyInput(Model model){
         log.warn("AppExHandler: PostEmptyInputEx");
-        return new RedirectView("/myposts");
+        return new RedirectView("/myposts/1");
     }
 
     @ExceptionHandler(SignInEmptyInputEx.class)
@@ -166,37 +166,37 @@ public class AppExHandler {
     @ExceptionHandler(InvalidInputEx.class)
     public RedirectView handleInvalidInput(Model model){
         log.warn("AppExHandler: InvalidInputEx");
-        return new RedirectView("/dashboard");
+        return new RedirectView("/dashboard/1");
     }
 
     @ExceptionHandler(NoParamEx.class)
     public RedirectView handleNoParam(){
         log.warn("AppExHandler: NoParamEx");
-        return new RedirectView("/dashboard");
+        return new RedirectView("/dashboard/1");
     }
 
     @ExceptionHandler(NotAuthorizedEx.class)
     public RedirectView handleNotAuthorized(){
         log.warn("AppExHandler: NotAuthorizedEx");
-        return new RedirectView("/myposts");
+        return new RedirectView("/myposts/1");
     }
 
     @ExceptionHandler(DuplicateWishedEx.class)
     public RedirectView handleDuplicateWished(){
         log.warn("AppExHandler: DuplicateWishedEx");
-        return new RedirectView("/wishlist");
+        return new RedirectView("/wishlist/1");
     }
 
     @ExceptionHandler(DuplicateBlockedEx.class)
     public RedirectView handleDuplicateBlocked(){
         log.warn("AppExHandler: DuplicateBlockedEx");
-        return new RedirectView("/dashboard");
+        return new RedirectView("/dashboard/1");
     }
 
     @ExceptionHandler(NotWishedEx.class)
     public RedirectView handleNotWished(){
         log.warn("AppExHandler: NotWishedEx");
-        return new RedirectView("/wishlist");
+        return new RedirectView("/wishlist/1");
     }
 
     @ExceptionHandler(SelfViewEx.class)
@@ -208,7 +208,7 @@ public class AppExHandler {
     @ExceptionHandler(MessageNotFoundEx.class)
     public RedirectView handleMessageNotFound(){
         log.warn("AppExHandler: MessageNotFoundEx");
-        return new RedirectView("/dashboard");
+        return new RedirectView("/dashboard/1");
     }
 
     @ExceptionHandler(InvalidResetTokenEx.class)
