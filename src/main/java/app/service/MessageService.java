@@ -7,6 +7,7 @@ import app.exception.post.InvalidInputEx;
 import app.repo.MessageRepo;
 import app.repo.UserRepo;
 import app.tool.ValidationTool;
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
@@ -16,20 +17,11 @@ import java.util.stream.Collectors;
 
 @Log4j2
 @Service
-public class MessageService {
+@AllArgsConstructor
+public class  MessageService {
   private final ValidationTool validationTool;
   private final MessageRepo messageRepo;
   private final UserService userService;
-  private final UserRepo userRepo;
-
-  public MessageService(ValidationTool validationTool, MessageRepo messageRepo, UserService userService, UserRepo userRepo) {
-    this.validationTool = validationTool;
-    this.messageRepo = messageRepo;
-    this.userService = userService;
-    this.userRepo = userRepo;
-
-  }
-
 
   public List<Message> findMessagesBetween(String loggedUserId, String currentUserId) {
 
