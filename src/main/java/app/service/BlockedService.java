@@ -9,6 +9,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Log4j2
@@ -36,4 +37,13 @@ public class BlockedService {
             .map(Blocked::getWhom)
             .collect(Collectors.toList());
   }
+
+  public boolean isBlocked(String whoId, String whomId){
+    Userr who = userService.findById(whoId);
+    Userr whom = userService.findById(whomId);
+    Optional<Blocked> blocked = blockedRepo.findByWhoAndWhom(who, whom);
+    return blocked.isEmpty();
+  }
+
+
 }

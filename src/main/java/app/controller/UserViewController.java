@@ -26,8 +26,16 @@ public class UserViewController {
   public String handle_get(@PathVariable String id,
                            Model model,
                            Authentication au) {
-    model.addAttribute("user", userService.viewUser(id, String.valueOf(getLoggedUser(au).getId())));
-    return "user";
+    String loggedUserId = String.valueOf(getLoggedUser(au).getId());
+    if(blockedService.isBlocked(id, loggedUserId)){
+      model.addAttribute("user", userService.viewUser(id, loggedUserId));
+      return "user";
+    }
+    else{
+      return "dashboard";
+    }
+
+
   }
 
   @GetMapping("/block/{id}")

@@ -2,6 +2,7 @@ package app.controller;
 
 import app.form.FormChat;
 import app.security.UserrDetails;
+import app.service.BlockedService;
 import app.service.MessageService;
 import app.service.UserService;
 import lombok.AllArgsConstructor;
@@ -23,6 +24,7 @@ public class MessageController {
 
   private final MessageService messageService;
   private final UserService userService;
+  private final BlockedService blockedService;
 
   /**
    * http://localhost:8085/message
@@ -44,10 +46,13 @@ public class MessageController {
   @GetMapping("/{id}")
   public String handle_get(@PathVariable String id, Model model, Authentication au) {
     String loggedUserId = String.valueOf(getLoggedUser(au).getId());
-    model.addAttribute("loggedUserId", loggedUserId);
-    model.addAttribute("loggedUser", userService.findByEmail(getLoggedUser(au).getUsername()));
-    model.addAttribute("messages", messageService.findMessagesBetween(loggedUserId, id));
-    return "chat-private";
+    if(blockedService.isBlocked(id, loggedUserId)){
+      model.addAttribute("loggedUserId", loggedUserId);
+      model.addAttribute("loggedUser", userService.findByEmail(getLoggedUser(au).getUsername()));
+      model.addAttribute("messages", messageService.findMessagesBetween(loggedUserId, id));
+      return "chat-private";
+    }
+    return handle_get(model, au);
   }
 
   @PostMapping("/{id}")
