@@ -1,5 +1,6 @@
 package app.controller;
 
+import app.entity.Userr;
 import app.security.UserrDetails;
 import app.service.BlockedService;
 import app.service.UserService;
@@ -25,7 +26,9 @@ public class UserViewController {
   @GetMapping("/{id}")
   public String handle_get(@PathVariable String id, Model model, Authentication au) {
     long loggedUserId = getLoggedUser(au).getId();
+    Userr user = userService.findById(String.valueOf(getLoggedUser(au).getId()));
     blockedService.checkBlock(id, loggedUserId);
+    model.addAttribute("loggedUser", user);
     model.addAttribute("user", userService.viewUser(id, loggedUserId));
     return "user";
   }

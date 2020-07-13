@@ -32,7 +32,7 @@ public class UserUpdateController {
   public String handle_get(Model model, Authentication au) {
     Userr user = userService.findById(String.valueOf(getLoggedUser(au).getId()));
 
-    model.addAttribute("user", user);
+    model.addAttribute("loggedUser", user);
     model.addAttribute("cities", cityService.getCities());
     return "update-profile";
   }

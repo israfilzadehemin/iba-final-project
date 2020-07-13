@@ -34,11 +34,12 @@ public class IndexController {
   }
 
   @PostMapping
-  public RedirectView handle_post(FormAd form) {
+  public RedirectView handle_post(FormAd form, Model model) {
     String fullName = form.getFullName();
     String number = form.getNumber();
     String time = form.getTime();
     mailRequestService.sendAdRequest(fullName, number, time);
+    model.addAttribute("process", "adv");
     return new RedirectView("/");
   }
 }

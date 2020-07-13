@@ -3,6 +3,7 @@ package app.controller;
 import app.form.FormReg;
 import app.service.UserService;
 import lombok.extern.log4j.Log4j2;
+import org.dom4j.rule.Mode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

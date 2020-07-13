@@ -20,28 +20,34 @@
     <link rel="stylesheet" th:href="@{/css/owl.theme.default.css}">
     <link rel="stylesheet" th:href="@{/css/main.css}">
     <link rel="icon" th:href="@{/img/logo/ico2.ico}">
-    <title>MyProject | Sign up</title>
+    <title>Manage your posts</title>
 </head>
 <body>
 
 <div class="container-fluid col-12 mt-1 text-center main-container">
     <div class="e-nav-container">
         <ul class="col-12 e-nav-list">
-            <li class="col-lg-4 col-md-12 col-sm-12 e-nav-item">
-                <a href="#" class="nav-link  text-left e-nav-link d-flex">
-                    <img src="../static/img/logo/123.jpg" width="50" height="50" class="e-profile-img" alt="profile picture">
-                    <p class="ml-2 e-par">Emin Israfilzadeh</p>
-                </a>
+            <li class="col-lg-2 col-md-12 col-sm-12 e-nav-item">
+                <a href="/dashboard" class="nav-link e-nav-link"><i class="fas fa-columns mr-2"></i>Dashboard</a>
             </li>
             <li class="col-lg-3 col-md-12 col-sm-12 e-nav-item">
-                <a href="#about" class=" nav-link e-nav-link"><i class="far fa-clipboard mr-2"></i> Manage your
-                    posts</a>
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle e-main-dropdown" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-clipboard mr-2"></i>Posts
+                    </button>
+                    <div class="dropdown-menu e-dd-content" aria-labelledby="dropdownMenuButton">
+                        <a href="/myposts" class="dropdown-item"><i class="fas fa-edit mr-2"></i>Manage your posts</a>
+                        <a href="/wishlist" class="dropdown-item"><i class="fas fa-heart mr-2"></i>View your
+                            wishlist</a>
+                    </div>
+                </div>
             </li>
             <li class="col-lg-3 col-md-12 col-sm-12 e-nav-item">
-                <a href="#mission" class="nav-link e-nav-link"><i class="fas fa-envelope mr-2"></i>Messages</a>
+                <a href="/message" class="nav-link e-nav-link"><i class="fas fa-envelope mr-2"></i>Messages</a>
             </li>
             <li class="col-lg-2 col-md-12 col-sm-12 e-nav-item">
-                <a href="#adv" class="nav-link e-nav-link"><i class="fas fa-columns mr-2"></i>Dashboard</a>
+                <a href="/logout" class="nav-link e-nav-link"><i class="fas fa-sign-out-alt mr-2"></i>Log out</a>
             </li>
         </ul>
     </div>
@@ -54,7 +60,7 @@
                 </th>
                 <th scope="col">
                     <a th:href="@{'/myposts/'+${currentPage}+'?sortField=name&sortDir='+${reverseSortDir}}">
-                    Name
+                        Name
                     </a>
                 </th>
                 <th scope="col">
@@ -97,26 +103,21 @@
         </table>
 
         <div>
-            Total items: [[${totalElements}]] <br>
-            Pages: [[${currentPage}]] of [[${totalPages}]] <br>
-
-            <a th:if="${currentPage>1}" th:href="@{'/myposts/1'+'?sortField='+${sortField}+'&sortDir='+${sortDir}}">First</a>
-            <span th:unless="${currentPage>1}">First</span>
-            <a th:if="${currentPage>1}" th:href="@{'/myposts/'+${currentPage-1}+'?sortField='+${sortField}+'&sortDir='+${sortDir}}">Previous</a>
+            <a th:if="${currentPage>1}"
+               th:href="@{'/myposts/'+${currentPage-1}+'?sortField='+${sortField}+'&sortDir='+${sortDir}}">Previous</a>
             <span th:unless="${currentPage>1}">Previous</span>
 
 
             <span th:each="i: ${#numbers.sequence(1,totalPages)}">
-            <a th:if="${i!=currentPage}" th:href="@{'/myposts/' + ${i} +'?sortField='+${sortField}+'&sortDir='+${sortDir}}">[[${i}]]</a>
+            <a th:if="${i!=currentPage}"
+               th:href="@{'/myposts/' + ${i} +'?sortField='+${sortField}+'&sortDir='+${sortDir}}">[[${i}]]</a>
             <span th:unless="${i!=currentPage}">[[${i}]]</span>
             </span>
 
 
-            <a th:if="${currentPage<totalPages}" th:href="@{'/myposts/'+${currentPage+1}+'?sortField='+${sortField}+'&sortDir='+${sortDir}}">Next</a>
+            <a th:if="${currentPage<totalPages}"
+               th:href="@{'/myposts/'+${currentPage+1}+'?sortField='+${sortField}+'&sortDir='+${sortDir}}">Next</a>
             <span th:unless="${currentPage<totalPages}">Next</span>
-            <a th:if="${currentPage<totalPages}" th:href="@{'/myposts/'+ ${totalPages}+'?sortField='+${sortField}+'&sortDir='+${sortDir}}">Last</a>
-            <span th:unless="${currentPage<totalPages}">Last</span>
-
         </div>
 
     </div>
@@ -124,26 +125,20 @@
     <footer class="col-12 mt-3 e-footer-container" id="contact">
         <section class="col-lg-4 col-md-4 col-sm-12 e-footer-content">
             <ul class="col-12 e-footer-list">
-                <li class="col-12 my-1 e-footer-item"><a href="#" class="page-link"><i
-                        class="fas fa-user-edit col-2"></i>Manage your account</a></li>
-                <li class="col-12 my-1 e-footer-item"><a href="#" class="page-link"><i class="fas fa-edit col-2"></i>Manage
-                    your posts</a></li>
+                <li class="col-12 my-1 e-footer-item"><a href="/update" class="page-link"><i class="fas fa-user-edit col-2"></i>Manage your account</a></li>
+                <li class="col-12 my-1 e-footer-item"><a href="/myposts" class="page-link"><i class="fas fa-edit col-2"></i>Manage your posts</a></li>
             </ul>
         </section>
         <section class="col-lg-4 col-md-4 col-sm-12 e-footer-content">
             <ul class="col-12 e-footer-list">
-                <li class="col-12 my-1 e-footer-item"><a href="#" class="page-link"><i
-                        class="fas fa-exclamation-triangle col-2"></i>Send feedback</a></li>
+                <li class="col-12 my-1 e-footer-item"><a href="/feedback" class="page-link"><i class="fas fa-exclamation-triangle col-2"></i>Send feedback</a></li>
             </ul>
         </section>
         <section class="col-lg-4 col-md-4 col-sm-12 e-footer-content">
             <ul class="col-12 e-footer-list">
-                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="#"><i
-                        class="fab fa-facebook-f col-2"></i>Facebook</a></li>
-                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="#"><i
-                        class="fab fa-instagram col-2"></i>Instagram</a></li>
-                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="#"><i class="fab fa-twitter col-2"></i>Twitter</a>
-                </li>
+                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="https://www.facebook.com/"><i class="fab fa-facebook-f col-2"></i>Facebook</a></li>
+                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="https://www.instagram.com/"><i class="fab fa-instagram col-2"></i>Instagram</a></li>
+                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="https://twitter.com/"><i class="fab fa-twitter col-2"></i>Twitter</a></li>
             </ul>
         </section>
     </footer>
@@ -152,7 +147,7 @@
             <i class="far fa-copyright mr-2"></i>
             All rights reserved | You should have permission by author for using any information or data provided by
             this website. <br>
-            This website is made by Emin Israfilzadeh
+            This website is made by Ayshan Rzayeva | Shafa Mammadova | Leman Javadova | Emin Israfilzadeh
         </p>
     </div>
 </div>

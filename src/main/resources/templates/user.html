@@ -20,28 +20,34 @@
     <link rel="stylesheet" th:href="@{/css/owl.theme.default.css}">
     <link rel="stylesheet" th:href="@{/css/main.css}">
     <link rel="icon" th:href="@{/img/logo/ico2.ico}">
-    <title>MyProject | Sign up</title>
+    <title th:text="${user.getName()}+' '+${user.getSurname()}"></title>
 </head>
 <body>
 
 <div class="container-fluid col-12 mt-1 text-center main-container">
     <div class="e-nav-container">
         <ul class="col-12 e-nav-list">
-            <li class="col-lg-4 col-md-12 col-sm-12 e-nav-item">
-                <a href="#" class="nav-link  text-left e-nav-link d-flex">
-                    <img src="../static/img/logo/123.jpg" width="50" height="50" class="e-profile-img" alt="profile picture">
-                    <p class="ml-2 e-par">Emin Israfilzadeh</p>
-                </a>
+            <li class="col-lg-2 col-md-12 col-sm-12 e-nav-item">
+                <a href="/dashboard" class="nav-link e-nav-link"><i class="fas fa-columns mr-2"></i>Dashboard</a>
             </li>
             <li class="col-lg-3 col-md-12 col-sm-12 e-nav-item">
-                <a href="#about" class=" nav-link e-nav-link"><i class="far fa-clipboard mr-2"></i> Manage your
-                    posts</a>
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle e-main-dropdown" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-clipboard mr-2"></i>Posts
+                    </button>
+                    <div class="dropdown-menu e-dd-content" aria-labelledby="dropdownMenuButton">
+                        <a href="/myposts" class="dropdown-item"><i class="fas fa-edit mr-2"></i>Manage your posts</a>
+                        <a href="/wishlist" class="dropdown-item"><i class="fas fa-heart mr-2"></i>View your
+                            wishlist</a>
+                    </div>
+                </div>
             </li>
             <li class="col-lg-3 col-md-12 col-sm-12 e-nav-item">
-                <a href="#mission" class="nav-link e-nav-link"><i class="fas fa-envelope mr-2"></i>Messages</a>
+                <a href="/message" class="nav-link e-nav-link"><i class="fas fa-envelope mr-2"></i>Messages</a>
             </li>
             <li class="col-lg-2 col-md-12 col-sm-12 e-nav-item">
-                <a href="#adv" class="nav-link e-nav-link"><i class="fas fa-columns mr-2"></i>Dashboard</a>
+                <a href="/logout" class="nav-link e-nav-link"><i class="fas fa-sign-out-alt mr-2"></i>Log out</a>
             </li>
         </ul>
     </div>
@@ -54,7 +60,7 @@
                 <h1 th:text="${user.name} + ' ' + ${user.surname}" class="col-12 e-user-data"></h1>
                 <p th:text="${user.city}" class="col-12 e-user-data"></p>
                 <p th:text="'(+994) ' + ${user.phone}" class="col-12 e-user-data"></p>
-                <a href="#" class="col-lg-3 col-md-3 col-sm-12 btn nav-link e-user-btn"><i class="fas fa-envelope col-2"></i>Send Message</a>
+                <a th:href="'/message/'+${user.id}" class="col-lg-3 col-md-3 col-sm-12 btn nav-link e-user-btn"><i class="fas fa-envelope col-2"></i>Send Message</a>
                 <a th:href="'block/' + ${user.id}"  class="col-lg-3 col-md-3 col-sm-12 btn nav-link e-user-btn"><i class="fas fa-times col-2"></i>Block</a>
             </div>
         </div>
@@ -63,20 +69,20 @@
     <footer class="col-12 mt-3 e-footer-container" id="contact">
         <section class="col-lg-4 col-md-4 col-sm-12 e-footer-content">
             <ul class="col-12 e-footer-list">
-                <li class="col-12 my-1 e-footer-item"><a href="#" class="page-link"><i class="fas fa-user-edit col-2"></i>Manage your account</a></li>
-                <li class="col-12 my-1 e-footer-item"><a href="#" class="page-link"><i class="fas fa-edit col-2"></i>Manage your posts</a></li>
+                <li class="col-12 my-1 e-footer-item"><a href="/update" class="page-link"><i class="fas fa-user-edit col-2"></i>Manage your account</a></li>
+                <li class="col-12 my-1 e-footer-item"><a href="/myposts" class="page-link"><i class="fas fa-edit col-2"></i>Manage your posts</a></li>
             </ul>
         </section>
         <section class="col-lg-4 col-md-4 col-sm-12 e-footer-content">
             <ul class="col-12 e-footer-list">
-                <li class="col-12 my-1 e-footer-item"><a href="#" class="page-link"><i class="fas fa-exclamation-triangle col-2"></i>Send feedback</a></li>
+                <li class="col-12 my-1 e-footer-item"><a href="/feedback" class="page-link"><i class="fas fa-exclamation-triangle col-2"></i>Send feedback</a></li>
             </ul>
         </section>
         <section class="col-lg-4 col-md-4 col-sm-12 e-footer-content">
             <ul class="col-12 e-footer-list">
-                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="#"><i class="fab fa-facebook-f col-2"></i>Facebook</a></li>
-                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="#"><i class="fab fa-instagram col-2"></i>Instagram</a></li>
-                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="#"><i class="fab fa-twitter col-2"></i>Twitter</a></li>
+                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="https://www.facebook.com/"><i class="fab fa-facebook-f col-2"></i>Facebook</a></li>
+                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="https://www.instagram.com/"><i class="fab fa-instagram col-2"></i>Instagram</a></li>
+                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="https://twitter.com/"><i class="fab fa-twitter col-2"></i>Twitter</a></li>
             </ul>
         </section>
     </footer>
@@ -85,7 +91,7 @@
             <i class="far fa-copyright mr-2"></i>
             All rights reserved | You should have permission by author for using any information or data provided by
             this website. <br>
-            This website is made by Emin Israfilzadeh
+            This website is made by Ayshan Rzayeva | Shafa Mammadova | Leman Javadova | Emin Israfilzadeh
         </p>
     </div>
 </div>
