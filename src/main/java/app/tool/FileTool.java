@@ -38,7 +38,6 @@ public class FileTool {
       String dateFormatted = date.format(formatter);
       String fileName = String.format("%s%s%s.jpg", source, name.replaceAll(" ", "").toLowerCase(), dateFormatted);
       String type = file.getContentType();
-      System.err.println(type);
       byte[] bytes = file.getBytes();
       Path path = Paths.get(fileName);
       Files.write(path, bytes);
