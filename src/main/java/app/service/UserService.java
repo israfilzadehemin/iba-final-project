@@ -62,7 +62,7 @@ public class UserService {
   public boolean isInfoFilled(long loggedUserId) {
     Userr user = findById(String.valueOf(loggedUserId));
     if (user.getCity() == null || user.getName() == null ||
-            user.getSurname() == null || user.getUsername() == null) return false;
+            user.getSurname() == null) return false;
 
     return true;
   }
@@ -74,7 +74,10 @@ public class UserService {
     } else if (!validationTool.isPhoneValid(number)) {
       throw new InvalidPhoneNumberEx();
     } else {
-      String image = fileTool.uploadProfilePic(file);
+      String image = fileTool.uploadProfilePic(file,
+              String.format("%s%s", name, surname)
+                      .replaceAll(" ", "")
+                      .toLowerCase());
       Userr user = findById(id);
       user.setName(name);
       user.setSurname(surname);
@@ -97,7 +100,10 @@ public class UserService {
     } else if (!validationTool.isPhoneValid(number)) {
       throw new InvalidPhoneNumberEx();
     } else {
-      String image = fileTool.uploadProfilePic(file);
+      String image = fileTool.uploadProfilePic(file,
+              String.format("%s%s", name, surname)
+                      .replaceAll(" ", "")
+                      .toLowerCase());
       Userr user = findById(id);
       user.setName(name);
       user.setSurname(surname);
@@ -133,9 +139,9 @@ public class UserService {
     return userRepo.findUserrByEmail(email).orElseThrow(UserNotFoundEx::new);
   }
 
-  public Userr viewUser(String userId, String loggedId) {
+  public Userr viewUser(String userId, long loggedId) {
     Userr user = findById(userId);
-    if (user.getId() == Long.parseLong(loggedId)) throw new SelfViewEx();
+    if (user.getId() == loggedId) throw new SelfViewEx();
     return user;
   }
 

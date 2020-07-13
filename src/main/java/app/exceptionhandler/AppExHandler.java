@@ -217,5 +217,12 @@ public class AppExHandler {
         return new RedirectView("/signin");
     }
 
+    @ExceptionHandler(BlockedUserEx.class)
+    public RedirectView handleBlockedUser(Model model){
+        log.warn("AppExHandler: BlockedUserEx");
+        model.addAttribute("error", "blocked");
+        return new RedirectView("/dashboard/1");
+    }
+
 
 }

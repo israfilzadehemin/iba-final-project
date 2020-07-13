@@ -23,15 +23,9 @@ public class UserViewController {
   private final BlockedService blockedService;
 
   @GetMapping("/{id}")
-  public String handle_get(@PathVariable String id,
-                           Model model,
-                           Authentication au) {
-    String loggedUserId = String.valueOf(getLoggedUser(au).getId());
-
-    if(blockedService.isBlocked(id, loggedUserId)){
-      throw new RuntimeException();
-    }
-
+  public String handle_get(@PathVariable String id, Model model, Authentication au) {
+    long loggedUserId = getLoggedUser(au).getId();
+    blockedService.checkBlock(id, loggedUserId);
     model.addAttribute("user", userService.viewUser(id, loggedUserId));
     return "user";
   }
