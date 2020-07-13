@@ -25,6 +25,10 @@
 <body>
 
 <div class="container-fluid col-12 mt-1 text-center main-container">
+    <div th:if="${(param.process != null) and (param.process[0] == 'adv')}" class="d-block col-12 alert alert-success">
+        Your request has been sent successfully! We will contact you in time which you mentioned!
+    </div>
+
     <div class="e-nav-container">
         <ul class="col-12 e-nav-list">
             <li class="col-lg-2 col-md-6 col-sm-12 e-nav-item">

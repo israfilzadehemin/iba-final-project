@@ -45,6 +45,10 @@ public class UserService {
     } else {
       log.info("User registered successfully");
       Userr user = new Userr(email.toLowerCase(), passwordEncoder.encode(pass), LocalDateTime.now(), true);
+      user.setName("Name");
+      user.setSurname("");
+      user.setImage("/img/profile/user.png");
+      user.setCity("Baku");
       userRepo.save(user);
       roleService.addRoleToUser(user, "USER");
       return true;
@@ -62,7 +66,7 @@ public class UserService {
   public boolean isInfoFilled(long loggedUserId) {
     Userr user = findById(String.valueOf(loggedUserId));
     if (user.getCity() == null || user.getName() == null ||
-            user.getSurname() == null) return false;
+            user.getSurname() == null || user.getSurname().isBlank()) return false;
 
     return true;
   }
@@ -74,6 +78,7 @@ public class UserService {
     } else if (!validationTool.isPhoneValid(number)) {
       throw new InvalidPhoneNumberEx();
     } else {
+
       String image = fileTool.uploadProfilePic(file,
               String.format("%s%s", name, surname)
                       .replaceAll(" ", "")

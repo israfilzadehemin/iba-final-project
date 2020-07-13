@@ -31,10 +31,7 @@ public class LoginController {
   public RedirectView handle_post(FormLogin form) {
     String login = form.getLogin();
     String pass = form.getPass();
-
-    if (!userService.login(login, pass)) {
-      log.warn("Login canceled!");
-    }
-    return new RedirectView("dashboard");
+    userService.login(login, pass);
+    return new RedirectView("/dashboard");
   }
 }
