@@ -14,7 +14,6 @@ public class MailSenderService {
 
     private final  JavaMailSender javaMailSender;
 
-
     public MailSenderService(JavaMailSender javaMailSender, UserRepo repo) {
         this.javaMailSender = javaMailSender;
     }
@@ -33,6 +32,5 @@ public class MailSenderService {
 
 
     }
-
 
 }

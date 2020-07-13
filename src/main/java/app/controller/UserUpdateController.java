@@ -50,7 +50,7 @@ public class UserUpdateController {
     userService.updateUser(String.valueOf(getLoggedUser(au).getId()), name, surname, city, number, file);
 
     model.addAttribute("process", "profileupdated");
-    return new RedirectView("dashboard");
+    return new RedirectView("dashboard/1");
   }
 
   UserrDetails getLoggedUser(Authentication authentication) {

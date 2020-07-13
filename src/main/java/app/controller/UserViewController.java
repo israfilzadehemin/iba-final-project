@@ -31,9 +31,10 @@ public class UserViewController {
   }
 
   @GetMapping("/block/{id}")
-  public RedirectView handle_block(@PathVariable String id, Authentication au) {
+  public RedirectView handle_block(@PathVariable String id, Authentication au, Model model) {
     blockedService.addBlocked(String.valueOf(getLoggedUser(au).getId()), id);
-    return new RedirectView("/dashboard");
+    model.addAttribute("process", "blocking");
+    return new RedirectView("/dashboard/1");
   }
 
   UserrDetails getLoggedUser(Authentication authentication) {

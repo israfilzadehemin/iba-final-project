@@ -28,6 +28,12 @@
     <div th:if="${(param.process != null) and (param.process[0] == 'profileupdated')}" class="d-block col-12 alert alert-success">
         Profile updated successfully!
     </div>
+    <div th:if="${(param.process != null) and (param.process[0] == 'blocking')}" class="d-block col-12 alert alert-success">
+        User is blocked successfully! They will not be able to visit your profile or send message anymore!
+    </div>
+    <div th:if="${(param.process != null) and (param.process[0] == 'feedback')}" class="d-block col-12 alert alert-success">
+        Thank you for sending feedback. We really appreciate all of our users opinion :).
+    </div>
     <div th:if="${(param.error != null) and (param.error[0] == 'blocked')}" class="d-block col-12 alert alert-danger">
         This user has blocked you. You can not visit their profile or can not send message :(
     </div>
@@ -35,7 +41,7 @@
     <div class="e-nav-container">
         <ul class="col-12 e-nav-list">
             <li class="col-lg-4 col-md-12 col-sm-12 e-nav-item">
-                <a href="" class="nav-link  text-left e-nav-link d-flex">
+                <a href="/update" class="nav-link  text-left e-nav-link d-flex">
                     <img th:src="@{${loggedUser.getImage()}}" width="50" height="50" class="e-profile-img" alt="profile picture">
                     <p th:text="${loggedUser.getName()}+' '+${loggedUser.getSurname()}" class="ml-2 e-par"></p>
                 </a>

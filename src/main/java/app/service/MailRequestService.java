@@ -24,7 +24,7 @@ import java.util.List;
 @Log4j2
 @Service
 @AllArgsConstructor
-public class AdService {
+public class MailRequestService {
   private final MailSenderService mailSenderService;
 
   public boolean sendAdRequest(String fullName, String number, String time) {
@@ -36,7 +36,21 @@ public class AdService {
       log.info("AD request has been sent successfully");
       return true;
     } catch (MessagingException e) {
-      log.warn("MessagingException happened: from AdService.sendAdRequest()");
+      log.warn("MessagingException happened: from MailRequestService.sendAdRequest()");
+      return false;
+    }
+  }
+
+  public boolean sendFeedback(String email, String text) {
+    try {
+      String receiver = "israfilzadehemin@gmail.com";
+      String subject = "Alert! New Feedback has been received";
+      String body = String.format("Sender: %s\n Text: %s", email, text);
+      mailSenderService.send(receiver, subject, body);
+      log.info("Feedback has been sent successfully");
+      return true;
+    } catch (MessagingException e) {
+      log.warn("MessagingException happened: from MailRequestService.sendFeedback()");
       return false;
     }
   }

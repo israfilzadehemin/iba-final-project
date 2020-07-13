@@ -70,6 +70,7 @@ public class MessageController {
 
     blockedService.checkBlock(id, loggedUserId);
 
+
     model.addAttribute("loggedUserId", loggedUserId);
     model.addAttribute("loggedUser", userService.findByEmail(getLoggedUser(au).getUsername()));
     model.addAttribute("currentUser", userService.findById(id));

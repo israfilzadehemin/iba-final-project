@@ -166,7 +166,6 @@ public class ValidationTool {
     Userr who = userRepo.findById(Long.parseLong(whoId)).orElseThrow(UserNotFoundEx::new);
     Userr whom = userRepo.findById(whomId).orElseThrow(UserNotFoundEx::new);
     Optional<Blocked> blocked = blockedRepo.findByWhoAndWhom(who, whom);
-    System.err.println(blocked.isPresent());
     return blocked.isPresent();
   }
 }

@@ -57,12 +57,12 @@
         <div class="col-12 e-chat-right">
             <div class="e-chat-right-top m-0 pb-1 mt-1 d-flex justify-content-between flex-wrap">
                 <h3 th:text="${currentUser.name}" class="col-lg-10 col-md-10 col-sm-8 text-left e-submit m-0 p-0 e-chat-header"></h3>
-                <a title="block user" href="#" name="e-chat-header-button" class="btn btn-danger m-0" value="block"><i
+                <a title="block user" th:href="'/user/block/'+${currentUser.id}" name="e-chat-header-button" class="btn btn-danger m-0" value="block"><i
                         class="far fa-times-circle"></i></a>
             </div>
             <div class="e-chat-body" id="e-chat-body">
-                <form method="post" class="mb-5 e-form">
-                    <a th:href="'message/all/'+${loggedUserId}" name="all-messages" style="z-index: 5" class="btn btn-sm e-submit">See all
+                <form th:unless="${#strings.contains(#httpServletRequest.requestURI, 'all')}" method="post" class="mb-5 e-form">
+                    <a th:href="'/message/all/'+${currentUser.getId()}" name="all-messages" style="z-index: 5" class="btn btn-sm e-submit">See all
                         messages
                     </a>
                 </form>
