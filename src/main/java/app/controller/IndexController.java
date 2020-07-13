@@ -1,6 +1,5 @@
 package app.controller;
 
-import app.entity.AboutUs;
 import app.form.FormAd;
 import app.service.*;
 import lombok.AllArgsConstructor;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
-@Log4j2
 @Controller
 @AllArgsConstructor
 @RequestMapping("/")
@@ -20,7 +18,7 @@ public class IndexController {
 
   // http://localhost:8080/
 
-  private final AdService adService;
+  private final MailRequestService mailRequestService;
   private final AboutUsService aboutUsService;
   private final MissionService missionService;
   private final PhoneService phoneService;
@@ -40,7 +38,7 @@ public class IndexController {
     String fullName = form.getFullName();
     String number = form.getNumber();
     String time = form.getTime();
-    adService.sendAdRequest(fullName, number, time);
+    mailRequestService.sendAdRequest(fullName, number, time);
     return new RedirectView("/");
   }
 }

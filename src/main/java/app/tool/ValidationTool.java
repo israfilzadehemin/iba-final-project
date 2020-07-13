@@ -1,32 +1,25 @@
 package app.tool;
 
+import app.entity.Blocked;
 import app.entity.Userr;
 import app.exception.input.ResetEmptyInputEx;
 import app.exception.user.UserNotFoundEx;
-import app.repo.CategoryRepo;
-import app.repo.PostRepo;
-import app.repo.ResetTokenRepo;
-import app.repo.UserRepo;
+import app.repo.*;
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Log4j2
+@AllArgsConstructor
 @Service
 public class ValidationTool {
   private final UserRepo userRepo;
-  private final PostRepo postRepo;
   private final CategoryRepo categoryRepo;
   private final ResetTokenRepo resetTokenRepo;
+  private final BlockedRepo blockedRepo;
 
-
-  public ValidationTool(UserRepo userRepo, PostRepo postRepo, CategoryRepo categoryRepo, ResetTokenRepo resetTokenRepo) {
-    this.userRepo = userRepo;
-    this.postRepo = postRepo;
-    this.categoryRepo = categoryRepo;
-    this.resetTokenRepo = resetTokenRepo;
-  }
 
   public boolean isEmailUnique(String email) {
     Optional<Userr> user = userRepo.findUserrByEmail(email.toLowerCase());
@@ -46,14 +39,10 @@ public class ValidationTool {
     }
   }
 
-
   public boolean isPhoneValid(String number) {
-    if (!isAzercell(number) && !isBakcell(number) && !isNar(number) && !isHome(number)) {
-      log.warn("Phone number is not valid: from ValidationTool.isPhoneValid()");
-      return false;
-    } else {
-      return true;
-    }
+    if (isAzercell(number) || isBakcell(number) || isNar(number) || isHome(number)) return true;
+    log.warn("Phone number is not valid: from ValidationTool.isPhoneValid()");
+    return false;
   }
 
   public boolean isAzercell(String number) {
@@ -170,5 +159,13 @@ public class ValidationTool {
             .get(0)
             .getToken()
             .equals(token);
+  }
+
+  public boolean isBlocked(String whoId, long whomId) {
+    if (!isParsableToLong(whoId)) return false;
+    Userr who = userRepo.findById(Long.parseLong(whoId)).orElseThrow(UserNotFoundEx::new);
+    Userr whom = userRepo.findById(whomId).orElseThrow(UserNotFoundEx::new);
+    Optional<Blocked> blocked = blockedRepo.findByWhoAndWhom(who, whom);
+    return blocked.isPresent();
   }
 }

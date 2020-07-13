@@ -1,7 +1,9 @@
 package app.controller;
 
+import app.entity.Message;
 import app.form.FormChat;
 import app.security.UserrDetails;
+import app.service.BlockedService;
 import app.service.MessageService;
 import app.service.UserService;
 import lombok.AllArgsConstructor;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.List;
+
 @Log4j2
 @Controller
 @AllArgsConstructor
@@ -23,6 +27,7 @@ public class MessageController {
 
   private final MessageService messageService;
   private final UserService userService;
+  private final BlockedService blockedService;
 
   /**
    * http://localhost:8085/message
@@ -33,7 +38,7 @@ public class MessageController {
     model.addAttribute("loggedUserId", getLoggedUser(au).getId());
     model.addAttribute("loggedUser", userService.findByEmail(getLoggedUser(au).getUsername()));
     model.addAttribute("connections",
-            messageService.findLastMessagesbyUser(String.valueOf(getLoggedUser(au).getId())));
+            messageService.findLastMessagesbyUser(getLoggedUser(au).getId()));
 
     return "chat-main";
   }
@@ -43,12 +48,37 @@ public class MessageController {
    */
   @GetMapping("/{id}")
   public String handle_get(@PathVariable String id, Model model, Authentication au) {
-    String loggedUserId = String.valueOf(getLoggedUser(au).getId());
+    long loggedUserId = getLoggedUser(au).getId();
+
+    blockedService.checkBlock(id, loggedUserId);
+
+    List<Message> m = messageService.findMessagesBetween(loggedUserId, id);
+
     model.addAttribute("loggedUserId", loggedUserId);
     model.addAttribute("loggedUser", userService.findByEmail(getLoggedUser(au).getUsername()));
+    model.addAttribute("currentUser", userService.findById(id));
+    model.addAttribute("messages", m.subList(Math.max(m.size()-5,0),m.size()));
+    return "chat-private";
+  }
+
+  /**
+   * http://localhost:8085/message/all/2
+   */
+  @GetMapping("/all/{id}")
+  public String handle_get_all(@PathVariable String id, Model model, Authentication au) {
+    long loggedUserId = getLoggedUser(au).getId();
+
+    blockedService.checkBlock(id, loggedUserId);
+
+
+    model.addAttribute("loggedUserId", loggedUserId);
+    model.addAttribute("loggedUser", userService.findByEmail(getLoggedUser(au).getUsername()));
+    model.addAttribute("currentUser", userService.findById(id));
     model.addAttribute("messages", messageService.findMessagesBetween(loggedUserId, id));
     return "chat-private";
   }
+
+
 
   @PostMapping("/{id}")
   public RedirectView handle_post(FormChat form, @PathVariable String id, Authentication au) {

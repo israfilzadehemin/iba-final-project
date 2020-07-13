@@ -23,17 +23,18 @@ public class UserViewController {
   private final BlockedService blockedService;
 
   @GetMapping("/{id}")
-  public String handle_get(@PathVariable String id,
-                           Model model,
-                           Authentication au) {
-    model.addAttribute("user", userService.viewUser(id, String.valueOf(getLoggedUser(au).getId())));
+  public String handle_get(@PathVariable String id, Model model, Authentication au) {
+    long loggedUserId = getLoggedUser(au).getId();
+    blockedService.checkBlock(id, loggedUserId);
+    model.addAttribute("user", userService.viewUser(id, loggedUserId));
     return "user";
   }
 
   @GetMapping("/block/{id}")
-  public RedirectView handle_block(@PathVariable String id, Authentication au) {
+  public RedirectView handle_block(@PathVariable String id, Authentication au, Model model) {
     blockedService.addBlocked(String.valueOf(getLoggedUser(au).getId()), id);
-    return new RedirectView("/dashboard");
+    model.addAttribute("process", "blocking");
+    return new RedirectView("/dashboard/1");
   }
 
   UserrDetails getLoggedUser(Authentication authentication) {

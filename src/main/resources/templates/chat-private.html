@@ -55,17 +55,16 @@
     </div>
     <div class="col-12 e-chat-container d-flex flex-wrap p-0">
         <div class="col-12 e-chat-right">
-            <div th:switch="${loggedUserId}" class="e-chat-right-top m-0 pb-1 mt-1 d-flex justify-content-between flex-wrap">
-                <h3 th:case="${messages.get(1).from.getId()}" th:text="${messages.get(0).to.getName()}" class="col-lg-10 col-md-10 col-sm-8 text-left e-submit m-0 p-0 e-chat-header"></h3>
-                <h3 th:case="${messages.get(1).to.getId()}" th:text="${messages.get(0).from.getName()}" class="col-lg-10 col-md-10 col-sm-8 text-left e-submit m-0 p-0 e-chat-header"></h3>
-                <a title="block user" href="#" name="e-chat-header-button" class="btn btn-danger m-0" value="block"><i
+            <div class="e-chat-right-top m-0 pb-1 mt-1 d-flex justify-content-between flex-wrap">
+                <h3 th:text="${currentUser.name}" class="col-lg-10 col-md-10 col-sm-8 text-left e-submit m-0 p-0 e-chat-header"></h3>
+                <a title="block user" th:href="'/user/block/'+${currentUser.id}" name="e-chat-header-button" class="btn btn-danger m-0" value="block"><i
                         class="far fa-times-circle"></i></a>
             </div>
             <div class="e-chat-body" id="e-chat-body">
-                <form method="post" class="mb-5 e-form">
-                    <button type="submit" name="all-messages" style="z-index: 5" class="btn btn-sm e-submit">See all
+                <form th:unless="${#strings.contains(#httpServletRequest.requestURI, 'all')}" method="post" class="mb-5 e-form">
+                    <a th:href="'/message/all/'+${currentUser.getId()}" name="all-messages" style="z-index: 5" class="btn btn-sm e-submit">See all
                         messages
-                    </button>
+                    </a>
                 </form>
                 <div th:each="message : ${messages}" th:switch="${loggedUserId}">
                     <div th:case="${message.from.getId()}" class="col-12 d-flex flex-wrap justify-content-end mb-2  e-chat-sent">

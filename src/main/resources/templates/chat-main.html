@@ -54,7 +54,8 @@
         </ul>
     </div>
     <div class="d-flex justify-content-center">
-        <div class="col-lg-6 col-md-12 col-sm-12 e-chat-container d-flex flex-wrap p-0">
+        <div th:if="${connections.size()} == 0">No Message yet</div>
+        <div th:unless="${connections.size()} == 0" class="col-lg-6 col-md-12 col-sm-12 e-chat-container d-flex flex-wrap p-0">
             <div class="col-12 p-0 e-chat-left">
                 <div th:each="connection : ${connections}">
                     <div th:switch="${loggedUserId}">

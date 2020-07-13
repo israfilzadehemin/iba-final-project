@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import java.util.List;
 
 @Service
-public class  PageableTool <T> {
+public class PaginationTool<T> {
     public void controller(Page<T> page, Model model, int currentPage, String sortField, String sortDir) {
         List<T> content = page.getContent();
         long totalElements = page.getTotalElements();
