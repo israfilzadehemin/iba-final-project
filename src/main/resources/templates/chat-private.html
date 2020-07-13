@@ -62,9 +62,9 @@
             </div>
             <div class="e-chat-body" id="e-chat-body">
                 <form method="post" class="mb-5 e-form">
-                    <button type="submit" name="all-messages" style="z-index: 5" class="btn btn-sm e-submit">See all
+                    <a th:href="'message/all/'+${loggedUserId}" name="all-messages" style="z-index: 5" class="btn btn-sm e-submit">See all
                         messages
-                    </button>
+                    </a>
                 </form>
                 <div th:each="message : ${messages}" th:switch="${loggedUserId}">
                     <div th:case="${message.from.getId()}" class="col-12 d-flex flex-wrap justify-content-end mb-2  e-chat-sent">
