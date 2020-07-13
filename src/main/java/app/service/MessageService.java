@@ -23,9 +23,9 @@ public class  MessageService {
   private final MessageRepo messageRepo;
   private final UserService userService;
 
-  public List<Message> findMessagesBetween(String loggedUserId, String currentUserId) {
+  public List<Message> findMessagesBetween(long loggedUserId, String currentUserId) {
 
-    Userr loggedUser = userService.findById(loggedUserId);
+    Userr loggedUser = userService.findById(String.valueOf(loggedUserId));
     Userr currentUser = userService.findById(currentUserId);
 
     List<Message> sent = messageRepo.findAllByFromAndTo(loggedUser, currentUser);
@@ -40,8 +40,8 @@ public class  MessageService {
     return allMessages;
   }
 
-  public List<Message> findLastMessagesbyUser(String loggedUserId) {
-    Userr loggedUser = userService.findById(loggedUserId);
+  public List<Message> findLastMessagesbyUser(long loggedUserId) {
+    Userr loggedUser = userService.findById(String.valueOf(loggedUserId));
     List<Message> allMessages = messageRepo.findAllByFromOrTo(loggedUser, loggedUser);
 
     Set<Userr> connections = new HashSet<>();

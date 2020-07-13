@@ -20,7 +20,7 @@
     <link rel="stylesheet" th:href="@{/css/owl.theme.default.css}">
     <link rel="stylesheet" th:href="@{/css/main.css}">
     <link rel="icon" th:href="@{/img/logo/ico2.ico}">
-    <title>MyProject | Sign up</title>
+    <title>Handy | Share with love</title>
 </head>
 <body>
 
@@ -28,11 +28,15 @@
     <div th:if="${(param.process != null) and (param.process[0] == 'profileupdated')}" class="d-block col-12 alert alert-success">
         Profile updated successfully!
     </div>
+    <div th:if="${(param.error != null) and (param.error[0] == 'blocked')}" class="d-block col-12 alert alert-danger">
+        This user has blocked you. You can not visit their profile or can not send message :(
+    </div>
+
     <div class="e-nav-container">
         <ul class="col-12 e-nav-list">
             <li class="col-lg-4 col-md-12 col-sm-12 e-nav-item">
                 <a href="" class="nav-link  text-left e-nav-link d-flex">
-                    <img th:src="${loggedUser.getImage()}" width="50" height="50" class="e-profile-img" alt="profile picture">
+                    <img th:src="@{${loggedUser.getImage()}}" width="50" height="50" class="e-profile-img" alt="profile picture">
                     <p th:text="${loggedUser.getName()}+' '+${loggedUser.getSurname()}" class="ml-2 e-par"></p>
                 </a>
             </li>
@@ -49,10 +53,10 @@
                 </div>
             </li>
             <li class="col-lg-3 col-md-12 col-sm-12 e-nav-item">
-                <a href="#mission" class="nav-link e-nav-link"><i class="fas fa-envelope mr-2"></i>Messages</a>
+                <a href="/message" class="nav-link e-nav-link"><i class="fas fa-envelope mr-2"></i>Messages</a>
             </li>
             <li class="col-lg-2 col-md-12 col-sm-12 e-nav-item">
-                <a href="#adv" class="nav-link e-nav-link"><i class="fas fa-sign-out-alt mr-2"></i>Sign out</a>
+                <a href="/logout" class="nav-link e-nav-link"><i class="fas fa-sign-out-alt mr-2"></i>Sign out</a>
             </li>
         </ul>
     </div>
@@ -95,7 +99,7 @@
                         <div class="e-post-data">
                             <p th:text="${post.name}" class="col-12 mb-1 text-center" style="color: white"></p>
                             <i class="fas fa-user col-2"></i>
-                            <a th:href="'user/'+${post.user.getId()}" th:text="${post.user.getName()} + ' ' + ${post.user.getSurname()}" class="card-link"></a>
+                            <a th:href="'/user/'+${post.user.getId()}" th:text="${post.user.getName()} + ' ' + ${post.user.getSurname()}" class="card-link"></a>
                         </div>
                         <div class="e-post-data">
                             <i class="fas fa-city col-2"></i>
@@ -108,7 +112,7 @@
                     </div>
                     <div class="e-post-contact">
                         <i class="fas fa-envelope col-2"></i>
-                        <a href="#" class="card-link e-post-data">Send message</a>
+                        <a th:href="'/message/'+${post.getUser().getId()}" class="card-link e-post-data">Send message</a>
                     </div>
                     <div class="e-post-wishlist">
                         <i class="fas fa-heart col-2"></i>
@@ -118,7 +122,7 @@
                 </div>
             </section>
     </article>
-    <div class="col-12 mt-3 e-pagination-container">
+    <div th:if="${#strings.contains(#httpServletRequest.requestURI, 'dashboard')}" class="col-12 mt-3 e-pagination-container">
         <nav aria-label="Page navigation example">
             <ul class="pagination pagination-lg justify-content-center">
 
@@ -145,20 +149,20 @@
     <footer class="col-12 mt-3 e-footer-container" id="contact">
         <section class="col-lg-4 col-md-4 col-sm-12 e-footer-content">
             <ul class="col-12 e-footer-list">
-                <li class="col-12 my-1 e-footer-item"><a href="#" class="page-link"><i class="fas fa-user-edit col-2"></i>Manage your account</a></li>
-                <li class="col-12 my-1 e-footer-item"><a href="#" class="page-link"><i class="fas fa-edit col-2"></i>Manage your posts</a></li>
+                <li class="col-12 my-1 e-footer-item"><a href="/update" class="page-link"><i class="fas fa-user-edit col-2"></i>Manage your account</a></li>
+                <li class="col-12 my-1 e-footer-item"><a href="/myposts" class="page-link"><i class="fas fa-edit col-2"></i>Manage your posts</a></li>
             </ul>
         </section>
         <section class="col-lg-4 col-md-4 col-sm-12 e-footer-content">
             <ul class="col-12 e-footer-list">
-                <li class="col-12 my-1 e-footer-item"><a href="#" class="page-link"><i class="fas fa-exclamation-triangle col-2"></i>Send feedback</a></li>
+                <li class="col-12 my-1 e-footer-item"><a href="/feedback" class="page-link"><i class="fas fa-exclamation-triangle col-2"></i>Send feedback</a></li>
             </ul>
         </section>
         <section class="col-lg-4 col-md-4 col-sm-12 e-footer-content">
             <ul class="col-12 e-footer-list">
-                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="#"><i class="fab fa-facebook-f col-2"></i>Facebook</a></li>
-                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="#"><i class="fab fa-instagram col-2"></i>Instagram</a></li>
-                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="#"><i class="fab fa-twitter col-2"></i>Twitter</a></li>
+                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="https://www.facebook.com/"><i class="fab fa-facebook-f col-2"></i>Facebook</a></li>
+                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="https://www.instagram.com/"><i class="fab fa-instagram col-2"></i>Instagram</a></li>
+                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="https://twitter.com/"><i class="fab fa-twitter col-2"></i>Twitter</a></li>
             </ul>
         </section>
     </footer>
@@ -167,7 +171,7 @@
             <i class="far fa-copyright mr-2"></i>
             All rights reserved | You should have permission by author for using any information or data provided by
             this website. <br>
-            This website is made by Emin Israfilzadeh
+            This website is made by Ayshan Rzayeva | Shafa Mammadova | Leman Javadova | Emin Israfilzadeh
         </p>
     </div>
 </div>

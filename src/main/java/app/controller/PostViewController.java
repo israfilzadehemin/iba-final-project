@@ -1,11 +1,10 @@
 package app.controller;
 
 import app.entity.Post;
-import app.form.FormUser;
 import app.security.UserrDetails;
 import app.service.PostService;
 import app.service.UserService;
-import app.tool.PageableTool;
+import app.tool.PaginationTool;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -15,8 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 import java.util.Optional;
 
 @Log4j2
@@ -29,7 +26,7 @@ public class PostViewController {
 
   private final PostService postService;
   private final UserService userService;
-  private final PageableTool<Post> pageableTool;
+  private final PaginationTool<Post> paginationTool;
 
   /**
    * http://localhost:8080/myposts/2?sortField=name&sortDir=asc
@@ -52,7 +49,7 @@ public class PostViewController {
     Page<Post> page = postService.findByUser(String.valueOf(getLoggedUser(au).getId()),
             currentPage, sortField, sortDir);
 
-    pageableTool.controller(page, model, currentPage, sortField, sortDir);
+    paginationTool.controller(page, model, currentPage, sortField, sortDir);
     model.addAttribute("loggedUser", userService.findByEmail(getLoggedUser(au).getUsername()));
     model.addAttribute("posts", page);
 

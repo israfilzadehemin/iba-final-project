@@ -55,9 +55,8 @@
     </div>
     <div class="col-12 e-chat-container d-flex flex-wrap p-0">
         <div class="col-12 e-chat-right">
-            <div th:switch="${loggedUserId}" class="e-chat-right-top m-0 pb-1 mt-1 d-flex justify-content-between flex-wrap">
-                <h3 th:case="${messages.get(1).from.getId()}" th:text="${messages.get(0).to.getName()}" class="col-lg-10 col-md-10 col-sm-8 text-left e-submit m-0 p-0 e-chat-header"></h3>
-                <h3 th:case="${messages.get(1).to.getId()}" th:text="${messages.get(0).from.getName()}" class="col-lg-10 col-md-10 col-sm-8 text-left e-submit m-0 p-0 e-chat-header"></h3>
+            <div class="e-chat-right-top m-0 pb-1 mt-1 d-flex justify-content-between flex-wrap">
+                <h3 th:text="${currentUser.name}" class="col-lg-10 col-md-10 col-sm-8 text-left e-submit m-0 p-0 e-chat-header"></h3>
                 <a title="block user" href="#" name="e-chat-header-button" class="btn btn-danger m-0" value="block"><i
                         class="far fa-times-circle"></i></a>
             </div>

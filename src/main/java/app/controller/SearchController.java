@@ -7,7 +7,7 @@ import app.security.UserrDetails;
 import app.service.CategoryService;
 import app.service.PostService;
 import app.service.UserService;
-import app.tool.PageableTool;
+import app.tool.PaginationTool;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 import java.util.Optional;
 
 @Log4j2
@@ -30,7 +29,7 @@ public class SearchController {
   private final PostService postService;
   private final CategoryService categoryService;
   private final UserService userService;
-  private final PageableTool<Post> pageableTool;
+  private final PaginationTool<Post> paginationTool;
 
   @GetMapping("/{currentPage}")
   public String handle_get(HttpServletRequest req, Model model, Authentication au,
@@ -49,7 +48,7 @@ public class SearchController {
     Page<Post> page = postService.findFiltered(name, category,currentPage, sortField, sortDir);
 
 
-    pageableTool.controller(page, model, currentPage, sortField, sortDir);
+    paginationTool.controller(page, model, currentPage, sortField, sortDir);
 
 
     model.addAttribute("loggedUser", userService.findByEmail(getLoggedUser(au).getUsername()));

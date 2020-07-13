@@ -11,20 +11,17 @@ import app.repo.CategoryRepo;
 import app.repo.PostRepo;
 import app.tool.ConverterTool;
 import app.tool.FileTool;
-import app.tool.PageableTool;
+import app.tool.PaginationTool;
 import app.tool.ValidationTool;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Log4j2
 @Service
@@ -36,14 +33,14 @@ public class PostService {
   private final ValidationTool validationTool;
   private final FileTool fileTool;
   private final ConverterTool converterTool;
-  private final PageableTool<Post> pageableTool;
+  private final PaginationTool<Post> paginationTool;
 
 
   public Page<Post> findAll(int currentPage, String sortField, String sortDir) {
 //    Sort sort = Sort.by(sortField);
 //    sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
 //    Pageable pageable = PageRequest.of(currentPage-1,10, sort);
-    Pageable pageable = pageableTool.service(currentPage,sortField,sortDir);
+    Pageable pageable = paginationTool.service(currentPage,sortField,sortDir);
 
     Page<Post> allPosts = postRepo.findAllByStatusAndIdIsNot(true, 0, pageable);
     if (allPosts.getTotalElements() == 0) {
@@ -80,7 +77,7 @@ public class PostService {
     else if (!validationTool.isCategoryValid(category)) throw new InvalidInputEx();
     else {
       LocalDate parsedDate = converterTool.stringToLocalDate2(date);
-      String image = fileTool.uploadPostImage(file);
+      String image = fileTool.uploadPostImage(file, name);
       if (postId.equals("0")) {
         Category cat = categoryRepo.findById(Long.parseLong(category)).get();
         Post post = new Post(userService.findById(userId),name, cat, city, image, parsedDate);
@@ -94,7 +91,7 @@ public class PostService {
         post.setCategory(cat);
         post.setCity(city);
         post.setExpiry_date(parsedDate);
-        post.setImage(fileTool.uploadPostImage(file));
+        post.setImage(image);
         postRepo.save(post);
         log.info("Post updated successfully");
         return true;
@@ -107,7 +104,7 @@ public class PostService {
     if (!validationTool.isParsableToLong(category)) {
       throw new InvalidInputEx();
     } else {
-      Pageable pageable = pageableTool.service(currentPage,sortField,sortDir);
+      Pageable pageable = paginationTool.service(currentPage,sortField,sortDir);
 
       Page<Post> filteredPosts = postRepo.findAllByNameContainingAndCategory_IdAndStatus(name, Long.parseLong(category), true, pageable);
       if (filteredPosts.getTotalElements() == 0) {
@@ -120,7 +117,7 @@ public class PostService {
 
   public Page<Post> findByUser(String userId, int currentPage, String sortField, String sortDir) {
 
-    Pageable pageable = pageableTool.service(currentPage,sortField,sortDir);
+    Pageable pageable = paginationTool.service(currentPage,sortField,sortDir);
     return postRepo.findPostsByUserIdAndStatus(Long.parseLong(userId), true, pageable);
   }
 

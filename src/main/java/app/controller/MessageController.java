@@ -35,7 +35,7 @@ public class MessageController {
     model.addAttribute("loggedUserId", getLoggedUser(au).getId());
     model.addAttribute("loggedUser", userService.findByEmail(getLoggedUser(au).getUsername()));
     model.addAttribute("connections",
-            messageService.findLastMessagesbyUser(String.valueOf(getLoggedUser(au).getId())));
+            messageService.findLastMessagesbyUser(getLoggedUser(au).getId()));
 
     return "chat-main";
   }
@@ -45,14 +45,13 @@ public class MessageController {
    */
   @GetMapping("/{id}")
   public String handle_get(@PathVariable String id, Model model, Authentication au) {
-    String loggedUserId = String.valueOf(getLoggedUser(au).getId());
+    long loggedUserId = getLoggedUser(au).getId();
 
-    if(blockedService.isBlocked(id, loggedUserId)){
-      return handle_get(model, au);
-    }
+    blockedService.checkBlock(id, loggedUserId);
 
     model.addAttribute("loggedUserId", loggedUserId);
     model.addAttribute("loggedUser", userService.findByEmail(getLoggedUser(au).getUsername()));
+    model.addAttribute("currentUser", userService.findById(id));
     model.addAttribute("messages", messageService.findMessagesBetween(loggedUserId, id));
     return "chat-private";
 

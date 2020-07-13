@@ -43,4 +43,9 @@ public class IndexController {
     adService.sendAdRequest(fullName, number, time);
     return new RedirectView("/");
   }
+
+  @RequestMapping("*")
+  public RedirectView handle_wrongUrl() {
+    return new RedirectView("/");
+  }
 }
