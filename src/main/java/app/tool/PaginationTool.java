@@ -17,6 +17,8 @@ public class PaginationTool<T> {
         int totalPages = page.getTotalPages();
         String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
 
+        if(totalPages==0) totalPages=1;
+
         model.addAttribute("totalElements", totalElements);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("currentPage",currentPage);
