@@ -9,7 +9,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,11 +28,11 @@ public class WishedController {
 
   @GetMapping
   public String handle_get(Model model, Authentication au) {
-    model.addAttribute("posts", wishedService.findWishedPosts(String.valueOf(getLoggedUser(au).getId())));
-    model.addAttribute("categories", categoryService.findAll());
-    model.addAttribute("wished", true);
-    model.addAttribute("loggedUser", userService.findByEmail(getLoggedUser(au).getUsername()));
-
+    model
+            .addAttribute("posts", wishedService.findWishedPosts(String.valueOf(getLoggedUser(au).getId())))
+            .addAttribute("categories", categoryService.findAll())
+            .addAttribute("wished", true)
+            .addAttribute("loggedUser", userService.findByEmail(getLoggedUser(au).getUsername()));
     return "dashboard";
   }
 

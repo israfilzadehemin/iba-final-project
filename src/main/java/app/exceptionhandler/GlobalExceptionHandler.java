@@ -16,8 +16,8 @@ public class GlobalExceptionHandler implements ErrorController {
     }
 
     @GetMapping("/error")
-    public RedirectView handle_error(){
+    public String handle_error(){
         log.warn("GlobalExceptionHandler: Error handled");
-        return new RedirectView("/dashboard");
+        return "errorc";
     }
 }

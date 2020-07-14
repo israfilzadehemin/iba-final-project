@@ -4,7 +4,7 @@ import app.externalapi.cityapi.CityService;
 import app.form.FormInfo;
 import app.security.UserrDetails;
 import app.service.UserService;
-import lombok.SneakyThrows;
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -17,25 +17,20 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Log4j2
+@AllArgsConstructor
 @Controller
 @RequestMapping("/info")
 public class UserInfoController {
 
-  // http://localhost:8085/info
-
   private final UserService userService;
   private final CityService cityService;
 
-  public UserInfoController(UserService userService, CityService cityService) {
-    this.userService = userService;
-    this.cityService = cityService;
-  }
-
+  // http://localhost:8085/info
   @GetMapping
   public String handle_get(Model model, Authentication au) {
     if (userService.isInfoFilled(getLoggedUser(au).getId()))
       return "redirect:/dashboard/1";
-    
+
     model.addAttribute("cities", cityService.getCities());
     model.addAttribute("loggedUser", userService.findByEmail(getLoggedUser(au).getUsername()));
     return "anket";
@@ -45,12 +40,9 @@ public class UserInfoController {
   public RedirectView handle_post(FormInfo form,
                                   @RequestParam("image") MultipartFile file,
                                   Authentication au) {
-    String name = form.getName();
-    String surname = form.getSurname();
-    String city = form.getCity();
-    String number = form.getNumber();
-
-    userService.fillInfo(String.valueOf(getLoggedUser(au).getId()), name, surname, city, number, file);
+    userService.fillInfo(
+            String.valueOf(getLoggedUser(au).getId()), form.getName(),
+            form.getSurname(), form.getCity(), form.getNumber(), file);
     return new RedirectView("dashboard");
   }
 

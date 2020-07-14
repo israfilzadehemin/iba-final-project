@@ -7,14 +7,17 @@ import app.exception.user.*;
 import app.repo.UserRepo;
 import app.tool.FileTool;
 import app.tool.ValidationTool;
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Log4j2
+@AllArgsConstructor
 @Service
 public class UserService {
   private final ValidationTool validationTool;
@@ -23,44 +26,26 @@ public class UserService {
   private final PasswordEncoder passwordEncoder;
   private final RoleService roleService;
 
-  public UserService(ValidationTool validationTool,
-                     FileTool fileTool,
-                     UserRepo userRepo,
-                     PasswordEncoder passwordEncoder,
-                     RoleService roleService) {
-    this.validationTool = validationTool;
-    this.fileTool = fileTool;
-    this.userRepo = userRepo;
-    this.passwordEncoder = passwordEncoder;
-    this.roleService = roleService;
+  public void register(String email, String pass, String passConfirm) {
+    if (email == null || pass == null || passConfirm == null
+            || email.isBlank() || pass.isBlank() || passConfirm.isBlank()) throw new SignUpEmptyInputEx();
+    if (!validationTool.isEmailUnique(email)) throw new EmailNotUniqueEx();
+    if (!validationTool.passMatches(pass, passConfirm)) throw new PassNotMatchEx();
+
+    Userr user = new Userr(email.toLowerCase(), passwordEncoder.encode(pass), LocalDateTime.now(), true);
+    user.setName("Name");
+    user.setSurname("");
+    user.setImage("/img/profile/user.png");
+    user.setCity("Baku");
+    userRepo.save(user);
+
+    roleService.addRoleToUser(user, "USER");
+    log.info("User registered successfully");
   }
 
-  public boolean register(String email, String pass, String passConfirm) {
-    if (email.isBlank() || pass.isBlank() || passConfirm.isBlank()) {
-      throw new SignUpEmptyInputEx();
-    } else if (!validationTool.isEmailUnique(email)) {
-      throw new EmailNotUniqueEx();
-    } else if (!validationTool.passMatches(pass, passConfirm)) {
-      throw new PassNotMatchEx();
-    } else {
-      log.info("User registered successfully");
-      Userr user = new Userr(email.toLowerCase(), passwordEncoder.encode(pass), LocalDateTime.now(), true);
-      user.setName("Name");
-      user.setSurname("");
-      user.setImage("/img/profile/user.png");
-      user.setCity("Baku");
-      userRepo.save(user);
-      roleService.addRoleToUser(user, "USER");
-      return true;
-    }
-  }
-
-  public boolean login(String login, String pass) {
-    if (!validationTool.isLoginCorrect(login, pass)) {
+  public void login(String login, String pass) {
+    if (!validationTool.isLoginCorrect(login, pass))
       throw new IncorrectLoginEx();
-    } else {
-      return true;
-    }
   }
 
   public boolean isInfoFilled(long loggedUserId) {
@@ -71,77 +56,76 @@ public class UserService {
     return true;
   }
 
-  public boolean fillInfo(String id, String name, String surname, String city, String number, MultipartFile file) {
-    if (name.isBlank() || surname.isBlank() ||
-            city.isBlank() || number.isBlank() || file.isEmpty()) {
-      throw new FillInfoEmptyInputEx();
-    } else if (!validationTool.isPhoneValid(number)) {
-      throw new InvalidPhoneNumberEx();
-    } else {
-
-      String image = fileTool.uploadProfilePic(file,
-              String.format("%s%s", name, surname)
-                      .replaceAll(" ", "")
-                      .toLowerCase());
-      Userr user = findById(id);
-      user.setName(name);
-      user.setSurname(surname);
-      user.setCity(city);
-      user.setPhone(number);
-      user.setImage(image);
-      userRepo.save(user);
-      log.info("User info filled successfully");
-      return true;
-    }
-  }
-
-  public boolean updateUser(String id, String name, String surname, String city, String number, MultipartFile file) {
+  public void fillInfo(String id, String name, String surname, String city, String number, MultipartFile file) {
     if (name == null || surname == null || city == null
             || number == null || id.isBlank() || name.isBlank()
             || surname.isBlank() || city.isBlank() || number.isBlank()
             || file.isEmpty()
-    ) {
-      throw new UpdateUserEmptyInputEx();
-    } else if (!validationTool.isPhoneValid(number)) {
-      throw new InvalidPhoneNumberEx();
-    } else {
-      String image = fileTool.uploadProfilePic(file,
-              String.format("%s%s", name, surname)
-                      .replaceAll(" ", "")
-                      .toLowerCase());
-      Userr user = findById(id);
-      user.setName(name);
-      user.setSurname(surname);
-      user.setCity(city);
-      user.setPhone(number);
-      user.setImage(image);
-      userRepo.save(user);
-      log.info("User profile updated successfully");
-      return true;
-    }
+    ) throw new FillInfoEmptyInputEx();
+
+    if (!validationTool.isPhoneValid(number)) throw new InvalidPhoneNumberEx();
+
+    String image = fileTool.uploadProfilePic(file,
+            String.format("%s%s", name, surname)
+                    .replaceAll(" ", "")
+                    .toLowerCase());
+
+    Userr user = findById(id);
+    user.setName(name);
+    user.setSurname(surname);
+    user.setCity(city);
+    user.setPhone(number);
+    user.setImage(image);
+    userRepo.save(user);
+    log.info("User info filled successfully");
   }
 
+  public void updateUser(String id, String name, String surname, String city, String number, MultipartFile file) {
+    if (name == null || surname == null || city == null
+            || number == null || id.isBlank() || name.isBlank()
+            || surname.isBlank() || city.isBlank() || number.isBlank()
+            || file.isEmpty()
+    ) throw new UpdateUserEmptyInputEx();
 
-  public boolean updatePassword(String email, String pass, String conPass) {
+    if (!validationTool.isPhoneValid(number)) throw new InvalidPhoneNumberEx();
+
+    String image = fileTool.uploadProfilePic(file,
+            String.format("%s%s", name, surname)
+                    .replaceAll(" ", "")
+                    .toLowerCase());
+
+    Userr user = findById(id);
+    user.setName(name);
+    user.setSurname(surname);
+    user.setCity(city);
+    user.setPhone(number);
+    user.setImage(image);
+    userRepo.save(user);
+    log.info("User profile updated successfully");
+  }
+
+  public void updatePassword(String email, String pass, String conPass) {
     if (email == null || pass == null || conPass == null
             || email.isBlank() || pass.isBlank() || conPass.isBlank()) throw new ResetEmptyInputEx();
-    else if (!pass.equals(conPass)) throw new NewPassNotMatchEx();
-    else {
-      Userr user = findByEmail(email);
-      user.setPassword(passwordEncoder.encode(pass));
-      userRepo.save(user);
-      return true;
-    }
+
+    if (!pass.equals(conPass)) throw new NewPassNotMatchEx();
+
+    Userr user = findByEmail(email);
+    user.setPassword(passwordEncoder.encode(pass));
+    userRepo.save(user);
   }
 
   public Userr findById(String id) {
-    if (validationTool.isParsableToLong(id)) {
-      return userRepo.findById(Long.parseLong(id)).orElseThrow(UserNotFoundEx::new);
-    } else throw new InvalidInputEx();
+    if (!validationTool.isParsableToLong(id)) throw new InvalidInputEx();
+    return userRepo.findById(Long.parseLong(id)).orElseThrow(UserNotFoundEx::new);
   }
 
   public Userr findByEmail(String email) {
     return userRepo.findUserrByEmail(email).orElseThrow(UserNotFoundEx::new);
+  }
+
+  public Optional<Userr> findUserForLogin(String email) {
+    return userRepo.findUserrByEmail(email);
   }
 
   public Userr viewUser(String userId, long loggedId) {
@@ -151,6 +135,6 @@ public class UserService {
   }
 
   public boolean isUserExistByEmail(String mail) {
-    return userRepo.getUserrByEmail(mail).isPresent();
+    return userRepo.findUserrByEmail(mail).isPresent();
   }
 }

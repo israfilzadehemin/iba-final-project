@@ -33,7 +33,6 @@ public class DashboardController {
   /**
    * http://localhost:8080/dashboard/2?sortField=name&sortDir=asc
    */
-
   @RequestMapping()
   public RedirectView handle_main() {
     return new RedirectView("/dashboard/1");
@@ -54,7 +53,6 @@ public class DashboardController {
 
     model.addAttribute("loggedUser", userService.findByEmail(getLoggedUser(au).getUsername()));
     model.addAttribute("categories", categoryService.findAll());
-
     return "dashboard";
   }
 
@@ -62,7 +60,6 @@ public class DashboardController {
   /**
    * http://localhost:8085/search?name=Em&cat=1
    */
-
   @PostMapping("/{currentPage}")
   public RedirectView handle_post(Model model, FormSearch form) {
     model.addAttribute("name", form.getKeyword());
@@ -70,10 +67,8 @@ public class DashboardController {
     return new RedirectView("/search/1");
   }
 
-
   UserrDetails getLoggedUser(Authentication authentication) {
     return (UserrDetails) authentication.getPrincipal();
   }
-
 
 }

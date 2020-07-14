@@ -30,16 +30,13 @@ public class MessageController {
   private final BlockedService blockedService;
 
   /**
-   * http://localhost:8085/message
+   * http://localhost:8080/message
    */
   @GetMapping()
   public String handle_get(Model model, Authentication au) {
-
-    model.addAttribute("loggedUserId", getLoggedUser(au).getId());
     model.addAttribute("loggedUser", userService.findByEmail(getLoggedUser(au).getUsername()));
     model.addAttribute("connections",
-            messageService.findLastMessagesbyUser(getLoggedUser(au).getId()));
-
+            messageService.findLastMessagesByUser(getLoggedUser(au).getId()));
     return "chat-main";
   }
 
@@ -54,10 +51,9 @@ public class MessageController {
 
     List<Message> m = messageService.findMessagesBetween(loggedUserId, id);
 
-    model.addAttribute("loggedUserId", loggedUserId);
     model.addAttribute("loggedUser", userService.findByEmail(getLoggedUser(au).getUsername()));
     model.addAttribute("currentUser", userService.findById(id));
-    model.addAttribute("messages", m.subList(Math.max(m.size()-5,0),m.size()));
+    model.addAttribute("messages", m.subList(Math.max(m.size() - 5, 0), m.size()));
     return "chat-private";
   }
 
@@ -70,15 +66,11 @@ public class MessageController {
 
     blockedService.checkBlock(id, loggedUserId);
 
-
-    model.addAttribute("loggedUserId", loggedUserId);
     model.addAttribute("loggedUser", userService.findByEmail(getLoggedUser(au).getUsername()));
     model.addAttribute("currentUser", userService.findById(id));
     model.addAttribute("messages", messageService.findMessagesBetween(loggedUserId, id));
     return "chat-private";
   }
-
-
 
   @PostMapping("/{id}")
   public RedirectView handle_post(FormChat form, @PathVariable String id, Authentication au) {

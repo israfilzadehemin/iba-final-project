@@ -64,7 +64,7 @@
                         messages
                     </a>
                 </form>
-                <div th:each="message : ${messages}" th:switch="${loggedUserId}">
+                <div th:each="message : ${messages}" th:switch="${loggedUser.id}">
                     <div th:case="${message.from.getId()}" class="col-12 d-flex flex-wrap justify-content-end mb-2  e-chat-sent">
                         <div class="col-lg-5 col-md-5 col-sm-12  btn btn-primary">
                             <p th:text="${message.message}" class="col-12 m-0 p-0 text-left e-chat-text-body"></p>

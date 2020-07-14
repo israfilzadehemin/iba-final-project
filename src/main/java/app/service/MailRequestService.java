@@ -1,25 +1,10 @@
 package app.service;
 
-import app.entity.Category;
-import app.entity.Post;
-import app.exception.input.PostEmptyInputEx;
-import app.exception.post.InvalidInputEx;
-import app.exception.post.NoPostEx;
-import app.exception.post.NotAuthorizedEx;
-import app.exception.post.PostNotFoundEx;
-import app.repo.CategoryRepo;
-import app.repo.PostRepo;
-import app.tool.ConverterTool;
-import app.tool.FileTool;
-import app.tool.ValidationTool;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
-import java.time.LocalDate;
-import java.util.List;
 
 @Log4j2
 @Service

@@ -22,8 +22,6 @@ import java.util.Optional;
 @RequestMapping("/myposts")
 public class PostViewController {
 
-  // http://localhost:8085/myposts
-
   private final PostService postService;
   private final UserService userService;
   private final PaginationTool<Post> paginationTool;
@@ -31,7 +29,6 @@ public class PostViewController {
   /**
    * http://localhost:8080/myposts/2?sortField=name&sortDir=asc
    */
-
   @RequestMapping()
   public RedirectView handle_get() {
     return new RedirectView("/myposts/1");
@@ -50,17 +47,18 @@ public class PostViewController {
             currentPage, sortField, sortDir);
 
     paginationTool.controller(page, model, currentPage, sortField, sortDir);
+
     model.addAttribute("loggedUser", userService.findByEmail(getLoggedUser(au).getUsername()));
     model.addAttribute("posts", page);
-
     return "manage-post";
   }
 
 
   @GetMapping("/delete/{id}")
-  public RedirectView handle_get(@PathVariable String id) {
+  public RedirectView handle_get(@PathVariable String id, Authentication au) {
+    postService.isAuthorized(String.valueOf(getLoggedUser(au).getId()), id);
     postService.deactivate(id);
-      return new RedirectView("/myposts");
+    return new RedirectView("/myposts");
   }
 
   @PostMapping("/{currentPage}")

@@ -1,7 +1,7 @@
 package app.service;
 
 
-import app.repo.UserRepo;
+import lombok.AllArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
@@ -10,27 +10,22 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 @Component
+@AllArgsConstructor
 public class MailSenderService {
 
-    private final  JavaMailSender javaMailSender;
+  private final JavaMailSender javaMailSender;
 
-    public MailSenderService(JavaMailSender javaMailSender, UserRepo repo) {
-        this.javaMailSender = javaMailSender;
-    }
+  public void send(String to, String subject, String body) throws MessagingException {
 
-    public void send(String to, String subject, String body) throws MessagingException {
+    MimeMessage message = javaMailSender.createMimeMessage();
+    MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-        MimeMessage message = javaMailSender.createMimeMessage();
-        MimeMessageHelper helper;
+    helper.setSubject(subject);
+    helper.setTo(to);
+    helper.setText(body, true);
 
-        helper = new MimeMessageHelper(message, true);
-        helper.setSubject(subject);
-        helper.setTo(to);
-        helper.setText(body, true);
+    javaMailSender.send(message);
 
-        javaMailSender.send(message);
-
-
-    }
+  }
 
 }
