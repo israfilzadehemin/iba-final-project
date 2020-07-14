@@ -13,13 +13,12 @@ import java.util.List;
 public class PaginationTool<T> {
     public void controller(Page<T> page, Model model, int currentPage, String sortField, String sortDir) {
         List<T> content = page.getContent();
-        long totalElements = page.getTotalElements();
         int totalPages = page.getTotalPages();
         String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
 
         if(totalPages==0) totalPages=1;
 
-        model.addAttribute("totalElements", totalElements);
+        model.addAttribute("totalElements", page.getTotalElements());
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("currentPage",currentPage);
         model.addAttribute("sortField",sortField);

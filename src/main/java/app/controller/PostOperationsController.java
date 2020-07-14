@@ -1,6 +1,5 @@
 package app.controller;
 
-import app.entity.Post;
 import app.externalapi.cityapi.CityService;
 import app.form.FormPost;
 import app.security.UserrDetails;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.view.RedirectView;
 
 @Log4j2
 @AllArgsConstructor
@@ -26,9 +24,6 @@ public class PostOperationsController {
   private final CategoryService categoryService;
   private final CityService cityService;
   private final UserService userService;
-
-  // http://localhost:8085/mypost/6
-
 
   @GetMapping()
   public String handle_get() {
@@ -50,11 +45,14 @@ public class PostOperationsController {
                              @RequestParam("image") MultipartFile file,
                              @PathVariable String id,
                              Authentication au) {
-    String name = form.getName();
-    String category = form.getCategory();
-    String city = form.getCity();
-    String expiryDate = form.getExpiryDate();
-    postService.addOrUpdate(String.valueOf(getLoggedUser(au).getId()), id, name, category, city, expiryDate, file);
+    postService.addOrUpdate(
+            String.valueOf(getLoggedUser(au).getId()),
+            id,
+            form.getName(),
+            form.getCategory(),
+            form.getCity(),
+            form.getExpiryDate(),
+            file);
     return ("redirect:/myposts");
   }
 

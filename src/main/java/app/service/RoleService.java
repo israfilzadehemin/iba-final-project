@@ -17,10 +17,10 @@ public class RoleService {
     return roleRepo.findRolesByName(role).get(0);
   }
 
-  public boolean addRoleToUser(Userr user, String roleName) {
+  public void addRoleToUser(Userr user, String roleName) {
     Role role = findByRole(roleName);
     role.getUsers().add(user);
     roleRepo.save(role);
-    return true;
+    log.info("Role added succesfully");
   }
 }

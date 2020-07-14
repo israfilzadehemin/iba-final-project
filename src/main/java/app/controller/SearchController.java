@@ -39,6 +39,7 @@ public class SearchController {
 
     String name = req.getParameter("name");
     String category = req.getParameter("cat");
+
     if (name == null || category ==null) throw new NoParamEx();
 
     int currentPage = currentPageOp.orElse(1);
@@ -47,13 +48,10 @@ public class SearchController {
 
     Page<Post> page = postService.findFiltered(name, category,currentPage, sortField, sortDir);
 
-
     paginationTool.controller(page, model, currentPage, sortField, sortDir);
-
 
     model.addAttribute("loggedUser", userService.findByEmail(getLoggedUser(au).getUsername()));
     model.addAttribute("categories", categoryService.findAll());
-
     return "dashboard";
   }
 

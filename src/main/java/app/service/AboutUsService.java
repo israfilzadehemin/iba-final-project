@@ -1,7 +1,6 @@
 package app.service;
 
 import app.entity.AboutUs;
-import app.entity.Post;
 import app.repo.AboutUsRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,11 +11,10 @@ import java.util.List;
 @AllArgsConstructor
 public class AboutUsService {
 
-    private final AboutUsRepo aboutUsRepo;
+  private final AboutUsRepo aboutUsRepo;
 
-    public List<AboutUs> findAll(){
-        return aboutUsRepo.findAll();
-    }
-
+  public List<AboutUs> findAll() {
+    return aboutUsRepo.findAll();
+  }
 
 }

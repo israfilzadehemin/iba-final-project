@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Log4j2
@@ -21,6 +20,7 @@ public class UserrDetailsService implements UserDetailsService {
 
   private final UserService userService;
 
+  //Converting from Application User entity to conventional UserDetail
   public static UserDetails userToUserDetails(Userr user) {
     return User
             .withUsername(user.getEmail())
@@ -29,6 +29,7 @@ public class UserrDetailsService implements UserDetailsService {
             .build();
   }
 
+  //Converting from Application User entity to Application UserrDetail
   public static UserDetails userToUserrDetails(Userr user) {
     return new UserrDetails(
             user.getId(),
@@ -41,13 +42,12 @@ public class UserrDetailsService implements UserDetailsService {
             true,
             true,
             true
-
     );
   }
 
   @Override
   public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-    return Optional.of(userService.findByEmail(email))
-            .map(UserrDetailsService::userToUserrDetails).get();
+    return userService.findUserForLogin(email)
+            .map(UserrDetailsService::userToUserrDetails).orElseThrow(()-> new UsernameNotFoundException("User not found"));
   }
 }

@@ -37,12 +37,10 @@ public class PostService {
 
 
   public Page<Post> findAll(int currentPage, String sortField, String sortDir) {
-//    Sort sort = Sort.by(sortField);
-//    sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
-//    Pageable pageable = PageRequest.of(currentPage-1,10, sort);
-    Pageable pageable = paginationTool.service(currentPage,sortField,sortDir);
+    Pageable pageable = paginationTool.service(currentPage, sortField, sortDir);
 
     Page<Post> allPosts = postRepo.findAllByStatusAndIdIsNot(true, 0, pageable);
+
     if (allPosts.getTotalElements() == 0) {
       throw new NoPostEx();
     } else {
@@ -51,87 +49,79 @@ public class PostService {
   }
 
   public Post findById(String id) {
-    if (!validationTool.isParsableToLong(id))
-      throw new InvalidInputEx();
-    else {
+    if (validationTool.isParsableToLong(id))
       return postRepo.findById(Long.parseLong(id)).orElseThrow(PostNotFoundEx::new);
-    }
+    else throw new InvalidInputEx();
+
   }
 
-  public boolean deactivate(String id) {
-    if (!validationTool.isParsableToLong(id))
-      throw new InvalidInputEx();
-    else {
+  public void deactivate(String id) {
+    if (validationTool.isParsableToLong(id)) {
       Post post = postRepo.findById(Long.parseLong(id)).orElseThrow(PostNotFoundEx::new);
       post.setStatus(false);
       postRepo.save(post);
       log.info("Post deactivated successfully");
-      return true;
+    } else {
+      throw new InvalidInputEx();
+    }
+  }
+
+  public void addOrUpdate(String userId, String postId, String name,
+                          String category, String city, String date, MultipartFile file) {
+
+    if (postId.isBlank() || name.isBlank() || category.isBlank()
+            || city.isBlank() || date.isBlank() || file.isEmpty())
+      throw new PostEmptyInputEx();
+    if (!validationTool.isParsableToLong(postId) || !validationTool.isCategoryValid(category))
+      throw new InvalidInputEx();
+
+    LocalDate parsedDate = converterTool.stringToLocalDate(date);
+    String image = fileTool.uploadPostImage(file, name);
+    Category cat = categoryRepo.findById(Long.parseLong(category)).get();
+    Post post;
+
+    if (postId.equals("0")) {
+      post = new Post(userService.findById(userId), name, cat, city, image, parsedDate);
+      postRepo.save(post);
+      log.info("Post added successfully");
+    } else {
+      post = findById(postId);
+      post.setName(name);
+      post.setCategory(cat);
+      post.setCity(city);
+      post.setExpiry_date(parsedDate);
+      post.setImage(image);
+      postRepo.save(post);
+      log.info("Post updated successfully");
     }
 
   }
 
-  public boolean addOrUpdate(String userId,String postId, String name, String category, String city, String date, MultipartFile file) {
-    if (postId.isBlank() || name.isBlank() || category.isBlank() || city.isBlank() || date.isBlank() || file.isEmpty()) throw new PostEmptyInputEx();
-    else if (!validationTool.isParsableToLong(postId)) throw new InvalidInputEx();
-    else if (!validationTool.isCategoryValid(category)) throw new InvalidInputEx();
-    else {
-      LocalDate parsedDate = converterTool.stringToLocalDate2(date);
-      String image = fileTool.uploadPostImage(file, name);
-      if (postId.equals("0")) {
-        Category cat = categoryRepo.findById(Long.parseLong(category)).get();
-        Post post = new Post(userService.findById(userId),name, cat, city, image, parsedDate);
-        postRepo.save(post);
-        log.info("Post added successfully");
-        return true;
-      } else {
-        Category cat = categoryRepo.findById(Long.parseLong(category)).get();
-        Post post = findById(postId);
-        post.setName(name);
-        post.setCategory(cat);
-        post.setCity(city);
-        post.setExpiry_date(parsedDate);
-        post.setImage(image);
-        postRepo.save(post);
-        log.info("Post updated successfully");
-        return true;
-      }
-
-    }
-  }
-
-  public Page<Post> findFiltered(String name, String category,int currentPage, String sortField, String sortDir) {
+  public Page<Post> findFiltered(String name, String category, int currentPage, String sortField, String sortDir) {
     if (!validationTool.isParsableToLong(category)) {
       throw new InvalidInputEx();
-    } else {
-      Pageable pageable = paginationTool.service(currentPage,sortField,sortDir);
-
-      Page<Post> filteredPosts = postRepo.findAllByNameContainingAndCategory_IdAndStatus(name, Long.parseLong(category), true, pageable);
-      if (filteredPosts.getTotalElements() == 0) {
-        throw new PostNotFoundEx();
-      } else {
-        return filteredPosts;
-      }
     }
+
+    Pageable pageable = paginationTool.service(currentPage, sortField, sortDir);
+    Page<Post> filteredPosts = postRepo.findAllByNameContainingAndCategory_IdAndStatus(
+            name, Long.parseLong(category), true, pageable);
+
+    if (filteredPosts.getTotalElements() == 0) {
+      throw new PostNotFoundEx();
+    }
+
+    return filteredPosts;
   }
 
   public Page<Post> findByUser(String userId, int currentPage, String sortField, String sortDir) {
-
-    Pageable pageable = paginationTool.service(currentPage,sortField,sortDir);
+    Pageable pageable = paginationTool.service(currentPage, sortField, sortDir);
     return postRepo.findPostsByUserIdAndStatus(Long.parseLong(userId), true, pageable);
   }
 
-  public boolean isAuthorized(String userId, String postId) {
+  public void isAuthorized(String userId, String postId) {
     if (!validationTool.isParsableToLong(postId)) throw new InvalidInputEx();
-
-    Post post = findById(postId);
-
-    if (Integer.parseInt(postId)==0) return true;
-
-    if (post.getUser().getId()==Long.parseLong(userId)) return true;
-    else {
-      log.warn("Current user is not authorized to edit this post: from PostService.isAuthorized()");
-      throw new NotAuthorizedEx();
-    }
+    if (Integer.parseInt(postId) == 0) return;
+    if (findById(postId).getUser().getId() == Long.parseLong(userId)) return;
+    throw new NotAuthorizedEx();
   }
 }

@@ -12,5 +12,6 @@ import java.util.Optional;
 @Repository
 public interface BlockedRepo extends JpaRepository<Blocked, Long> {
   List<Blocked> findByWho(Userr loggedUser);
+
   Optional<Blocked> findByWhoAndWhom(Userr who, Userr whom);
 }

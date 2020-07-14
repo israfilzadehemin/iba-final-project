@@ -2,7 +2,6 @@ package app.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

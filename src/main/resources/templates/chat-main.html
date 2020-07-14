@@ -57,7 +57,7 @@
              class="col-lg-6 col-md-12 col-sm-12 e-chat-container d-flex flex-wrap p-0">
             <div class="col-12 p-0 e-chat-left">
                 <div th:each="connection : ${connections}">
-                    <div th:switch="${loggedUserId}">
+                    <div th:switch="${loggedUser.id}">
                         <a th:case="${connection.from.getId()}" th:href="'/message/'+${connection.to.getId()}"
                            class="card-link d-flex flex-wrap flex-wrap m-0 d-inline-block" style="height: 70px;">
                             <div class="col-2 m-0 p-0 e-chat-user-img">
