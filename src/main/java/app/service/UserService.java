@@ -50,10 +50,8 @@ public class UserService {
 
   public boolean isInfoFilled(long loggedUserId) {
     Userr user = findById(String.valueOf(loggedUserId));
-    if (user.getCity() == null || user.getName() == null ||
-            user.getSurname() == null || user.getSurname().isBlank()) return false;
-
-    return true;
+    return user.getCity() != null && user.getName() != null &&
+            user.getSurname() != null && !user.getSurname().isBlank();
   }
 
   public void fillInfo(String id, String name, String surname, String city, String number, MultipartFile file) {
@@ -63,7 +61,7 @@ public class UserService {
             || file.isEmpty()
     ) throw new FillInfoEmptyInputEx();
 
-    if (!validationTool.isPhoneValid(number)) throw new InvalidPhoneNumberEx();
+    if (validationTool.isPhoneValid(number)) throw new InvalidPhoneNumberEx();
 
     String image = fileTool.uploadProfilePic(file,
             String.format("%s%s", name, surname)
@@ -87,7 +85,7 @@ public class UserService {
             || file.isEmpty()
     ) throw new UpdateUserEmptyInputEx();
 
-    if (!validationTool.isPhoneValid(number)) throw new InvalidPhoneNumberEx();
+    if (validationTool.isPhoneValid(number)) throw new InvalidPhoneNumberEx();
 
     String image = fileTool.uploadProfilePic(file,
             String.format("%s%s", name, surname)

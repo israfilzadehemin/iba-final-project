@@ -1,6 +1,5 @@
 package app.exceptionhandler;
 
-import app.exception.input.NoParamEx;
 import app.exception.input.*;
 import app.exception.message.MessageNotFoundEx;
 import app.exception.post.*;

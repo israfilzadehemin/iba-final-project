@@ -12,31 +12,27 @@ import javax.mail.MessagingException;
 public class MailRequestService {
   private final MailSenderService mailSenderService;
 
-  public boolean sendAdRequest(String fullName, String number, String time) {
+  public void sendAdRequest(String fullName, String number, String time) {
     try {
       String receiver = "israfilzadehemin@gmail.com";
       String subject = "Alert! New Ad Request has been received";
       String body = String.format("Name and Surname: %s\n Mobile phone: %s\n Available time: %s", fullName, number, time);
       mailSenderService.send(receiver, subject, body);
       log.info("AD request has been sent successfully");
-      return true;
     } catch (MessagingException e) {
       log.warn("MessagingException happened: from MailRequestService.sendAdRequest()");
-      return false;
     }
   }
 
-  public boolean sendFeedback(String email, String text) {
+  public void sendFeedback(String email, String text) {
     try {
       String receiver = "israfilzadehemin@gmail.com";
       String subject = "Alert! New Feedback has been received";
       String body = String.format("Sender: %s\n Text: %s", email, text);
       mailSenderService.send(receiver, subject, body);
       log.info("Feedback has been sent successfully");
-      return true;
     } catch (MessagingException e) {
       log.warn("MessagingException happened: from MailRequestService.sendFeedback()");
-      return false;
     }
   }
 }

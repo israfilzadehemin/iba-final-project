@@ -30,7 +30,7 @@ public class ValidationTool {
   }
 
   public boolean isPhoneValid(String number) {
-    return isAzercell(number) || isBakcell(number) || isNar(number) || isHome(number);
+    return !isAzercell(number) && !isBakcell(number) && !isNar(number) && !isHome(number);
   }
 
   public boolean isAzercell(String number) {

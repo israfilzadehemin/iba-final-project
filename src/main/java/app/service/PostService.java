@@ -118,10 +118,10 @@ public class PostService {
     return postRepo.findPostsByUserIdAndStatus(Long.parseLong(userId), true, pageable);
   }
 
-  public boolean isAuthorized(String userId, String postId) {
+  public void isAuthorized(String userId, String postId) {
     if (!validationTool.isParsableToLong(postId)) throw new InvalidInputEx();
-    if (Integer.parseInt(postId) == 0) return true;
-    if (findById(postId).getUser().getId() == Long.parseLong(userId)) return true;
+    if (Integer.parseInt(postId) == 0) return;
+    if (findById(postId).getUser().getId() == Long.parseLong(userId)) return;
     throw new NotAuthorizedEx();
   }
 }
