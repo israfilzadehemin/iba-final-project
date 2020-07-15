@@ -14,8 +14,8 @@ import java.time.format.DateTimeFormatter;
 @Log4j2
 @Service
 public class FileTool {
-  private static final String PROFILE_PHOTO = "uploaded/profile/";
-  private static final String POST_IMAGE = "uploaded/post/";
+  private static final String PROFILE_PHOTO = "uploaded/";
+  private static final String POST_IMAGE = "uploaded/";
 
   public String uploadProfilePic(MultipartFile file, String username) {
     return uploadImage(username, file, PROFILE_PHOTO);

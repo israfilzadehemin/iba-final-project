@@ -23,7 +23,7 @@ public class ApplicationMvcConfigurer implements WebMvcConfigurer {
             .forEach(idx -> registry.addResourceHandler(MAPPINGS[idx])
                     .addResourceLocations(PREFIX + LOCATIONS[idx]));
 
-    registry.addResourceHandler("uploaded/")
-            .addResourceLocations("uploaded/");
+    registry.addResourceHandler("/uploaded/**")
+            .addResourceLocations("file:C:/Users/E1000/IdeaProjects/iba-final-project/uploaded/");
   }
 }

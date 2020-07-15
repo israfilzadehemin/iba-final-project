@@ -54,7 +54,7 @@
     <div class="col-12 e-user-container">
         <div class="e-user-content">
             <div class="e-user-img">
-                <img src="../static/img/logo/123.jpg" width="300" height="300" alt="">
+                <img th:src="${user.image}" width="300" height="300" alt="">
             </div>
             <div class="e-user-info">
                 <h1 th:text="${user.name} + ' ' + ${user.surname}" class="col-12 e-user-data"></h1>
