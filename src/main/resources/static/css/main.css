@@ -7,7 +7,7 @@ body {
   background-color: #50CDFB;
 }
 body .form-header .form-title {
-  color: rgba(99, 172, 229, 0.9);
+  color: whitesmoke;
 }
 body .e-form .e-input {
   background-color: #6497b1;
@@ -113,7 +113,7 @@ body .e-slider-container .e-slider-item .e-slider-img {
   width: 100%;
 }
 body .e-about-container {
-  color: rgba(99, 172, 229, 0.9);
+  color: whitesmoke;
 }
 body .e-about-container .e-about-title {
   border-bottom: 2px solid rgba(99, 172, 229, 0.5);
@@ -122,7 +122,7 @@ body .e-about-container .e-about-text {
   font-style: italic;
 }
 body .e-mission-container {
-  color: rgba(99, 172, 229, 0.9);
+  color: whitesmoke;
 }
 body .e-mission-container .e-mission-title {
   border-bottom: 2px solid rgba(99, 172, 229, 0.5);
@@ -133,13 +133,13 @@ body .e-mission-container .e-mission-list .e-mission-item {
   font-style: italic;
 }
 body .e-ad-container {
-  color: rgba(99, 172, 229, 0.9);
+  color: whitesmoke;
 }
 body .e-ad-container .e-ad-title {
   border-bottom: 2px solid rgba(99, 172, 229, 0.5);
 }
 body .e-footer-container {
-  color: rgba(99, 172, 229, 0.9);
+  color: whitesmoke;
   display: flex;
   flex-wrap: wrap;
 }

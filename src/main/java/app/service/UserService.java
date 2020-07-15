@@ -87,7 +87,7 @@ public class UserService {
 
     if (validationTool.isPhoneValid(number)) throw new InvalidPhoneNumberEx();
 
-    String image = fileTool.uploadProfilePic(file,
+    String image = "/"+fileTool.uploadProfilePic(file,
             String.format("%s%s", name, surname)
                     .replaceAll(" ", "")
                     .toLowerCase());

@@ -54,15 +54,21 @@
     <div class="col-12 e-user-container">
         <div class="e-user-content">
             <div class="e-user-img">
-                <img src="../static/img/logo/123.jpg" width="300" height="300" alt="">
+                <img th:src="${loggedUser.image}" width="300" height="300" alt="">
             </div>
             <div class="e-user-info">
-                <form method="post" enctype="multipart/form-data" class="col-lg-3 col-md-6 col-sm-12 form-group d-inline-block e-form">
-                    <div th:if="${(param.error != null) and (param.error[0] == 'updateuseremptyinput')}" class="d-block col-12 mt-1 alert alert-danger">
+                <form method="post" enctype="multipart/form-data"
+                      class="col-lg-3 col-md-6 col-sm-12 form-group d-inline-block e-form">
+                    <div th:if="${(param.error != null) and (param.error[0] == 'updateuseremptyinput')}"
+                         class="d-block col-12 mt-1 alert alert-danger">
                         Please fill all necessery inputs
                     </div>
-                    <input name="name" required type="text" class="col-12 form-control e-input" placeholder="Enter your name">
-                    <input name="surname" required type="text" class="col-12 form-control e-input" placeholder="Enter your surname">
+
+
+                    <input name="name" required type="text" class="col-12 form-control e-input"
+                           placeholder="Enter your name">
+                    <input name="surname" required type="text" class="col-12 form-control e-input"
+                           placeholder="Enter your surname">
                     <select name="city" class="col-12 form-control e-input">
                         <option disabled selected>Select your city</option>
                         <option th:each="city : ${cities}" th:value="${city.name}" th:text="${city.name}"></option>
@@ -80,20 +86,26 @@
     <footer class="col-12 mt-3 e-footer-container" id="contact">
         <section class="col-lg-4 col-md-4 col-sm-12 e-footer-content">
             <ul class="col-12 e-footer-list">
-                <li class="col-12 my-1 e-footer-item"><a href="/update" class="page-link"><i class="fas fa-user-edit col-2"></i>Manage your account</a></li>
-                <li class="col-12 my-1 e-footer-item"><a href="/myposts" class="page-link"><i class="fas fa-edit col-2"></i>Manage your posts</a></li>
+                <li class="col-12 my-1 e-footer-item"><a href="/update" class="page-link"><i
+                        class="fas fa-user-edit col-2"></i>Manage your account</a></li>
+                <li class="col-12 my-1 e-footer-item"><a href="/myposts" class="page-link"><i
+                        class="fas fa-edit col-2"></i>Manage your posts</a></li>
             </ul>
         </section>
         <section class="col-lg-4 col-md-4 col-sm-12 e-footer-content">
             <ul class="col-12 e-footer-list">
-                <li class="col-12 my-1 e-footer-item"><a href="/feedback" class="page-link"><i class="fas fa-exclamation-triangle col-2"></i>Send feedback</a></li>
+                <li class="col-12 my-1 e-footer-item"><a href="/feedback" class="page-link"><i
+                        class="fas fa-exclamation-triangle col-2"></i>Send feedback</a></li>
             </ul>
         </section>
         <section class="col-lg-4 col-md-4 col-sm-12 e-footer-content">
             <ul class="col-12 e-footer-list">
-                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="https://www.facebook.com/"><i class="fab fa-facebook-f col-2"></i>Facebook</a></li>
-                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="https://www.instagram.com/"><i class="fab fa-instagram col-2"></i>Instagram</a></li>
-                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="https://twitter.com/"><i class="fab fa-twitter col-2"></i>Twitter</a></li>
+                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="https://www.facebook.com/"><i
+                        class="fab fa-facebook-f col-2"></i>Facebook</a></li>
+                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="https://www.instagram.com/"><i
+                        class="fab fa-instagram col-2"></i>Instagram</a></li>
+                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="https://twitter.com/"><i
+                        class="fab fa-twitter col-2"></i>Twitter</a></li>
             </ul>
         </section>
     </footer>

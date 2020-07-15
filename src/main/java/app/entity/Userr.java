@@ -19,8 +19,6 @@ public class Userr {
     @Column(name = "u_id")
     private long id;
     private String email;
-    private String fb_login;
-    private String username;
     private String password;
     private String name;
     private String surname;
