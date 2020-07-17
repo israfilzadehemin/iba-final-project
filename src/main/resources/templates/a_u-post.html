@@ -12,7 +12,7 @@
             src="https://kit.fontawesome.com/38cd4014df.js"
             crossorigin="anonymous"
     ></script>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     <link rel="stylesheet" th:href="@{/css/bootstrap-grid.css}">
     <link rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}">
@@ -59,24 +59,24 @@
             </div>
             <div class="e-posting-info">
                 <form method="post" enctype="multipart/form-data"
-                      class="col-lg-3 col-md-6 col-sm-12 form-group d-inline-block e-form">
-                    <input th:value="${post.name}" name="name" required type="text" class="col-12 form-control e-input"
+                      class="col-lg-12 col-md-6 col-sm-12 form-group d-inline-block e-form">
+                    <input th:value="${post.name}" name="name" required type="text" class="col-12 form-control-lg e-input"
                            placeholder="Enter product name">
-                    <select required name="category" class="col-12 form-control e-input">
+                    <select required name="category" class="col-12 form-control-lg e-input">
                         <option disabled selected>Select category</option>
                         <option th:each="cat : ${categories}" th:selected="${cat.id}==${post.category.getId()}"
                                 th:text="${cat.name}" th:value="${cat.id}"></option>
                     </select>
-                    <select required name="city" class="col-12 form-control e-input">
+                    <select required name="city" class="col-12 form-control-lg e-input">
                         <option disabled selected>Select your city</option>
                         <option th:each="city : ${cities}" th:selected="${city.name}==${post.city}"
                                 th:text="${city.name}" th:value="${city.name}"></option>
                     </select>
                     <input th:value="${post.expiry_date}" name="expiryDate" required type="date"
-                           class="col-12 form-control e-input"
+                           class="col-12 form-control-lg e-input"
                            placeholder="Enter expiry date">
-                    <label for="profile-pic" class="form-control text-left e-label">Upload image </label>
-                    <input required name="image" type="file" class="col-12 form-control-file e-file" id="profile-pic">
+                    <label for="profile-pic" class="form-control-lg form-control text-left e-label">Upload image </label>
+                    <input required name="image" type="file" class="col-12 form-control-file-lg e-file" id="profile-pic">
                     <input name="save" type="submit" value="Save" class="col-12 form-control e-submit">
                 </form>
             </div>
@@ -86,26 +86,20 @@
     <footer class="col-12 mt-3 e-footer-container" id="contact">
         <section class="col-lg-4 col-md-4 col-sm-12 e-footer-content">
             <ul class="col-12 e-footer-list">
-                <li class="col-12 my-1 e-footer-item"><a href="/update" class="page-link"><i
-                        class="fas fa-user-edit col-2"></i>Manage your account</a></li>
-                <li class="col-12 my-1 e-footer-item"><a href="/myposts" class="page-link"><i
-                        class="fas fa-edit col-2"></i>Manage your posts</a></li>
+                <li class="col-12 my-1 e-footer-item text-left"><a href="/update"><i class="fas fa-user-edit col-2"></i>Manage your account</a></li>
+                <li class="col-12 my-1 e-footer-item text-left"><a href="/myposts"><i class="fas fa-edit col-2"></i>Manage your posts</a></li>
             </ul>
         </section>
         <section class="col-lg-4 col-md-4 col-sm-12 e-footer-content">
             <ul class="col-12 e-footer-list">
-                <li class="col-12 my-1 e-footer-item"><a href="/feedback" class="page-link"><i
-                        class="fas fa-exclamation-triangle col-2"></i>Send feedback</a></li>
+                <li class="col-12 my-1 e-footer-item"><a href="/feedback" class=""><i class="fas fa-exclamation-triangle col-2"></i>Send feedback</a></li>
             </ul>
         </section>
         <section class="col-lg-4 col-md-4 col-sm-12 e-footer-content">
             <ul class="col-12 e-footer-list">
-                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="https://www.facebook.com/"><i
-                        class="fab fa-facebook-f col-2"></i>Facebook</a></li>
-                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="https://www.instagram.com/"><i
-                        class="fab fa-instagram col-2"></i>Instagram</a></li>
-                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="https://twitter.com/"><i
-                        class="fab fa-twitter col-2"></i>Twitter</a></li>
+                <li class="col-12 my-1 e-footer-item"><a class="" href="https://www.facebook.com/"><i class="fab fa-facebook-f col-2"></i>Facebook</a></li>
+                <li class="col-12 my-1 e-footer-item"><a class="" href="https://www.instagram.com/"><i class="fab fa-instagram col-2"></i>Instagram</a></li>
+                <li class="col-12 my-1 e-footer-item"><a class="" href="https://twitter.com/"><i class="fab fa-twitter col-2"></i>Twitter</a></li>
             </ul>
         </section>
     </footer>

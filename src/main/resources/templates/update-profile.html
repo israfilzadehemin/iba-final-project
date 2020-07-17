@@ -12,7 +12,7 @@
             src="https://kit.fontawesome.com/38cd4014df.js"
             crossorigin="anonymous"
     ></script>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     <link rel="stylesheet" th:href="@{/css/bootstrap-grid.css}">
     <link rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}">
@@ -54,11 +54,11 @@
     <div class="col-12 e-user-container">
         <div class="e-user-content">
             <div class="e-user-img">
-                <img th:src="${loggedUser.image}" width="300" height="300" alt="">
+                <img th:src="${loggedUser.image}" width="200" height="200" alt="">
             </div>
             <div class="e-user-info">
                 <form method="post" enctype="multipart/form-data"
-                      class="col-lg-3 col-md-6 col-sm-12 form-group d-inline-block e-form">
+                      class="col-12 form-group d-inline-block e-form">
                     <div th:if="${(param.error != null) and (param.error[0] == 'updateuseremptyinput')}"
                          class="d-block col-12 mt-1 alert alert-danger">
                         Please fill all necessery inputs
@@ -86,26 +86,20 @@
     <footer class="col-12 mt-3 e-footer-container" id="contact">
         <section class="col-lg-4 col-md-4 col-sm-12 e-footer-content">
             <ul class="col-12 e-footer-list">
-                <li class="col-12 my-1 e-footer-item"><a href="/update" class="page-link"><i
-                        class="fas fa-user-edit col-2"></i>Manage your account</a></li>
-                <li class="col-12 my-1 e-footer-item"><a href="/myposts" class="page-link"><i
-                        class="fas fa-edit col-2"></i>Manage your posts</a></li>
+                <li class="col-12 my-1 e-footer-item text-left"><a href="/update"><i class="fas fa-user-edit col-2"></i>Manage your account</a></li>
+                <li class="col-12 my-1 e-footer-item text-left"><a href="/myposts"><i class="fas fa-edit col-2"></i>Manage your posts</a></li>
             </ul>
         </section>
         <section class="col-lg-4 col-md-4 col-sm-12 e-footer-content">
             <ul class="col-12 e-footer-list">
-                <li class="col-12 my-1 e-footer-item"><a href="/feedback" class="page-link"><i
-                        class="fas fa-exclamation-triangle col-2"></i>Send feedback</a></li>
+                <li class="col-12 my-1 e-footer-item"><a href="/feedback" class=""><i class="fas fa-exclamation-triangle col-2"></i>Send feedback</a></li>
             </ul>
         </section>
         <section class="col-lg-4 col-md-4 col-sm-12 e-footer-content">
             <ul class="col-12 e-footer-list">
-                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="https://www.facebook.com/"><i
-                        class="fab fa-facebook-f col-2"></i>Facebook</a></li>
-                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="https://www.instagram.com/"><i
-                        class="fab fa-instagram col-2"></i>Instagram</a></li>
-                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="https://twitter.com/"><i
-                        class="fab fa-twitter col-2"></i>Twitter</a></li>
+                <li class="col-12 my-1 e-footer-item"><a class="" href="https://www.facebook.com/"><i class="fab fa-facebook-f col-2"></i>Facebook</a></li>
+                <li class="col-12 my-1 e-footer-item"><a class="" href="https://www.instagram.com/"><i class="fab fa-instagram col-2"></i>Instagram</a></li>
+                <li class="col-12 my-1 e-footer-item"><a class="" href="https://twitter.com/"><i class="fab fa-twitter col-2"></i>Twitter</a></li>
             </ul>
         </section>
     </footer>

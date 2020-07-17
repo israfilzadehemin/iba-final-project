@@ -12,7 +12,7 @@
             src="https://kit.fontawesome.com/38cd4014df.js"
             crossorigin="anonymous"
     ></script>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     <link rel="stylesheet" th:href="@{/css/bootstrap-grid.css}">
     <link rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}">
@@ -32,7 +32,7 @@
     <div class="e-nav-container">
         <ul class="col-12 e-nav-list">
             <li class="col-lg-2 col-md-6 col-sm-12 e-nav-item">
-                <a th:href="@{/}" class="nav-link  text-center e-nav-link"> <img th:src="@{img/logo/icon.png}" width="50" height="50"></a>
+                <a th:href="@{/}" class="nav-link  text-center e-nav-link"> <img src="img/logo/icon.png" width="50" height="50"></a>
             </li>
             <li class="col-lg-2 col-md-6 col-sm-12 e-nav-item">
                 <a href="#about" class="nav-link e-nav-link">About us</a>
@@ -53,14 +53,14 @@
                         Join us
                     </button>
                     <div class="dropdown-menu e-dd-content" aria-labelledby="dropdownMenuButton">
-                        <a th:href="@{/signup}" class="dropdown-item"><i class="fas fa-user-plus mr-2"></i>Sign up</a>
-                        <a th:href="@{/signin}" class="dropdown-item"><i class="fas fa-sign-in-alt mr-2"></i>Sign in</a>
+                        <a th:href="@{/signup}" class="dropdown-item" style="font-weight:bold;"><i class="fas fa-user-plus mr-2"></i>Sign up</a>
+                        <a th:href="@{/signin}" class="dropdown-item" style="font-weight:bold;"><i class="fas fa-sign-in-alt mr-2"></i>Sign in</a>
                     </div>
                 </div>
             </li>
         </ul>
     </div>
-    <div class="col-12 e-slider-container">
+    <div class="e-slider-container">
         <div class="owl-carousel">
             <div class="e-slider-item">
                 <img class="e-slider-img" src="img/slide/1.jpg" alt="">
@@ -73,20 +73,21 @@
             </div>
         </div>
     </div>
-    <div class="col-12 mt-3 e-about-container" id="about">
-        <h1 class="col-12 e-about-title"> About us</h1>
-        <p class="col-12 e-about-text" th:each="aboutUss : ${aboutUs}" th:text="${aboutUss.text}"></p>
+    <div class="col-12 mt-3 text-left e-about-container" id="about">
+        <h1 class="col-12 text-center e-about-title"> About us</h1>
+        <p class="col-12 mb-1 e-about-text" th:each="aboutUss : ${aboutUs}" th:text="${aboutUss.text}"></p>
     </div>
-    <div class="col-12 mt-3 e-mission-container" id="mission">
+    <div class="col-12 mt-3 pl-3 e-mission-container" id="mission">
         <h1 class="col-12 e-mission-title"> Our mission</h1>
         <ul class="col-12 e-mission-list">
-            <li class="col-12 e-mission-item" th:each="mission : ${missions}" th:text="${mission.text}"></li>
+            <li class="col-12 e-mission-item" th:each="mission : ${missions}" th:text="${mission.text}">
+            </li>
         </ul>
     </div>
     <div class="col-12 mt-3 e-ad-container" id="adv">
         <h1 class="col-12 e-ad-title"> Your advertisment in our site</h1>
 
-        <form method="post" class="col-lg-12 col-md-5 col-sm-12 p-0 form-group d-inline-block e-form">
+        <form method="post" class="col-12 p-0 form-group d-inline-block e-form">
             <input required name="fullName" type="text" class="col-12 form-control e-input" placeholder="Enter your name and surname">
             <input required name="number" type="text" class="col-12 form-control e-input" placeholder="Enter mobile phone number">
             <input required name="time" type="text" class="col-12 form-control e-input"
@@ -97,19 +98,19 @@
     <footer class="col-12 mt-3 e-footer-container" id="contact">
         <section class="col-lg-4 col-md-4 col-sm-12 e-footer-content">
             <ul class="col-12 e-footer-list">
-                <li class="col-12 e-footer-item"  th:each="address : ${addresses}" th:text="${address.text}"></li>
+                <li class="col-12 e-footer-item"  th:each="address : ${addresses}" th:text="${address.text}">Keedysville, 595 Cost Avenue, Maryland</li>
             </ul>
         </section>
         <section class="col-lg-4 col-md-4 col-sm-12 e-footer-content">
             <ul class="col-12 e-footer-list">
-                <li class="col-12 e-footer-item" th:each="phone : ${phones}" th:text="${phone.text}"></li>
+                <li class="col-12 e-footer-item" th:each="phone : ${phones}" th:text="${phone.text}">520-319-1891</li>
             </ul>
         </section>
         <section class="col-lg-4 col-md-4 col-sm-12 e-footer-content">
             <ul class="col-12 e-footer-list">
-                <li class="col-12 e-footer-item"><a href="https://www.facebook.com/"><i class="fab fa-facebook-f col-2"></i>Facebook</a></li>
-                <li class="col-12 e-footer-item"><a href="https://www.instagram.com/"><i class="fab fa-instagram col-2"></i>Instagram</a></li>
-                <li class="col-12 e-footer-item"><a href="https://www.twitter.com/"><i class="fab fa-twitter col-2"></i>Twitter</a></li>
+                <li class="col-12 e-footer-item"><a href="https://www.facebook.com/"><i class="fab fa-facebook-f col-lg-2 d-inline"></i>Facebook</a></li>
+                <li class="col-12 e-footer-item"><a href="https://www.instagram.com/"><i class="fab fa-instagram col-lg-2 d-inline"></i>Instagram</a></li>
+                <li class="col-12 e-footer-item"><a href="https://www.twitter.com/"><i class="fab fa-twitter col-lg-2 d-inline"></i>Twitter</a></li>
             </ul>
         </section>
     </footer>

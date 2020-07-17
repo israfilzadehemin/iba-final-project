@@ -12,7 +12,7 @@
             src="https://kit.fontawesome.com/38cd4014df.js"
             crossorigin="anonymous"
     ></script>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     <link rel="stylesheet" th:href="@{/css/bootstrap-grid.css}">
     <link rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}">
@@ -53,25 +53,31 @@
     <div class="col-12 e-chat-container d-flex flex-wrap p-0">
         <div class="col-12 e-chat-right">
             <div class="col-12 e-chat-right-top m-0 pb-1 mt-1 d-flex justify-content-between flex-wrap">
-                <h3 th:text="${currentUser.name}" class="col-lg-10 col-md-10 col-sm-8 text-left e-submit m-0 p-0 e-chat-header"></h3>
-                <a title="block user" th:href="'/user/block/'+${currentUser.id}" name="e-chat-header-button" class="btn btn-danger m-0" value="block"><i
+                <h3 th:text="${currentUser.name}"
+                    class="col-lg-10 col-md-10 col-sm-8 text-left e-submit m-0 p-0 e-chat-header"></h3>
+                <a title="block user" th:href="'/user/block/'+${currentUser.id}" name="e-chat-header-button"
+                   class="btn btn-danger m-0" value="block"><i
                         class="far fa-times-circle"></i></a>
             </div>
             <div class="e-chat-body" id="e-chat-body">
-                <form th:unless="${#strings.contains(#httpServletRequest.requestURI, 'all')}" method="post" class="mb-5 e-form">
-                    <a th:href="'/message/all/'+${currentUser.getId()}" name="all-messages" style="z-index: 5" class="btn btn-sm e-submit">See all
+                <form th:unless="${#strings.contains(#httpServletRequest.requestURI, 'all')}" method="post"
+                      class="mb-5 e-form">
+                    <a th:href="'/message/all/'+${currentUser.getId()}" name="all-messages" style="z-index: 5"
+                       class="btn e-submit">See all
                         messages
                     </a>
                 </form>
                 <div th:each="message : ${messages}" th:switch="${loggedUser.id}">
-                    <div th:case="${message.from.getId()}" class="col-12 d-flex flex-wrap justify-content-end mb-2  e-chat-sent">
-                        <div class="col-lg-5 col-md-5 col-sm-12  btn btn-primary">
+                    <div th:case="${message.from.getId()}"
+                         class="col-12 d-flex flex-wrap justify-content-end mb-2  e-chat-sent">
+                        <div class="col-lg-5 col-md-5 col-sm-12  alert alert-warning">
                             <p th:text="${message.message}" class="col-12 m-0 p-0 text-left e-chat-text-body"></p>
                             <p th:text="${message.date}" class="col-12 m-0 p-0 text-right e-chat-text-date"></p>
                         </div>
                     </div>
-                    <div th:case="${message.to.getId()}" class="col-12 d-flex flex-wrap justify-content-start mb-2  e-chat-received">
-                        <div class="col-lg-5 col-md-5 col-sm-12 btn btn-success">
+                    <div th:case="${message.to.getId()}"
+                         class="col-12 d-flex flex-wrap justify-content-start mb-2  e-chat-received">
+                        <div class="col-lg-5 col-md-5 col-sm-12 alert alert-success">
                             <p th:text="${message.message}" class="col-12 m-0 p-0 text-left e-chat-text-body"></p>
                             <p th:text="${message.date}" class="col-12 m-0 p-0 text-right e-chat-text-date"></p>
                         </div>
@@ -82,10 +88,8 @@
                 <form method="post" class="col-12 d-flex flex-wrap e-form">
                     <textarea name="message" class="col-lg-10 col-md-10 col-sm-12 p-3 e-input e-chat-msg"
                               style="resize: none" placeholder="Enter your message"></textarea>
-                    <input name="send" type="submit" class="col-lg-2 col-md-2 col-sm-12 btn e-submit"
-                           style="background-color: #0062cc;
-                           border-top-left-radius: 0;
-                           border-bottom-left-radius: 0;" value="Send">
+                    <input name="send" type="submit" class="col-lg-2 col-md-2 col-sm-12 btn e-send-btn e-submit"
+                           style="margin-top: 9px" value="Send">
                 </form>
             </div>
         </div>
@@ -97,20 +101,26 @@
     <footer class="col-12 mt-3 e-footer-container" id="contact">
         <section class="col-lg-4 col-md-4 col-sm-12 e-footer-content">
             <ul class="col-12 e-footer-list">
-                <li class="col-12 my-1 e-footer-item"><a href="/update" class="page-link"><i class="fas fa-user-edit col-2"></i>Manage your account</a></li>
-                <li class="col-12 my-1 e-footer-item"><a href="/myposts" class="page-link"><i class="fas fa-edit col-2"></i>Manage your posts</a></li>
+                <li class="col-12 my-1 e-footer-item text-left"><a href="/update"><i class="fas fa-user-edit col-2"></i>Manage
+                    your account</a></li>
+                <li class="col-12 my-1 e-footer-item text-left"><a href="/myposts"><i class="fas fa-edit col-2"></i>Manage
+                    your posts</a></li>
             </ul>
         </section>
         <section class="col-lg-4 col-md-4 col-sm-12 e-footer-content">
             <ul class="col-12 e-footer-list">
-                <li class="col-12 my-1 e-footer-item"><a href="/feedback" class="page-link"><i class="fas fa-exclamation-triangle col-2"></i>Send feedback</a></li>
+                <li class="col-12 my-1 e-footer-item"><a href="/feedback" class=""><i
+                        class="fas fa-exclamation-triangle col-2"></i>Send feedback</a></li>
             </ul>
         </section>
         <section class="col-lg-4 col-md-4 col-sm-12 e-footer-content">
             <ul class="col-12 e-footer-list">
-                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="https://www.facebook.com/"><i class="fab fa-facebook-f col-2"></i>Facebook</a></li>
-                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="https://www.instagram.com/"><i class="fab fa-instagram col-2"></i>Instagram</a></li>
-                <li class="col-12 my-1 e-footer-item"><a class="page-link" href="https://twitter.com/"><i class="fab fa-twitter col-2"></i>Twitter</a></li>
+                <li class="col-12 my-1 e-footer-item"><a class="" href="https://www.facebook.com/"><i
+                        class="fab fa-facebook-f col-2"></i>Facebook</a></li>
+                <li class="col-12 my-1 e-footer-item"><a class="" href="https://www.instagram.com/"><i
+                        class="fab fa-instagram col-2"></i>Instagram</a></li>
+                <li class="col-12 my-1 e-footer-item"><a class="" href="https://twitter.com/"><i
+                        class="fab fa-twitter col-2"></i>Twitter</a></li>
             </ul>
         </section>
     </footer>

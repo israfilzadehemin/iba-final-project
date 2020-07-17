@@ -3,8 +3,9 @@ html {
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #50CDFB;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  background-color: rgb(203, 252, 252, 0.2);
+  font-weight: bold;
 
   .form-header {
     .form-title {
@@ -15,12 +16,20 @@ body {
 
   .e-form {
     .e-input {
-      background-color: #6497b1;
-      margin-top: 5px;
+      background-color: white;
+      color: rgba(0, 11, 141, 0.7);
+      font-weight: bold;
+      outline: none;
+      margin-top: 9px;
+      border: 0;
+
     }
 
     .e-submit {
-      background-color: #64a1f4;
+      background-color: rgba(0, 11, 141, 0.8);
+      border: none;
+      border-radius: 3px;
+      color: white;
       margin-top: 5px;
       font-weight: bold;
     }
@@ -40,7 +49,9 @@ body {
 
     .e-label {
       margin-top: 5px;
-      background-color: #6497b1;
+      background-color: white;
+      color: rgba(0, 11, 141, 0.7);
+      font-weight: bold;
     }
 
     .e-file {
@@ -51,25 +62,29 @@ body {
   .e-nav-container {
     margin-top: 10px;
     font-size: 17px;
+    background-color: rgba(0, 11, 141, 0.7);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 
     .e-nav-list {
       border-radius: 5px;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      background-color: rgba(99, 172, 229, 0.3);
 
       .e-nav-item {
         font-weight: bold;
         display: inline-block;
         padding: 0;
-        transition: all 0.1s linear;
+        transition: all 0.3s linear;
         height: 70px;
         line-height: 50px;
 
         &:hover {
-          background-color: #6497b1;
-          color: #b3cde0;
+          background-color: white;
+          color: rgba(0, 11, 141, 0.7);
+          border-top: 2px solid rgba(0, 11, 141, 0.7);
+          border-bottom: 2px solid rgba(0, 11, 141, 0.7);
         }
 
         .e-nav-link {
@@ -78,20 +93,20 @@ body {
           margin: 0;
           padding-left: 0;
           padding-right: 0;
-          color: rgba(99, 172, 229, 1);
+          color: white;
 
           &:hover {
-            color: white;
+            color: #50CDFB;
           }
         }
       }
 
       .e-main-dropdown {
         font-weight: bold;
-        color: rgba(99, 172, 229, 1);
+        color: white !important;
 
         &:hover {
-          color: white;
+          color: #50CDFB !important;
         }
 
 
@@ -147,25 +162,21 @@ body {
   }
 
   .e-about-container {
-    color: whitesmoke;
-
-    .e-about-title {
-      border-bottom: 2px solid rgba(99, 172, 229, 0.5);
-    }
+    background-color: rgba(0, 11, 141, 0.7);
+    color: white;
+    padding: 5px;
 
     .e-about-text {
       font-style: italic;
+      font-weight: bold;
 
     }
   }
 
   .e-mission-container {
-    color: whitesmoke;
-
-    .e-mission-title {
-      border-bottom: 2px solid rgba(99, 172, 229, 0.5);
-
-    }
+    background-color: rgba(0, 11, 141, 0.7);
+    color: white;
+    padding: 5px;
 
     .e-mission-list {
 
@@ -178,15 +189,16 @@ body {
   }
 
   .e-ad-container {
-    color: whitesmoke;
-
-    .e-ad-title {
-      border-bottom: 2px solid rgba(99, 172, 229, 0.5);
-    }
+    color: white;
+    background-color: rgba(0, 11, 141, 0.7);
   }
 
   .e-footer-container {
-    color: whitesmoke;
+    background-color: rgba(0, 11, 141, 0.7);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 5px;
+    color: white;
     display: flex;
     flex-wrap: wrap;
 
@@ -199,27 +211,43 @@ body {
         padding-left: 0;
 
         .e-footer-item {
+          text-align: center;
           padding-left: 0;
+          margin: 1px;
 
           a {
-            color: rgba(99, 172, 229, 0.9);
+            color: white;
+            text-align: left;
             text-decoration: none;
 
-            &:active {
-              color: white;
+            &:active, &:hover {
+              color: rgba(0, 11, 141, 0.7);
             }
           }
+
         }
+
       }
     }
   }
 
   .e-copyright-container {
-    color: rgba(99, 172, 229, 0.9);
+    color: rgba(0, 11, 141, 0.7);
+    font-weight: bold;
 
     .e-copyright-text {
 
     }
+  }
+
+  .signup-container {
+    background-color: rgba(0, 11, 141, 0.7);
+    border-top-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    padding: 10px;
+    -webkit-box-shadow: 10px 10px 98px 0px rgba(0, 11, 141);
+    -moz-box-shadow: 10px 10px 98px 0px rgba(0, 11, 141);
+    box-shadow: 10px 10px 98px 0px rgba(0, 11, 141);
   }
 
   .e-profile-img {
@@ -228,6 +256,9 @@ body {
   }
 
   .e-search-container {
+    background-color: rgba(0, 11, 141, 0.7);
+    padding: 5px;
+    margin-bottom: 10px;
 
     .e-search-list {
       list-style: none;
@@ -236,6 +267,9 @@ body {
 
       .e-search-item {
 
+        .e-submit {
+          margin-top: 9px;
+        }
       }
     }
   }
@@ -245,17 +279,19 @@ body {
     flex-wrap: wrap;
     justify-content: start;
     color: #005b96;
+    background-color: rgba(0, 11, 141, 0.7);
+
 
     .e-post-content {
       border: 2px solid rgba(99, 172, 229, 0.5);
-      background-color: #6497b1;
+
 
       .e-post-top {
         width: 100%;
 
         .e-post-datetime {
-          background-color: #b3cde0;
-          color: #0f6674;
+          background-color: rgba(0, 11, 141, 0.7);
+          color: white;
           opacity: 0.7;
           border-bottom-right-radius: 10px;
         }
@@ -270,6 +306,7 @@ body {
       }
 
       .e-post-bottom {
+        color: white;
 
         .e-post-info {
           text-align: left;
@@ -307,6 +344,8 @@ body {
   }
 
   .e-user-container {
+    padding: 5px;
+    background-color: rgba(0, 11, 141, 0.7);
 
     .e-user-content {
 
@@ -325,12 +364,13 @@ body {
         justify-content: center;
 
         .e-user-data {
-
+          color: white;
         }
 
         .e-user-btn {
-          background-color: #0f6674;
+          background-color: rgba(0, 11, 141, 0.7);
           font-weight: bold;
+          color: white;
 
           &:active {
             color: white;
@@ -341,6 +381,7 @@ body {
   }
 
   .e-posting-container {
+    background-color: rgba(0, 11, 141, 0.7);
 
     .e-posting-content {
 
@@ -391,36 +432,36 @@ body {
       }
 
       .e-chat-user {
-        background-color: #6497b1;
-        border-bottom: 2px solid rgba(99, 172, 229, 0.5);
-        color: #005b96;
+        background-color: rgba(0, 11, 141, 0.7);
+        color: white;
 
 
         .e-chat-sender {
           font-size: 15px;
+          font-weight: bold;
         }
 
         .e-chat-date {
           font-size: 12px;
+          font-weight: bold;
           color: white;
-          border-bottom: 2px solid rgba(99, 172, 229, 0.5);
         }
 
         .e-chat-text {
           font-size: 12px;
-          border-bottom: 2px solid rgba(99, 172, 229, 0.5);
+          font-weight: bold;
 
         }
       }
     }
 
     .e-chat-right {
-      background-color: #64a1f4;
+      background-color: rgba(0, 11, 141, 0.7);
 
       .e-chat-right-top {
 
         .e-chat-header {
-
+          color: white;
         }
 
         .e-chat-header-button {
@@ -433,15 +474,16 @@ body {
         overflow: auto;
 
         .e-chat-sent {
-
         }
 
         .e-chat-text-body {
           font-size: 15px;
+          font-weight: bold!important;
         }
 
         .e-chat-text-date {
           font-size: 12px;
+          font-weight: bold!important;
         }
       }
 
@@ -449,7 +491,9 @@ body {
 
         .e-chat-msg {
           font-size: 17px;
+          font-weight: bold;
         }
+
       }
     }
   }
@@ -537,25 +581,32 @@ body {
 
 }
 
-.e-chat-body::-webkit-scrollbar-track
-{
+.e-chat-body::-webkit-scrollbar-track {
   border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
   background-color: #0f6674;
 }
 
-.e-chat-body::-webkit-scrollbar
-{
+.e-chat-body::-webkit-scrollbar {
   border-radius: 10px;
   width: 12px;
-  background-color: rgba(0,0,0,0.9);
+  background-color: rgba(0, 0, 0, 0.9);
 }
 
-.e-chat-body::-webkit-scrollbar-thumb
-{
+.e-chat-body::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-  background-color: rgba(0,0,0,0.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.page-link {
+  background-color: rgba(0, 11, 141, 0.7);
+  color: white!important;
+
+  &:hover {
+    transition: all 0.25s linear;
+    color: rgba(0, 11, 141, 0.7)!important;
+  }
 }
 
