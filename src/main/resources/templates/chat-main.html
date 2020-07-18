@@ -64,7 +64,7 @@
                                 <img th:src="${connection.to.getImage()}" width="50" height="50" alt="">
                             </div>
                             <div class="col-10 d-flex flex-wrap justify-content-start p-0 pl-2 e-chat-user">
-                                <h5 th:text="${connection.to.getName()}+ ' ' + ${connection.from.getSurname()}"
+                                <h5 th:text="${connection.to.getName()}+ ' ' + ${connection.to.getSurname()}"
                                     class="col-12 text-left m-1 mb-3 p-0 e-chat-sender"></h5>
                                 <p th:text="${connection.message}"
                                    class="col-7 d-inline-block text-left p-0 m-0 e-chat-text"
