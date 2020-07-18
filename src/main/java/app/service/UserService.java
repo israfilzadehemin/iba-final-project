@@ -25,6 +25,7 @@ public class UserService {
   private final UserRepo userRepo;
   private final PasswordEncoder passwordEncoder;
   private final RoleService roleService;
+  private final CloudinaryService cloudinaryService;
 
   public void register(String email, String pass, String passConfirm) {
     if (email == null || pass == null || passConfirm == null
@@ -63,10 +64,12 @@ public class UserService {
 
     if (validationTool.isPhoneValid(number)) throw new InvalidPhoneNumberEx();
 
-    String image = "/" + fileTool.uploadProfilePic(file,
-            String.format("%s%s", name, surname)
-                    .replaceAll(" ", "")
-                    .toLowerCase());
+//    String image = "/" + fileTool.uploadProfilePic(file,
+//            String.format("%s%s", name, surname)
+//                    .replaceAll(" ", "")
+//                    .toLowerCase());
+
+    String image = cloudinaryService.uploadFile(file);
 
     Userr user = findById(id);
     user.setName(name);
@@ -87,10 +90,12 @@ public class UserService {
 
     if (validationTool.isPhoneValid(number)) throw new InvalidPhoneNumberEx();
 
-    String image = "/" + fileTool.uploadProfilePic(file,
-            String.format("%s%s", name, surname)
-                    .replaceAll(" ", "")
-                    .toLowerCase());
+//    String image = "/" + fileTool.uploadProfilePic(file,
+//            String.format("%s%s", name, surname)
+//                    .replaceAll(" ", "")
+//                    .toLowerCase());
+
+    String image = cloudinaryService.uploadFile(file);
 
     Userr user = findById(id);
     user.setName(name);

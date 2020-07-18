@@ -34,6 +34,7 @@ public class PostService {
   private final FileTool fileTool;
   private final ConverterTool converterTool;
   private final PaginationTool<Post> paginationTool;
+  private final CloudinaryService cloudinaryService;
 
 
   public Page<Post> findAll(int currentPage, String sortField, String sortDir) {
@@ -76,7 +77,8 @@ public class PostService {
       throw new InvalidInputEx();
 
     LocalDate parsedDate = converterTool.stringToLocalDate(date);
-    String image = "/" + fileTool.uploadPostImage(file, name);
+//    String image = "/" + fileTool.uploadPostImage(file, name);
+    String image = cloudinaryService.uploadFile(file);
     Category cat = categoryRepo.findById(Long.parseLong(category)).get();
     Post post;
 
