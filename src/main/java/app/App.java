@@ -31,7 +31,6 @@ public class App {
         config.put("api_key", apiKey);
         config.put("api_secret", apiSecret);
 
-        Cloudinary cloudinary = new Cloudinary(config);
-        return cloudinary;
+        return new Cloudinary(config);
     }
 }
