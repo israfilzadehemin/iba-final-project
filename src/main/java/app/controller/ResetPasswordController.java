@@ -40,7 +40,7 @@ public class ResetPasswordController {
     Random r = new Random();
     String token = String.valueOf(r.nextInt(Integer.MAX_VALUE));
 
-    String link = String.format("http://localhost:8080/resetpass/newpass?email=%s&token=%s",
+    String link = String.format("https://handy-iba.herokuapp.com/resetpass/newpass?email=%s&token=%s",
             form.getEmail(), token);
     String text = String.format("%s \n %s", message, link);
 
