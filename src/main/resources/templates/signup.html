@@ -34,19 +34,17 @@
 
     <form method="post" class="col-lg-12 form-group d-inline-block e-form">
 
-        <!--
-                <div th:if="${(param.error != null) and (param.error[0] == 'passnotmatch')}" class="alert alert-danger">
-                    Password and confirm password should be same
-                </div>
+        <div th:if="${(param.error != null) and (param.error[0] == 'passnotmatch')}" class="alert alert-danger">
+            Password and confirm password should be same
+        </div>
 
-                <div th:if="${(param.error != null) and (param.error[0] == 'emailnotunique')}" class="alert alert-danger">
-                    This email is already in use
-                </div>
+        <div th:if="${(param.error != null) and (param.error[0] == 'emailnotunique')}" class="alert alert-danger">
+            This email is already in use
+        </div>
 
-                <div th:if="${(param.error != null) and (param.error[0] == 'signupemptyinput')}" class="alert alert-danger">
-                    Please fill all necessery inputs
-                </div>
-        -->
+        <div th:if="${(param.error != null) and (param.error[0] == 'signupemptyinput')}" class="alert alert-danger">
+            Please fill all necessery inputs
+        </div>
 
 
         <input name="email" required type="email" class="col-12 form-control e-input" placeholder="Enter your email">
@@ -56,8 +54,8 @@
         <input name="signup" type="submit" value="Sign up" class="col-12 form-control e-submit">
         <p class="col-12 e-par">Already user?</p>
         <a href="/signin" class="col-12 form-control e-submit">Sign in</a>
-        <a href="#" class="col-12 form-control btn-link e-social"><i class="mr-1 fab fa-google"></i>Enter via Google</a>
-        <a href="#" class="col-12 form-control btn-link e-social"><i class="mr-1 fab fa-facebook"></i>Enter via Facebook</a>
+<!--        <a href="#" class="col-12 form-control btn-link e-social"><i class="mr-1 fab fa-google"></i>Enter via Google</a>-->
+<!--        <a href="#" class="col-12 form-control btn-link e-social"><i class="mr-1 fab fa-facebook"></i>Enter via Facebook</a>-->
     </form>
 </div>
 
