@@ -1,0 +1,16 @@
+url: jdbc:postgresql://localhost:5432/iba-final-project-dev
+username: postgres
+password: foreverQafqaz
+
+referenceUrl: jdbc:postgresql://localhost:5432/iba-final-project
+referenceUsername: postgres
+referencePassword: foreverQafqaz
+
+# for diff/update
+changeLogFile: src/main/resources/db/changelog/master.yaml
+
+# for initial changelog creation
+outputChangeLogFile: src/main/resources/db/changelog/step0.yaml
+
+# for diff operation
+diffChangeLogFile:  src/main/resources/db/changelog/changes/diff.yaml

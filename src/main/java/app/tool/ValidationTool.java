@@ -19,7 +19,6 @@ public class ValidationTool {
   private final ResetTokenRepo resetTokenRepo;
   private final BlockedRepo blockedRepo;
 
-
   public boolean isEmailUnique(String email) {
     return userRepo.findUserrByEmail(email.toLowerCase())
             .equals(Optional.empty());
