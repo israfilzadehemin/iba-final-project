@@ -60,10 +60,10 @@
                     <div th:switch="${loggedUser.id}">
                         <a th:case="${connection.from.getId()}" th:href="'/message/'+${connection.to.getId()}"
                            class="card-link d-flex flex-wrap flex-wrap m-0 d-inline-block" style="height: 70px;">
-                            <div class="col-2 m-0 p-0 e-chat-user-img">
-                                <img th:src="${connection.to.getImage()}" width="50" height="50" alt="">
+                            <div class="col-1 m-0 p-0 e-chat-user-img">
+                                <img th:src="${connection.to.getImage()}" style="object-fit: cover" width="50" height="50" alt="">
                             </div>
-                            <div class="col-10 d-flex flex-wrap justify-content-start p-0 pl-2 e-chat-user">
+                            <div class="col-11 d-flex flex-wrap justify-content-start p-0 pl-2 e-chat-user">
                                 <h5 th:text="${connection.to.getName()}+ ' ' + ${connection.to.getSurname()}"
                                     class="col-12 text-left m-1 mb-3 p-0 e-chat-sender"></h5>
                                 <p th:text="${connection.message}"
@@ -76,10 +76,10 @@
                         </a>
                         <a th:case="${connection.to.getId()}" th:href="'/message/'+${connection.from.getId()}"
                            class="card-link d-flex flex-wrap flex-wrap m-0 d-inline-block" style="height: 70px;">
-                            <div class="col-2 m-0 p-0 e-chat-user-img">
-                                <img th:src="${connection.from.getImage()}" width="50" height="50" alt="">
+                            <div class="col-1 m-0 p-0 e-chat-user-img">
+                                <img th:src="${connection.from.getImage()}" style="object-fit: cover" width="50" height="50" alt="">
                             </div>
-                            <div class="col-10 d-flex flex-wrap justify-content-start p-0 pl-2 e-chat-user">
+                            <div class="col-11 d-flex flex-wrap justify-content-start p-0 pl-2 e-chat-user">
                                 <h5 th:text="${connection.from.getName()}+ ' ' + ${connection.from.getSurname()}"
                                     class="col-12 text-left m-1 mb-3 p-0 e-chat-sender"></h5>
                                 <p th:text="${connection.message}"

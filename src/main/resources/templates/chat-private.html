@@ -72,15 +72,15 @@
                          class="col-12 d-flex flex-wrap justify-content-end mb-2  e-chat-sent">
                         <div class="col-lg-5 col-md-5 col-sm-12  alert alert-warning">
                             <p th:text="${message.message}" class="col-12 m-0 p-0 text-left e-chat-text-body"></p>
-                            <p th:text="${message.date}" class="col-12 m-0 p-0 text-right e-chat-text-date"></p>
+                            <p th:text="${#temporals.format(message.date, 'dd-MM-yyyy HH:mm')}" class="col-12 m-0 p-0 text-right e-chat-text-date"></p>
                         </div>
                     </div>
                     <div th:case="${message.to.getId()}"
                          class="col-12 d-flex flex-wrap justify-content-start mb-2  e-chat-received">
                         <div class="col-lg-5 col-md-5 col-sm-12 alert alert-success">
                             <p th:text="${message.message}" class="col-12 m-0 p-0 text-left e-chat-text-body"></p>
-                            <p th:text="${message.date}" class="col-12 m-0 p-0 text-right e-chat-text-date"></p>
-                        </div>
+                            <p th:text="${#temporals.format(message.date, 'dd-MM-yyyy HH:mm')}" class="col-12 m-0 p-0 text-right e-chat-text-date"></p>
+                            </div>
                     </div>
                 </div>
             </div>

@@ -191,6 +191,9 @@ body .signup-container {
   -webkit-box-shadow: 10px 10px 98px 0px #000b8d;
   -moz-box-shadow: 10px 10px 98px 0px #000b8d;
   box-shadow: 10px 10px 98px 0px #000b8d;
+  animation-name: loading;
+  animation-duration: 1s;
+  transition: all 1s ease-in-out;
 }
 body .e-profile-img {
   border-radius: 50%;
@@ -422,6 +425,17 @@ body .e-chat-container .e-chat-right .e-chat-right-bottom .e-chat-msg {
 .page-link:hover {
   transition: all 0.25s linear;
   color: rgba(0, 11, 141, 0.7) !important;
+}
+
+@keyframes loading {
+  from {
+    background-color: white;
+    width: 0;
+    overflow: hidden;
+  }
+  to {
+    width: 700px;
+  }
 }
 
 /*# sourceMappingURL=main.css.map */
