@@ -311,6 +311,14 @@ body {
       .e-post-bottom {
         color: white;
 
+        a {
+          color: whitesmoke;
+
+          &:hover {
+            color: rgba(0, 11, 141, 0.7);;
+          }
+        }
+
         .e-post-info {
           text-align: left;
           padding-left: 10px;

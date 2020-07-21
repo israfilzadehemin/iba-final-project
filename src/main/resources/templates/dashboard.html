@@ -40,12 +40,19 @@
 
     <div class="e-nav-container">
         <ul class="col-12 e-nav-list">
-            <li class="col-lg-4 col-md-12 col-sm-12 e-nav-item">
+            <li th:if="${#strings.contains(#httpServletRequest.requestURI, 'dashboard')}" class="col-lg-4 col-md-12 col-sm-12 e-nav-item">
                 <a href="/update" class="nav-link  text-left e-nav-link d-flex text-center d-flex justify-content-center">
                     <img src="img/logo/123.jpg" th:src="@{${loggedUser.getImage()}}" width="50" height="50" class="e-profile-img" alt="profile picture">
                     <p th:text="${loggedUser.getName()}+' '+${loggedUser.getSurname()}" class="ml-2 e-par">Emin Israfilzadeh</p>
                 </a>
             </li>
+            <li th:unless="${#strings.contains(#httpServletRequest.requestURI, 'dashboard')}" class="col-lg-4 col-md-12 col-sm-12 e-nav-item">
+                <a href="/dashboard" class="nav-link  text-left e-nav-link d-flex text-center d-flex justify-content-center">
+                    Dashboard
+                </a>
+            </li>
+
+
             <li class="col-lg-3 col-md-12 col-sm-12 e-nav-item">
                 <div class="dropdown">
                     <button class="btn dropdown-toggle e-main-dropdown" type="button" id="dropdownMenuButton"

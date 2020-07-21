@@ -238,6 +238,16 @@ body .e-post-container .e-post-content .e-post-top .e-post-img img {
 body .e-post-container .e-post-content .e-post-bottom {
   color: white;
 }
+
+body .e-post-container .e-post-content .e-post-bottom a{
+  color: whitesmoke;
+}
+
+
+body .e-post-container .e-post-content .e-post-bottom a:hover {
+  color: rgba(0, 11, 141, 0.7);;
+}
+
 body .e-post-container .e-post-content .e-post-bottom .e-post-info {
   text-align: left;
   padding-left: 10px;

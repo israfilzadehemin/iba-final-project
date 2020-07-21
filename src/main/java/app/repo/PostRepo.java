@@ -12,7 +12,7 @@ public interface PostRepo extends PagingAndSortingRepository<Post, Long> {
 
     Page<Post> findAllByStatusAndIdIsNot(boolean status, long id, Pageable pageable);
 
-    Page<Post> findAllByNameContainingAndCategory_IdAndStatus(String name, Long categoryId, boolean status, Pageable pageable);
+    Page<Post> findAllByNameContainingIgnoreCaseAndCategory_IdAndStatus(String name, Long categoryId, boolean status, Pageable pageable);
 
     Page<Post> findPostsByUserIdAndStatus(long userId, boolean status, Pageable pageable);
 

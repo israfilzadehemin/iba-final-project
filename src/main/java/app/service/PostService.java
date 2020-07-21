@@ -105,7 +105,7 @@ public class PostService {
     }
 
     Pageable pageable = paginationTool.service(currentPage, sortField, sortDir);
-    Page<Post> filteredPosts = postRepo.findAllByNameContainingAndCategory_IdAndStatus(
+    Page<Post> filteredPosts = postRepo.findAllByNameContainingIgnoreCaseAndCategory_IdAndStatus(
             name, Long.parseLong(category), true, pageable);
 
     if (filteredPosts.getTotalElements() == 0) {

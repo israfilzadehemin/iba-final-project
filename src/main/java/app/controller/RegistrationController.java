@@ -4,6 +4,9 @@ import app.form.FormReg;
 import app.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +25,11 @@ public class RegistrationController {
   // http://localhost:8080/signup
   @GetMapping
   public String handle_get(Model model) {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+    if (!(auth instanceof AnonymousAuthenticationToken)) {
+      return "redirect:/dashboard";
+    }
     return "signup";
   }
 
