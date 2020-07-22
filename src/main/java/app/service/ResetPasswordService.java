@@ -41,6 +41,11 @@ public class ResetPasswordService {
     }
   }
 
+  public void deleteToken(String email) {
+    Userr user = userService.findByEmail(email);
+    resetTokenRepo.deleteByUser(user);
+  }
+
   public void validateToken(String email, String token) {
     if (!validationTool.isTokenCorrect(email, token)) throw new InvalidResetTokenEx();
   }

@@ -66,6 +66,7 @@ public class ResetPasswordController {
                                     FormNewPass form, Model model) {
     resetPasswordService.validateToken(email, token);
     userService.updatePassword(email, form.getPass(), form.getConPass());
+    resetPasswordService.deleteToken(email);
     model.addAttribute("process", "reset");
     return "redirect:/signin";
   }

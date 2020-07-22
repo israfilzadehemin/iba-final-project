@@ -11,4 +11,6 @@ import java.util.List;
 @Repository
 public interface ResetTokenRepo extends JpaRepository<ResetToken, Long> {
   List<ResetToken> findAllByUser(Userr user);
+
+  void deleteByUser(Userr user);
 }

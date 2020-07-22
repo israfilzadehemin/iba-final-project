@@ -41,11 +41,8 @@
             Passwords does not match. Please try again
         </div>
 
-        <div th:if="${(param.sent != null) and (param.sent[0] == 'true')}" class="alert alert-success">
-            Please check your email
-        </div>
-        <div th:if="${(param.sent != null) and (param.sent[0] == 'false')}" class="alert alert-danger">
-            Email does not exist
+        <div th:if="${(param.sent != null)}" class="alert alert-success">
+            If email is correct, we will send update password request. Please check your email.
         </div>
         <input name="email" required type="email" class="col-12 form-control e-input" placeholder="Enter your email">
         <input name="req" type="submit" value="Send request" class="col-12 form-control mb-2 e-submit">
