@@ -185,7 +185,7 @@ public class AppExceptionHandler {
   @ExceptionHandler(DuplicateWishedEx.class)
   public RedirectView handleDuplicateWished(Exception ex) {
     log.warn(format(ex.getClass().getSimpleName()));
-    return new RedirectView("/wishlist/1");
+    return new RedirectView("/wishlist");
   }
 
   @ExceptionHandler(DuplicateBlockedEx.class)

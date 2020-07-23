@@ -43,7 +43,7 @@ public class ResetPasswordService {
 
   public void deleteToken(String email) {
     Userr user = userService.findByEmail(email);
-//    resetTokenRepo.deleteByUser(user);
+    resetTokenRepo.deleteByUser(user);
   }
 
   public void validateToken(String email, String token) {
